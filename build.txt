@@ -1,0 +1,2 @@
+cmd> expo login
+cmd>expo build:android
