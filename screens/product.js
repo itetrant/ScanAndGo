@@ -12,7 +12,7 @@ export default class Product extends Component {
     }
     Order(){
         this.setState({
-            click:this.state.click + 1
+            click:this.props.id?this.state.click + 1:0
         });
     }
     Reduce(){
@@ -47,8 +47,8 @@ export default class Product extends Component {
                         <Text style={styles.itemStyle}> Order Qty: {this.state.click}</Text>
                         <View style={styles.button}>
                             <Button title="Order" onPress={()=>this.Order()}/>
-                            {/* <Button title="Reduce" onPress={()=>this.Reduce()}/> */}
-                            <Button title="Cancel" onPress={()=>this.Remove()}/>
+                            <Button title="Clear" onPress={()=>this.Remove()}/>
+                            {/* <Button title="Scan Next"/>*/}
                         </View>
                 </View>
             );
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row', // row
         //backgroundColor: '#ffffff',
         alignItems: 'center',
-        justifyContent: 'space-between', //space-around', //space-between', // , space-around //'center', 
+        justifyContent: 'space-between', //space-around', //space-between', //'center', 
         margin:10,
       }
   });

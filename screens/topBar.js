@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import {MaterialCommunityIcons} from 'react-native-vector-icons';
+import {Ionicons} from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 //class TopBar extends React.Component {
 const TopBar = () => {
@@ -12,7 +12,7 @@ const TopBar = () => {
             source={require('../assets/mm-icon-only-1.png')}
             />
         <Text style={{fontSize:26, color:'red', fontWeight:'bold'}}>Scan & Go</Text>
-        <MaterialCommunityIcons name="cart-outline" size={32} color={'red'} onPress={()=>navigation.navigate('Cart')}/>
+        <Ionicons name="ios-cart-outline" size={32} color={'red'} onPress={()=>navigation.navigate('Cart')}/>
       </View>
     );
  // }

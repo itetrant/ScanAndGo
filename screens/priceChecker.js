@@ -1,6 +1,6 @@
-import {MaterialCommunityIcons,FontAwesome} from 'react-native-vector-icons';
+import {Ionicons} from 'react-native-vector-icons';
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import Product from './product';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -37,6 +37,18 @@ const PriceChecker = ({ navigation, route }) => {
   }, [{navigation, route}])
 );
 
+
+// useEffect(()=>{
+
+//   if (clear && Scanned) {  
+//   searchArticlebyEan(Scanned);
+//   }
+//   return () => {
+//     // Do something to prevent memory leak;
+//     setClear(false)
+//      };
+// }, [{navigation, route}]
+// );
 const inputText = (text) => {
   if (text == '') {clearText();}
   setText(text);
@@ -103,7 +115,7 @@ return (
     <ScrollView> 
         <View style={styles.headerContainer}>
                 <View style={styles.inputContainer}>
-                <FontAwesome name="search" size={26} color = {(text?"#2592E5":"#e8e8e8")}
+                <Ionicons name="search-outline" size={32} color = {(text?"#2592E5":"#e8e8e8")}
                 onPress={() => searchArticlebyEan(text)}/>
 
                 <TextInput
@@ -120,7 +132,7 @@ return (
                 </View> 
     
                 <View style={styles.cancelContainer}>
-                  <MaterialCommunityIcons name= {(text?"cancel":"qrcode")} size={26} color ="#ffffff" onPress={() => (text?clearText():gotoSanner(true))}/>
+                  <Ionicons name= {(text?"ios-remove-outline":"qr-code-outline")} size={26} color ="#ffffff" onPress={() => (text?clearText():gotoSanner(true))}/>
                 </View>
                 
         </View>
@@ -142,7 +154,11 @@ return (
                 unit={unit}                                                   
         />
         {/* End product information */}
-
+        <View style={{alignItems: 'center', marginTop: -48}}>
+        <Button title ="NEXT SCAN" 
+               // color = "red"
+                onPress={() => gotoSanner(true)}/>
+        </View>
     </ScrollView>
     );
 }
