@@ -19,15 +19,16 @@ import {
 
 const Cart = () => {
   const [dataSource, setDataSource] = useState([]);
+  //const [newDataSource, setNewDataSource] = useState([]);
   const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
-  const [ref, setRef] = useState(null);
+  // const [ref, setRef] = useState(null);
 
   const [refreshing, setRefreshing] = React.useState(true);
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
     setPage(page + 1);
-    //setDataSource([]); //clear old data
+    setDataSource([]); //clear old data
     getData(page); 
     // wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
@@ -39,12 +40,18 @@ const Cart = () => {
   const getData = (p) => {
     //Service to get the data from the server to render
     console.log('Load page:', p);
-    const url = 'https://jsonplaceholder.typicode.com/posts?_page=' + p;
-    fetch(url)
+    const url = 'http://172.26.24.150:8082/Articles?size=10&page=' + p;
+    //const url = 'https://jsonplaceholder.typicode.com/posts?_page=' + p;
+    fetch(url,{
+      mode: 'uat', 
+      headers: {
+        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncmFudGVkIjoic3R1ZmYiLCJpYXQiOjE2MjkxODMxMzR9.otxK5YQhaB4p--Fal85qdGFwo2n0vtIQBS20P0l1-dA',
+      },
+    })
       .then((response) => response.json())
       .then((responseJson) => {
-        setRefreshing(false);
         setDataSource(responseJson);
+        setRefreshing(false);
       })
       .catch((error) => {
         console.error(error);
@@ -67,11 +74,31 @@ const Cart = () => {
           // console.log('x:', layout.x);
           // console.log('y:', layout.y);
         }}>
+
+          {/* <Text
+          style={styles.itemStyle}
+          onPress={() => getItem(item)}>
+           {item.id}
+        </Text>
+
         <Text
           style={styles.itemStyle}
           onPress={() => getItem(item)}>
-          {item.id}. {item.title}
+           {item.title}
+        </Text> */}
+        <Text
+          style={styles.itemStyle}
+          onPress={() => getItem(item)}>
+           {item.V_ROW}
         </Text>
+
+        <Text
+          style={styles.itemStyle}
+          onPress={() => getItem(item)}>
+           {item.V_ALIBL}
+        </Text>
+
+        {/* <Ionicons name="ios-arrow-forward" size={18} color = "#2592E5" /> */}
         <ItemSeparatorView />
       </View>
     );
@@ -86,7 +113,19 @@ const Cart = () => {
 
   const getItem = (item) => {
     // Function for click on an item
-    alert('Id : ' + item.id + ' Title : ' + item.title);
+    //alert('Id : ' + item.id + ' Name : ' + item.title);
+    alert('Id : ' + item.V_ROW + ' Name : ' + item.V_ALIBL);
+    // "ARCCODE": "376268",
+    //     "V_ARTNO": "376268",
+    //     "V_ALIBL": "QUAN D.PHUC JEAN DAI NAM-S30",
+    //     "V_VRATE": 10,
+    //     "V_CNUF": "26698",
+    //     "V_FIBL": "CONG TY TNHH MTV BLUE EXCHANGE - OB",
+    //     "V_PRICE_PERM": 341000,
+    //     "V_COST_PERM": 300000,
+    //     "V_MMUN_WEIGHT": 1,
+    //     "V_MMUN_UNIT": "CAI",
+    //     "V_ROW": 1
   };
 
   return (
@@ -122,6 +161,9 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     padding: 10,
+    width:"100%",
+    height:100,
+    borderRadius:10,
   },
   itemSeparatorStyle: {
     height: 0.5,
