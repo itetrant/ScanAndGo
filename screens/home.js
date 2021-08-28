@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Text, ImageBackground,StyleSheet,ScrollView} from 'react-native';
+import { Text, ImageBackground,StyleSheet,ScrollView, SafeAreaView, View} from 'react-native';
 import { SliderBox  } from 'react-native-image-slider-box';
 import TopBar from './topBar';
+import TopSales from './topSales';
 export default function HomeScreen() {
 
     const images = [
@@ -14,10 +15,12 @@ export default function HomeScreen() {
     ];
   
     return (
+  <SafeAreaView style={{flex: 1}}>
+     <TopBar/> 
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
-        <ScrollView>
-        <TopBar/> 
-          <Text style={styles.title_text}>HOT PROMOTION</Text>
+        
+      <View style={{paddingTop:2}}>
+          {/* <Text style={styles.title_text}></Text> */}
           <SliderBox images={images} 
           autoplay = {true}
           circleLoop = {true}
@@ -25,10 +28,14 @@ export default function HomeScreen() {
           dotColor="#FF0000"
           inactiveDotColor="#90A4AE"
           />    
-       <Text style={styles.title_text}>TOP SALES</Text>
-  
-      </ScrollView>
+       <Text style={styles.title_text}>Top sales</Text>
+       </View>
+
+       <TopSales />
+
       </ImageBackground>
+
+      </SafeAreaView>
     );
   }
   const styles = StyleSheet.create({
@@ -40,12 +47,21 @@ export default function HomeScreen() {
       justifyContent: "center"
     },
     title_text: {
-        color: "red",
+        color: "black",
         fontFamily:"",
         fontSize: 18,
         lineHeight: 36,
-        fontWeight: "normal",
+        fontWeight: "bold",
         textAlign: "left",
-        backgroundColor: "#F2F4F4"
-      }    
+        marginLeft:10,
+        backgroundColor: 'rgba(240, 240, 240, 0.9)',
+      } ,
+      
+      itemSeparatorStyle: {
+        height: 0.5,
+        width: '100%',
+        backgroundColor: '#c5c6c6',
+      },
+
   });
+

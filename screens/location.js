@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, ImageBackground , ScrollView} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
 import TopBar from './topBar';
@@ -36,7 +36,7 @@ export default function Location() {
       <TopBar/> 
       
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
-            <ScrollView >
+
               <Text style={{fontWeight:'normal',fontSize:16, textAlign:'center', lineHeight:40}}>
                 Shopping at:
               </Text>  
@@ -55,7 +55,6 @@ export default function Location() {
                       onSelect={(id)=>alert("Be sure you're at " + storelist[id])}
                />
 
-          </ScrollView>
        </ImageBackground>
 
     </View>   

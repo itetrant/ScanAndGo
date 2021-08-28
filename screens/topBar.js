@@ -1,23 +1,59 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import {Ionicons} from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
 //class TopBar extends React.Component {
-const TopBar = () => {
-    const navigation = useNavigation(); 
+const TopBar = (state) => {
+   // const navigation = useNavigation(); 
   //render() {
     return (
-      <View style={styles.container}>
-          <Image
-            source={require('../assets/mm-icon-only-1.png')}
-            />
-        <Text style={{fontSize:26, color:'red', fontWeight:'bold'}}>Scan & Go</Text>
-        <Ionicons name="ios-cart-outline" size={32} color={'red'} onPress={()=>navigation.navigate('Cart')}/>
-      </View>
+      <SafeAreaView>
+        <View style={styles.container}>
+            <Image
+              source={require('../assets/mm-icon-only-1.png')}
+              />
+          <Text style={{fontSize:26, color:'red', fontWeight:'bold'}}>Scan & Go</Text>
+          <Ionicons name="ios-cart-outline" size={32} color={'red'} 
+          // onPress={()=>navigation.navigate('Cart')}
+          />       
+
+            <View style = {{position:'absolute', flexDirection:'row', justifyContent: 'flex-end', paddingBottom:20,
+                              paddingRight: 0,alignItems:'center', width:'100%'}}>
+                  <View style = {{ flexDirection:'row',borderRadius:10, justifyContent: 'center',zIndex:2000,
+                              alignItems:'center',height:20, width:20,backgroundColor:'rgba(52, 52, 52, 0.4)'}}>
+                    <Text style={{color:'red', fontWeight:'bold',fontSize:12}}>
+                      {/* {state.myValue} */}
+                      0
+                      </Text>
+                  </View>
+
+          </View>
+
+        </View>
+
+        
+
+        <ItemSeparatorView/>
+      </SafeAreaView>
     );
  // }
 }
+  const ItemSeparatorView = () => {
+    return (
+      // Flat List Item Separator
+      <View style={styles.itemSeparatorStyle} />
+    );
+  };
 
+//   function mapStateToProps(state) {
+//     return { 
+//         myValue: state.value,
+//         // myHighlight: state.highlight 
+//     };
+// }
+//export default connect(mapStateToProps)(TopBar);
+export default TopBar;
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
@@ -29,6 +65,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     marginTop: 28,
-  }
+  },
+  itemSeparatorStyle: {
+    height: 0.5,
+    width: '100%',
+    backgroundColor: '#c5c6c6',
+  },
 });
-export default TopBar;

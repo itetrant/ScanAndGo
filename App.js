@@ -1,5 +1,27 @@
+
+
+// import React, { Component } from 'react';
+// import {StyleSheet} from 'react-native';
+// import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import Demo from './store/demo';
+// import CartItems from './reducers/cartItems';
+// import Reducer from './reducers/reducer';
+
+// const store = createStore(CartItems);
+
+// export default function App() {
+
+//     return (
+//       <Provider store={store}>
+//         <Demo />
+//       </Provider>
+//     );
+// }
+
+// END TEST
+
 import * as React from 'react';
-import { Text, View, useState,ImageBackground,StyleSheet,ScrollView, ListView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {Ionicons} from 'react-native-vector-icons';
@@ -49,3 +71,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
