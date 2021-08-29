@@ -1,24 +1,22 @@
 // Scroll to a Specific Item in ScrollView List View
 // https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
+// import all the components we are going to use
 import {MaterialIcons} from 'react-native-vector-icons';
 import React, {useState, useEffect} from 'react';
-import { RefreshControl, Alert } from 'react-native';
-//test
 import { useDispatch } from 'react-redux';
-
-//end test
-// import all the components we are going to use
 import {
   SafeAreaView,
   View,
   ScrollView,
   StyleSheet,
   Text,
+  RefreshControl,
+  Alert
 } from 'react-native';
 
-// const wait = (timeout) => {
-//   return new Promise(resolve => setTimeout(resolve, timeout));
-// }
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const TopSales = () => {
   const [dataSource, setDataSource] = useState([]);
@@ -40,7 +38,7 @@ const TopSales = () => {
     setPage(page + 1);
     setDataSource([]); //clear old data
     getData(page); 
-    // wait(2000).then(() => setRefreshing(false));
+    wait(8000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   useEffect(() => {
@@ -101,7 +99,7 @@ const TopSales = () => {
               Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
             </Text>
             <MaterialIcons //MaterialIcons  
-              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26} onPress={() => getItem(item)}/>
+              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26} onPress={() => handleButton('UP')}/>
         </View>   
 
       </View>

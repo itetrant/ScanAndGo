@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Text, ImageBackground,StyleSheet,ScrollView, SafeAreaView, View} from 'react-native';
 import { SliderBox  } from 'react-native-image-slider-box';
-import TopBar from './topBar';
 import TopSales from './topSales';
 export default function HomeScreen() {
 
@@ -16,7 +15,7 @@ export default function HomeScreen() {
   
     return (
   <SafeAreaView style={{flex: 1}}>
-     {/* <TopBar/>  */}
+
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
         
       <View style={{paddingTop:1}}>

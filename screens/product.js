@@ -6,23 +6,23 @@ export default class Product extends Component {
     constructor(props){
         super(props);
         this.state={
-            click:0
+            qty:0
         }
 
     }
     Order(){
         this.setState({
-            click:this.props.id?this.state.click + 1:0
+            qty:this.props.id?this.state.qty + 1:0
         });
     }
     Reduce(){
         this.setState({
-            click: this.state.click > 0? this.state.click - 1: 0 
+            qty: this.state.qty > 0? this.state.qty - 1: 0 
         });
     }    
     Remove(){
         this.setState({
-            click:0
+            qty:0
         });
     }
     render() {
@@ -44,7 +44,7 @@ export default class Product extends Component {
                         <Text style={styles.itemStyle}> Supplier Name: {this.props.suppName}</Text> */}
                         <Text style={styles.itemStyle}> MMUN: {this.props.mmun}</Text>
                         <Text style={styles.itemStyle}> UNIT: {this.props.unit}</Text>
-                        <Text style={styles.itemStyle}> Order Qty: {this.state.click}</Text>
+                        <Text style={styles.itemStyle}> Qty: {this.state.qty}</Text>
                         <View style={styles.button}>
                             <Button title="Order" onPress={()=>this.Order()}/>
                             <Button title="Clear" onPress={()=>this.Remove()}/>
