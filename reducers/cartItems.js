@@ -1,15 +1,26 @@
 
 const cartItems = (state={value:0,
     items:[{
-        ARCCODE: "376268",
-        ARTNO: "376268",
-        ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
-        VRATE: 10,
-        PRICE_PERM: 341000,
-        MMUN_WEIGHT: 1,
-        MMUN_UNIT: "CAI",
+        V_ARCCODE: "376268",
+        V_ARTNO: "376268",
+        V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
+        V_VRATE: 10,
+        V_PRICE_PERM: 341000,
+        V_MMUN_WEIGHT: 1,
+        V_MMUN_UNIT: "CAI",
         QTY: 1
-        }]},
+        },
+        {
+            V_ARCCODE: "376266",
+            V_ARTNO: "376266",
+            V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S36",
+            V_VRATE: 10,
+            V_PRICE_PERM: 666000,
+            V_MMUN_WEIGHT: 1,
+            V_MMUN_UNIT: "CAI",
+            QTY: 2
+            }
+        ]},
         action) => {
             switch(action.type) {
                 case 'UP':

@@ -3,7 +3,7 @@
 // import all the components we are going to use
 import {AntDesign} from 'react-native-vector-icons';
 import React, {useState, useEffect, Component} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import {
   View,
   StyleSheet,
@@ -14,7 +14,8 @@ import {
 function Cart() {
   const [cartDataSource, setCartDataSource] = useState([]);
   const [dataSourceCords, setDataSourceCords] = useState([]);
-  
+  const myCart = useStore();
+  const cart = myCart.getState().items;
   // useEffect(() => {
   //   getData();
   // }, []);
@@ -106,7 +107,7 @@ const dataSource = [{
   
       {/* <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}> */}
 
-       {dataSource.map(ItemView)}
+       {cart.map(ItemView)}
 
        {/* </ImageBackground> */}
 
