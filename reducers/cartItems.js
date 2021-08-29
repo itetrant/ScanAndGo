@@ -4,13 +4,14 @@ const cartItems = (state={value:0,highlight:false},action) => {
         case 'UP':
             //do something
             //reture
-            return { value: state.value + 1, highlight: state.highlight };
+            console.log(state.value);
+            return { value: state.value + 1 };
         case 'DOWN':
             //
-            return { value: state.value - 1, highlight: state.highlight };
-        case 'CHANGE_COLOR':
+            return { value: state.value - 1 };
+        case 'REMOVE':
             //
-            return { value: state.value, highlight: !state.highlight }          
+            return { value: 0 }          
     }
     return state
 }

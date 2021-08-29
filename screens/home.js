@@ -16,10 +16,10 @@ export default function HomeScreen() {
   
     return (
   <SafeAreaView style={{flex: 1}}>
-     <TopBar/> 
+     {/* <TopBar/>  */}
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
         
-      <View style={{paddingTop:2}}>
+      <View style={{paddingTop:1}}>
           {/* <Text style={styles.title_text}></Text> */}
           <SliderBox images={images} 
           autoplay = {true}

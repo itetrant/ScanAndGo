@@ -1,9 +1,12 @@
 // Scroll to a Specific Item in ScrollView List View
 // https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
-import {AntDesign,MaterialIcons} from 'react-native-vector-icons';
+import {MaterialIcons} from 'react-native-vector-icons';
 import React, {useState, useEffect} from 'react';
 import { RefreshControl, Alert } from 'react-native';
+//test
+import { useDispatch } from 'react-redux';
 
+//end test
 // import all the components we are going to use
 import {
   SafeAreaView,
@@ -23,6 +26,13 @@ const TopSales = () => {
   const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
   // const [ref, setRef] = useState(null);
+
+  const dispatch = useDispatch();
+  function handleButton (act){
+
+        dispatch({ type: act})
+
+      }  
 
   const [refreshing, setRefreshing] = React.useState(true);
   const onRefresh = React.useCallback(async () => {
@@ -111,7 +121,7 @@ const TopSales = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "Add to cart", onPress: () => console.log("OK Pressed") }
+        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton('UP');}}
       ]
     );
   }

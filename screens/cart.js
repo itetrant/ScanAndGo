@@ -2,7 +2,7 @@
 // https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
 import {Ionicons} from 'react-native-vector-icons';
 import React, {useState, useEffect} from 'react';
-import TopBar from './topBar';
+//import TopBar from './topBar';
 // import all the components we are going to use
 import {
   SafeAreaView,
@@ -15,7 +15,6 @@ import {
 const Cart = () => {
   return (
   <View style={styles.container}> 
-      <TopBar/> 
       
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
 

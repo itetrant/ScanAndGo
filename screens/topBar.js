@@ -3,9 +3,10 @@ import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import {Ionicons} from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
+
 //class TopBar extends React.Component {
 const TopBar = (state) => {
-   // const navigation = useNavigation(); 
+    const navigation = useNavigation(); 
   //render() {
     return (
       <SafeAreaView>
@@ -15,16 +16,16 @@ const TopBar = (state) => {
               />
           <Text style={{fontSize:26, color:'red', fontWeight:'bold'}}>Scan & Go</Text>
           <Ionicons name="ios-cart-outline" size={32} color={'red'} 
-          // onPress={()=>navigation.navigate('Cart')}
+           onPress={()=>navigation.navigate('Cart')}
           />       
 
-            <View style = {{position:'absolute', flexDirection:'row', justifyContent: 'flex-end', paddingBottom:20,
-                              paddingRight: 0,alignItems:'center', width:'100%'}}>
+            <View style = {{position:'absolute', flexDirection:'row', justifyContent: 'flex-end', 
+                             paddingBottom:28,width:'104%'}}>
                   <View style = {{ flexDirection:'row',borderRadius:10, justifyContent: 'center',zIndex:2000,
-                              alignItems:'center',height:20, width:20,backgroundColor:'rgba(52, 52, 52, 0.4)'}}>
+                              alignItems:'center',height:20, width:20,backgroundColor:'rgba(52, 52, 52, 0.2)'}}>
                     <Text style={{color:'red', fontWeight:'bold',fontSize:12}}>
-                      {/* {state.myValue} */}
-                      0
+                      {state.myValue}
+                      {/* 0 */}
                       </Text>
                   </View>
 
@@ -32,12 +33,10 @@ const TopBar = (state) => {
 
         </View>
 
-        
-
         <ItemSeparatorView/>
       </SafeAreaView>
     );
- // }
+  //}
 }
   const ItemSeparatorView = () => {
     return (
@@ -46,14 +45,14 @@ const TopBar = (state) => {
     );
   };
 
-//   function mapStateToProps(state) {
-//     return { 
-//         myValue: state.value,
-//         // myHighlight: state.highlight 
-//     };
-// }
-//export default connect(mapStateToProps)(TopBar);
-export default TopBar;
+  function mapStateToProps(state) {
+    return { 
+        myValue: state.value,
+        // myHighlight: state.highlight 
+    };
+}
+export default connect(mapStateToProps)(TopBar);
+//export default TopBar;
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',

@@ -2,10 +2,17 @@ import * as React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
-import TopBar from './topBar';
+import { useDispatch } from 'react-redux';
+
 
 export default function Location() {
 
+  const dispatch = useDispatch();
+  function handleChange (act){
+  
+      dispatch({ type: act})
+  
+    }  
     const storelist = [
           'MM AN PHU',
           'MM BINH PHU',
@@ -33,8 +40,7 @@ export default function Location() {
 
     return (
     <View style={styles.container}> 
-      <TopBar/> 
-      
+          
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
 
               <Text style={{fontWeight:'normal',fontSize:16, textAlign:'center', lineHeight:40}}>
