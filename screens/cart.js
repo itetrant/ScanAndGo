@@ -2,8 +2,8 @@
 // https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
 // import all the components we are going to use
 import {MaterialIcons, AntDesign} from 'react-native-vector-icons';
-import React, {useState, useEffect} from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useState, useEffect, useFocusEffect} from 'react';
+import { useDispatch, useStore } from 'react-redux';
 import {
   SafeAreaView,
   View,
@@ -16,10 +16,11 @@ import {
 import TopBar from './topBar';
 const Cart = () => {
 
-  //const [newDataSource, setNewDataSource] = useState([]);
-  const [dataSourceCords, setDataSourceCords] = useState([]);
+  //const [dataSource, setDataSource] = useState([]);
+  //const [dataSourceCords, setDataSourceCords] = useState([]);
   // const [ref, setRef] = useState(null);
-
+  const store = useStore();
+  const dataSource = store.getState().items;
   const dispatch = useDispatch();
   function handleButton (item, act){
 
@@ -27,48 +28,58 @@ const Cart = () => {
 
       }  
 
-  const dataSource = [{
-    V_ARCCODE: "376270",
-    V_ARTNO: "376270",
-    V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
-    V_VRATE: 10,
-    V_PRICE_PERM: 341000,
-    V_MMUN_WEIGHT: 1,
-    V_MMUN_UNIT: "CAI",
-    V_ROW:1,
-    Qty: 1
-    },
-    {V_ARCCODE: "376271",
-    V_ARTNO: "376271",
-    V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
-    V_VRATE: 10,
-    V_PRICE_PERM: 341000,
-    V_MMUN_WEIGHT: 1,
-    V_MMUN_UNIT: "CAI",
-    V_ROW:1,
-    Qty: 1
-    }
-  ];
+// useEffect(()=>{
+//   setDataSource(store.getState().items);
+//   return () => {
+//     // Do something to prevent memory leak;
+//     //setClear(false)
+//      };
+// }, []
+// );
+
+  // const dataSource = [{
+  //   //V_ARCCODE: "376270",
+  //   V_ARTNO: "376270",
+  //   V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
+  //  // V_VRATE: 10,
+  //   V_PRICE_PERM: 341000,
+  //   //V_MMUN_WEIGHT: 1,
+  //   V_MMUN_UNIT: "CAI",
+  //   //V_ROW:1,
+  //   Qty: 1
+  //   },
+  //   {
+  //   //V_ARCCODE: "376271",
+  //   V_ARTNO: "376271",
+  //   V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
+  //   //V_VRATE: 10,
+  //   V_PRICE_PERM: 341000,
+  //   //V_MMUN_WEIGHT: 1,
+  //   V_MMUN_UNIT: "CAI",
+  //   //V_ROW:1,
+  //   Qty: 1
+  //   }
+  // ];
 
   const ItemView = (item, key) => {
     return (
       // Flat List Item
       <View style={styles.itemContainer}
         key={key}
-        onLayout={(event) => {
-          const layout = event.nativeEvent.layout;
-          dataSourceCords[key] = layout.y;
-          setDataSourceCords(dataSourceCords);
-          //Debug
-          // console.log(dataSourceCords);
-
-        }}>
+        // onLayout={(event) => {
+        //   const layout = event.nativeEvent.layout;
+        //   dataSourceCords[key] = layout.y;
+        //   setDataSourceCords(dataSourceCords);
+        //   //Debug
+        //   // console.log(dataSourceCords);
+        // }}
+        >
 
 
         <Text
           style={styles.itemLine}
           onPress={() => getItem(item)}>
-           Top {item.V_ROW}: {item.V_ARTNO} - {item.V_ALIBL}
+           Item: {item.V_ARTNO} - {item.V_ALIBL}
         </Text>
 
         <View style={styles.itemLineIcon} >
@@ -81,7 +92,7 @@ const Cart = () => {
             <Text
               //style={styles.itemLine}
               onPress={() => getItem(item)}>
-              Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
+              Qty: {item.Qty}  {item.V_MMUN_UNIT}
             </Text>
             <AntDesign //MaterialIcons  
               name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={26}  onPress={() => handleButton(item.V_ARTNO,'DOWN')}/>

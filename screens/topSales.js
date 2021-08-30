@@ -26,9 +26,9 @@ const TopSales = () => {
   // const [ref, setRef] = useState(null);
 
   const dispatch = useDispatch();
-  function handleButton (item, act){
+  function handleButton (_id,_name,_price,_unit, act){
 
-        dispatch({ id: item, type: act})
+        dispatch({id: _id, name:_name, price:_price, unit:_unit, type: act})
 
       }  
 
@@ -99,7 +99,7 @@ const TopSales = () => {
               Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
             </Text>
             <MaterialIcons //MaterialIcons  
-              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26}  onPress={() => handleButton(item.V_ARTNO,'UP')}/>
+              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26}  onPress={() => handleButton(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,'UP')}/>
         </View>   
 
       </View>
@@ -107,9 +107,9 @@ const TopSales = () => {
   };
 
 
-  const createTwoButtonAlert = (id,name,price) => {
+  const createTwoButtonAlert = (id,name,price,unit) => {
 
-    let msg = '-Id:' + id + '\n-Name: ' + name + '\n-Price:' + price;
+    let msg = '-Id:' + id + '\n-Name: ' + name + '\n-Price:' + price + '/' + unit;
     Alert.alert(
       "Product details",
       msg,
@@ -119,7 +119,7 @@ const TopSales = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton(id,'UP');}}
+        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton(id,name,price,unit,'UP');}}
       ]
     );
   }

@@ -26,7 +26,7 @@ export default function HomeScreen({navigation}) {
     const images = [
   
       require('../assets/song-khoe.jpg'),
-      require('../assets/uu-dai.jpg'),
+      require('../assets/mcard.jpg'),
       require('../assets/Momo.jpg'),
       // require('./assets/tap-hoa.jpg'),
   
@@ -38,8 +38,8 @@ export default function HomeScreen({navigation}) {
         navigation.navigate("MyWebComponent", { url:'https://mmpro.vn'});
         break;
       case 1:
-        //Linking.openURL('https://online.mmvietnam.com');
-        navigation.navigate("MyWebComponent", { url:'https://online.mmvietnam.com'});
+        //Linking.openURL('https://mmvietnam.app');
+        navigation.navigate("MyWebComponent", { url:'http://mmvietnam.app'});
         break;
       case 2:
         //Linking.openURL('https://mmvietnam.com');
