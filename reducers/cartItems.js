@@ -32,14 +32,15 @@ const cartItems = (state={value:0,
 
                     //return { ...state, items: [ ...state.items.filter(p => p !== action.id), { ...action.id, Qty: 100 } ] };
 
-                    return { value: state.value + 1 };
+                    return { ...state, value: state.value + 1 };
                 case 'DOWN':
                     //
-                    //return;
+                    console.log(state.value > 0? state.value - 1 : 0);
+                    return { ...state, value: state.value > 0? state.value - 1 : 0};
                 case 'REMOVE':
                     //
                     console.log(state.value > 0? state.value - 1 : 0);
-                    return { value: state.value > 0? state.value - 1 : 0 };          
+                    return { ...state, value: state.value > 0? state.value - 1 : 0 };          
             }
 
             return state
