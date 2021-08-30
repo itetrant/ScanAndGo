@@ -1,8 +1,27 @@
+// import React, { Component } from 'react';
+// import { WebView } from 'react-native-webview';
+
+// // ...
+// class MyWebComponent extends Component {
+//     constructor(props){
+//         super(props);
+//     }  
+//   render() {
+//     return ( 
+//           <WebView  source={{ uri: 'https://mmpro.vn' }} />
+//         )
+//   }
+// }
+// export default MyWebComponent;
+
+
+
 import * as React from 'react';
-import { Text, ImageBackground,StyleSheet,ScrollView, SafeAreaView, View} from 'react-native';
+import { Text, ImageBackground,StyleSheet,Linking, SafeAreaView, View} from 'react-native';
 import { SliderBox  } from 'react-native-image-slider-box';
 import TopSales from './topSales';
-export default function HomeScreen() {
+import TopBar from './topBar';
+export default function HomeScreen({navigation}) {
 
     const images = [
   
@@ -12,12 +31,28 @@ export default function HomeScreen() {
       // require('./assets/tap-hoa.jpg'),
   
     ];
-  
+  const handleImgOnPress = (idx) => {
+    switch (idx) {
+      case 0:
+        //Linking.openURL('https://mmpro.vn');
+        navigation.navigate("MyWebComponent", { url:'https://mmpro.vn'});
+        break;
+      case 1:
+        //Linking.openURL('https://online.mmvietnam.com');
+        navigation.navigate("MyWebComponent", { url:'https://online.mmvietnam.com'});
+        break;
+      case 2:
+        //Linking.openURL('https://mmvietnam.com');
+        navigation.navigate("MyWebComponent", { url:'https://mmvietnam.com'});
+        break;
+    }
+
+  }
     return (
   <SafeAreaView style={{flex: 1}}>
 
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
-        
+      <TopBar/>  
       <View style={{paddingTop:1}}>
           {/* <Text style={styles.title_text}></Text> */}
           <SliderBox images={images} 
@@ -26,7 +61,9 @@ export default function HomeScreen() {
           sliderBoxHeight={268}
           dotColor="#FF0000"
           inactiveDotColor="#90A4AE"
+          onCurrentImagePressed={index => handleImgOnPress(index)}
           />    
+
        <Text style={styles.title_text}>Top sales</Text>
        </View>
 

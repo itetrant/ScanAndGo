@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', // center, space-around
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 28,
+    marginTop: 20,
   },
   itemSeparatorStyle: {
     height: 0.5,

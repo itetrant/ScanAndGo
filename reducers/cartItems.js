@@ -28,16 +28,17 @@ const cartItems = (state={value:0,
                 case 'UP':
                     //do something
                     //reture
-                    console.log(state.value);
+                    console.log(state.value+1);
 
                     //return { ...state, items: [ ...state.items.filter(p => p !== action.id), { ...action.id, Qty: 100 } ] };
 
                     return { value: state.value + 1 };
                 case 'DOWN':
                     //
-                    return;
+                    //return;
                 case 'REMOVE':
                     //
+                    console.log(state.value > 0? state.value - 1 : 0);
                     return { value: state.value > 0? state.value - 1 : 0 };          
             }
 

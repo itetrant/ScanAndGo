@@ -6,9 +6,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 function Scan() {
     const Stack = createStackNavigator();
     return (
-      <Stack.Navigator>
-        <Stack.Screen name="Scan a product" component={PriceChecker}/>
-        <Stack.Screen name="Scanner" component={Scanner} />
+      
+      <Stack.Navigator //screenOptions={{headerShown: false}}
+      >
+        <Stack.Screen name="Scan a product" options={{headerShown: false}} component={PriceChecker}        
+        />
+        <Stack.Screen name="Scanner" component={Scanner} 
+        />
       </Stack.Navigator>
     );
   }

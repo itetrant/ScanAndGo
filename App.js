@@ -3,12 +3,11 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {Ionicons} from 'react-native-vector-icons';
-//import { StatusBar } from 'expo-status-bar';
 import Cart from './screens/cart';
 import Scan from './screens/scan';
 import Location from './screens/location';
-import HomeScreen from './screens/home';
-import TopBar from './screens/topBar';
+import Main from './screens/main';
+
 
 // test
 import { Provider } from 'react-redux';
@@ -24,10 +23,8 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-
-        <TopBar/>
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} 
+          <Tab.Screen name="Main" component={Main} 
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (

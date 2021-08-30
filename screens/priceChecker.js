@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import Product from './product';
 import { useFocusEffect } from '@react-navigation/native';
-
+import TopBar from './topBar';
 const PriceChecker = ({ navigation, route }) => {
 
  const [text,setText] = useState('');
@@ -113,6 +113,7 @@ const searchArticlebyEan = (text) =>{
 return (
 // MAIN EVENTS HERE!!
     <ScrollView> 
+      <TopBar/>
         <View style={styles.headerContainer}>
                 <View style={styles.inputContainer}>
                 <Ionicons name="search-outline" size={32} color = {(text?"#2592E5":"#e8e8e8")}

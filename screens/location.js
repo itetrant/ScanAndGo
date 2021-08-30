@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch } from 'react-redux';
-
+import TopBar from './topBar';
 
 export default function Location() {
 
@@ -42,7 +42,7 @@ export default function Location() {
     <View style={styles.container}> 
           
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
-
+            <TopBar />
               <Text style={{fontWeight:'normal',fontSize:16, textAlign:'center', lineHeight:40}}>
                 Shopping at:
               </Text>  
@@ -58,7 +58,8 @@ export default function Location() {
                       dropdownStyle={{height:'50%',alignItems:'center' }}
                       dropdownTextStyle={{fontSize:20, textAlign:'center'}}
                       isFullWidth={true}
-                      onSelect={(id)=>alert("Be sure you're at " + storelist[id])}
+                      // onSelect={(id)=>alert("Be sure you're at " + storelist[id])}
+                      onSelect={(id)=>handleChange('UP')}
                />
 
        </ImageBackground>

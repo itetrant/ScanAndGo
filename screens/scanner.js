@@ -56,15 +56,20 @@ const Scanner = ({ navigation }) => {
 
   return (
     <View style={{flex: 1}}>
-
+      {/* <View style = {styles.headerContainer}>
+        <Text onPress={()=>navigation.goBack()}> {'< Back'} </Text>
+      </View> */}
+      <View style={{height: '100%', width: '100%'}}>
       {/* <View style={styles.barcodebox}> */}
-        <BarCodeScanner style={{height: 600, width: '100%',marginTop:0}} 
+        <BarCodeScanner //style={{height: '100%', width: '100%'}} 
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={[StyleSheet.absoluteFillObject, styles.container]}
           >
           <BarcodeMask edgeColor="#ff0000" showAnimatedLine/>
           {/* {scanned && <FontAwesome name="qrcode" size={34} color ="#fff" onPress={()=>navigation.navigate('PriceChecker', { BarCode: text})} color='tomato'/>} */}
           </BarCodeScanner>
+      </View>  
+
     </View>
   );
 }
@@ -77,34 +82,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     //paddingTop:0,
   },
-  barcodebox: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 222,
-    width: '100%',
-    borderRadius: 0,
-    backgroundColor: 'tomato',
-  },
+
   headerContainer: {
-    flexDirection: 'row',
-    padding: 6,
-    backgroundColor: '#C70039',
-  },
-
-  inputContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    flex: 1,
-    marginTop:2,
+    alignSelf: 'stretch',
+    height: 48,
+    flexDirection: 'row', // row
+    backgroundColor: '#ffffff',
     alignItems: 'center',
-    marginBottom: 2,
-  },
-
-  cartContainer: {
-    paddingHorizontal: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
+    justifyContent: 'space-between', // center, space-around
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 28,
   },
 
 });

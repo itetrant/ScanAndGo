@@ -3,23 +3,25 @@
 // import all the components we are going to use
 import {AntDesign} from 'react-native-vector-icons';
 import React, {useState, useEffect, Component} from 'react';
+import TopBar from './topBar';
 import { useDispatch, useStore } from 'react-redux';
 import {
   View,
   StyleSheet,
   Text,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 
 function Cart() {
-  const [cartDataSource, setCartDataSource] = useState([]);
-  const [dataSourceCords, setDataSourceCords] = useState([]);
+    
+    const [dataSourceCords, setDataSourceCords] = useState([]);
+    const store = useStore();
+    const [cart,setCart] =  useState([]);
 
-  const store = useStore();
-  const cart = store.getState().items;
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+     setCart(store.getState().items);
+  }, []);
 
   // const getData = () => {
   //   //Service to get the data from the server to render
@@ -103,11 +105,11 @@ const dataSource = [{
 
         <View style={styles.itemLineIcon} >  
             <AntDesign //MaterialIcons  
-              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={20} onPress={() => handleButton(item,'DOWN')}/>
+              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={20} onPress={() => handleButton(item.V_ROW,'DOWN')}/>
               <AntDesign //MaterialIcons  
-              name= "plus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={20} onPress={() => handleButton(item,'UP')}/>
+              name= "plus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={20} onPress={() => handleButton(item.V_ROW,'UP')}/>
               <AntDesign //MaterialIcons  
-              name= "delete" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#000000" size={20} onPress={() => handleButton(item,'REMOVE')}/>
+              name= "delete" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#000000" size={20} onPress={() => handleButton(item.V_ROW,'REMOVE')}/>
         </View>
 
       </View>
@@ -115,16 +117,15 @@ const dataSource = [{
   };
 
   return (
-   <View style={styles.container}> 
-  
-      {/* <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}> */}
-
+    <SafeAreaView>
+      <TopBar/>
+      <View style={styles.container}> 
+      
        {/* {dataSource.map(ItemView)} */}
-       {cart.map(ItemView)}
+       {cart?cart.map(ItemView):null}
 
-       {/* </ImageBackground> */}
-
-     </View> 
+      </View> 
+     </SafeAreaView>
     );
 };
 
