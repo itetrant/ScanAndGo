@@ -14,8 +14,9 @@ import {
 function Cart() {
   const [cartDataSource, setCartDataSource] = useState([]);
   const [dataSourceCords, setDataSourceCords] = useState([]);
-  const myCart = useStore();
-  const cart = myCart.getState().items;
+
+  const store = useStore();
+  const cart = store.getState().items;
   // useEffect(() => {
   //   getData();
   // }, []);
@@ -36,8 +37,8 @@ function Cart() {
 
   // };
 const dataSource = [{
-  V_ARCCODE: "376268",
-  V_ARTNO: "376268",
+  V_ARCCODE: "376270",
+  V_ARTNO: "376270",
   V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
   V_VRATE: 10,
   V_PRICE_PERM: 341000,
@@ -45,12 +46,23 @@ const dataSource = [{
   V_MMUN_UNIT: "CAI",
   V_ROW:1,
   Qty: 1
-  }];
+  },
+  {V_ARCCODE: "376271",
+  V_ARTNO: "376271",
+  V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
+  V_VRATE: 10,
+  V_PRICE_PERM: 341000,
+  V_MMUN_WEIGHT: 1,
+  V_MMUN_UNIT: "CAI",
+  V_ROW:1,
+  Qty: 1
+  }
+];
 
   const dispatch = useDispatch();
-  function handleButton (act){
+  function handleButton (item, act){
 
-        dispatch({ type: act})
+        dispatch({ id: item, type: act})
 
       }  
 
@@ -91,11 +103,11 @@ const dataSource = [{
 
         <View style={styles.itemLineIcon} >  
             <AntDesign //MaterialIcons  
-              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={20} onPress={() => handleButton('DOWN')}/>
+              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={20} onPress={() => handleButton(item,'DOWN')}/>
               <AntDesign //MaterialIcons  
-              name= "plus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={20} onPress={() => handleButton('UP')}/>
+              name= "plus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={20} onPress={() => handleButton(item,'UP')}/>
               <AntDesign //MaterialIcons  
-              name= "delete" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#000000" size={20} onPress={() => handleButton('REMOVE')}/>
+              name= "delete" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#000000" size={20} onPress={() => handleButton(item,'REMOVE')}/>
         </View>
 
       </View>
@@ -107,6 +119,7 @@ const dataSource = [{
   
       {/* <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}> */}
 
+       {/* {dataSource.map(ItemView)} */}
        {cart.map(ItemView)}
 
        {/* </ImageBackground> */}

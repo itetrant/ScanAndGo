@@ -8,7 +8,8 @@ const cartItems = (state={value:0,
         V_PRICE_PERM: 341000,
         V_MMUN_WEIGHT: 1,
         V_MMUN_UNIT: "CAI",
-        QTY: 1
+        V_ROW:1,
+        Qty: 1
         },
         {
             V_ARCCODE: "376266",
@@ -18,7 +19,8 @@ const cartItems = (state={value:0,
             V_PRICE_PERM: 666000,
             V_MMUN_WEIGHT: 1,
             V_MMUN_UNIT: "CAI",
-            QTY: 2
+            V_ROW:2,
+            Qty: 2
             }
         ]},
         action) => {
@@ -27,14 +29,18 @@ const cartItems = (state={value:0,
                     //do something
                     //reture
                     console.log(state.value);
+
+                    //return { ...state, items: [ ...state.items.filter(p => p !== action.id), { ...action.id, Qty: 100 } ] };
+
                     return { value: state.value + 1 };
                 case 'DOWN':
                     //
-                    return { value: state.value - 1 };
+                    return;
                 case 'REMOVE':
                     //
-                    return { value: 0 }          
+                    return { value: state.value > 0? state.value - 1 : 0 };          
             }
+
             return state
 }
 export default cartItems;
