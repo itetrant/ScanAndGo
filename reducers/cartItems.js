@@ -30,24 +30,40 @@ const cartItems = (state={value:0,
                 case 'UP':
                     //do something
                     //reture
-                    console.log(state.value+1);
-                    console.log(state.items);    
-                    return { value: state.value + 1, items: [ ...state.items.filter(p => p.V_ARTNO !== action.id), 
-                        {  V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:1} ] 
+
+                    const existingItem = state.items.filter(p => p.V_ARTNO === action.id); 
+                    
+                    if (existingItem.length > 0 ) {
+                        console.log(existingItem[0].Qty);
+                    return { ...state, items: [ ...state.items.filter(p => p.V_ARTNO !== action.id), 
+                        { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:existingItem[0].Qty+action.qty} ] 
                     
                      };
+                    } else {
+                        console.log('New item');
+                        return { value: state.value + 1, items: [ ...state.items, 
+                            { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:action.qty} ] 
+                        
+                         };
+                    }
 
                    //return { ...state, value: state.value + 1 };
-                case 'DOWN':
-                    //
-                    console.log(state.value > 0? state.value - 1 : 0);
-                    return { ...state, value: state.value > 0? state.value - 1 : 0};
                 case 'REMOVE':
-                    //
-                    console.log(state.value > 0? state.value - 1 : 0);
-                    return { ...state, value: state.value > 0? state.value - 1 : 0 };          
+                    //console.log(state.value > 0? state.value - 1 : 0);
+
+                    return { value: state.value-1, items: [ ...state.items.filter(p => p.V_ARTNO !== action.id)] 
+                     };
+                case 'CLEAR':
+                    // console.log(state.value > 0? state.value - 1 : 0);
+                   
+                    return {
+                        ...state,
+                        items: [],
+                        value: 0
+                    }    
+                default: return state         
             }
 
-            return state
+            
 }
 export default cartItems;

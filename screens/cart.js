@@ -61,7 +61,7 @@ const Cart = () => {
               Qty: {item.Qty}  {item.V_MMUN_UNIT}
             </Text>
             <AntDesign //MaterialIcons  
-              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={26}  onPress={() => handleButton(item.V_ARTNO,'DOWN')}/>
+              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={26}  onPress={() => handleButton(item.V_ARTNO,'REMOVE')}/>
         </View>   
 
       </View>
@@ -81,7 +81,7 @@ const Cart = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton(id,'UP');}}
+        { text: "Remove item", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton(id,'REMOVE');}}
       ]
     );
   }

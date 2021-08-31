@@ -1,31 +1,30 @@
-import React, {Component } from 'react';
+import React, {Component , useState } from 'react';
 import {View,Text,StyleSheet,Image, Button} from 'react-native';
 //import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import { useDispatch } from 'react-redux';
 
-export default class Product extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            qty:0
-        }
+const Product =(props)=> {
+   
+    const [qty, setQty] = useState(1);
 
+    function Plus(){
+        setQty(qty + 1);
     }
-    Order(){
-        this.setState({
-            qty:this.props.id?this.state.qty + 1:0
-        });
-    }
-    Reduce(){
-        this.setState({
-            qty: this.state.qty > 0? this.state.qty - 1: 0 
-        });
+    function Minus(){
+        setQty(qty>1? qty - 1:1);
     }    
-    Remove(){
-        this.setState({
-            qty:0
-        });
+    function Clear(){
+        setQty(1);
     }
-    render() {
+
+    const dispatch = useDispatch();
+
+    function Order (_id,_name,_price,_unit, _qty, act){
+
+        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty ,type: act})
+
+      }  
+    // render() {
 
         return(
 
@@ -36,25 +35,26 @@ export default class Product extends Component {
                             style={{width:'100%',height:'100%'}}
                             />
                         </View>
-                        <Text style={styles.itemStyle}> Article Number: {this.props.id}</Text>
-                        <Text style={styles.itemStyle}> Article Description: {this.props.name}</Text>
-                        <Text style={styles.itemStyle}> Referent price: {this.props.price}</Text>
-                        <Text style={styles.itemStyle}> VAT Rate: {this.props.vat}</Text>
-                        {/* <Text style={styles.itemStyle}> Supplier: {this.props.suppCode}</Text>
-                        <Text style={styles.itemStyle}> Supplier Name: {this.props.suppName}</Text> */}
-                        <Text style={styles.itemStyle}> MMUN: {this.props.mmun}</Text>
-                        <Text style={styles.itemStyle}> UNIT: {this.props.unit}</Text>
-                        <Text style={styles.itemStyle}> Qty: {this.state.qty}</Text>
+                        <Text style={styles.itemStyle}> Article Number: {props.id}</Text>
+                        <Text style={styles.itemStyle}> Article Description: {props.name}</Text>
+                        <Text style={styles.itemStyle}> Referent price: {props.price}</Text>
+                        <Text style={styles.itemStyle}> VAT Rate: {props.vat}</Text>
+                        {/* <Text style={styles.itemStyle}> Supplier: {props.suppCode}</Text>
+                        <Text style={styles.itemStyle}> Supplier Name: {props.suppName}</Text> */}
+                        <Text style={styles.itemStyle}> MMUN: {props.mmun}</Text>
+                        <Text style={styles.itemStyle}> UNIT: {props.unit}</Text>
+                        <Text style={styles.itemStyle}> Qty: {qty}</Text>
                         <View style={styles.button}>
-                            <Button title="Order" onPress={()=>this.Order()}/>
-                            <Button title="Clear" onPress={()=>this.Remove()}/>
-                            {/* <Button title="Scan Next"/>*/}
+                            <Button title="Plus" onPress={()=>Plus()}/>
+                            <Button title="Minus" onPress={()=>Minus()}/>
+                            <Button title="Add to cart" onPress={()=>Order(props.id,props.name,props.price,props.unit, qty,'UP')}/>
                         </View>
                 </View>
             );
-        }        
+        // }        
 } 
 
+export default Product;
 
 const styles = StyleSheet.create({
     container: {

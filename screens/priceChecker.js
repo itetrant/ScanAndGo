@@ -155,8 +155,8 @@ return (
                 unit={unit}                                                   
         />
         {/* End product information */}
-        <View style={{alignItems: 'center', marginTop: -48}}>
-        <Button title ="NEXT SCAN" 
+        <View>
+        <Button title ="SCAN NEXT ITEM" 
                // color = "red"
                 onPress={() => gotoSanner(true)}/>
         </View>
