@@ -3,7 +3,7 @@ import {View,Text,StyleSheet,Image, Button} from 'react-native';
 //import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import { useDispatch } from 'react-redux';
 
-const Product =(props)=> {
+const Product = (props) => {
    
     const [qty, setQty] = useState(1);
 
@@ -20,9 +20,10 @@ const Product =(props)=> {
     const dispatch = useDispatch();
 
     function Order (_id,_name,_price,_unit, _qty, act){
-
-        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty ,type: act})
-
+      if (_id !== 'undefined' && _id !=='') {
+        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty ,type: act});
+        alert('Item: ' + _name + ' added to cart');
+      }
       }  
     // render() {
 
@@ -42,12 +43,17 @@ const Product =(props)=> {
                         {/* <Text style={styles.itemStyle}> Supplier: {props.suppCode}</Text>
                         <Text style={styles.itemStyle}> Supplier Name: {props.suppName}</Text> */}
                         <Text style={styles.itemStyle}> MMUN: {props.mmun}</Text>
-                        <Text style={styles.itemStyle}> UNIT: {props.unit}</Text>
-                        <Text style={styles.itemStyle}> Qty: {qty}</Text>
+                        {/* <Text style={styles.itemStyle}> UNIT: {props.unit}</Text>
+                        <Text style={styles.itemStyle}> Qty: {qty}</Text> */}
                         <View style={styles.button}>
-                            <Button title="Plus" onPress={()=>Plus()}/>
-                            <Button title="Minus" onPress={()=>Minus()}/>
-                            <Button title="Add to cart" onPress={()=>Order(props.id,props.name,props.price,props.unit, qty,'UP')}/>
+                            <Text> Order Qty:</Text>
+                            
+                            <Button title="  -  " onPress={()=>Minus()}/>
+                            <Text> {qty}  {props.unit} </Text>
+                            <Button title="  +  " onPress={()=>Plus()}/>
+
+                            <Button title="Add to cart" onPress={()=>Order(props.id?props.id:'',props.name,props.price,props.unit, qty,'UP')}/>
+                            
                         </View>
                 </View>
             );

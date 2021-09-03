@@ -51,7 +51,7 @@ export default function HomeScreen({navigation}) {
     return (
   <SafeAreaView style={{flex: 1}}>
 
-      <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
+      {/* <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}> */}
       <TopBar/>  
       <View style={{paddingTop:1}}>
           {/* <Text style={styles.title_text}></Text> */}
@@ -69,7 +69,7 @@ export default function HomeScreen({navigation}) {
 
        <TopSales />
 
-      </ImageBackground>
+      {/* </ImageBackground> */}
 
       </SafeAreaView>
     );
@@ -90,7 +90,7 @@ export default function HomeScreen({navigation}) {
         fontWeight: "bold",
         textAlign: "left",
         marginLeft:10,
-        backgroundColor: 'rgba(240, 240, 240, 0.9)',
+        //backgroundColor: 'rgba(240, 240, 240, 0.9)',
       } ,
       
       itemSeparatorStyle: {

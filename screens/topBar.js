@@ -47,7 +47,7 @@ const TopBar = (state) => {
 
   function mapStateToProps(state) {
     return { 
-        myValue: state.value,
+        myValue: state.TotItem,
         // myHighlight: state.highlight 
     };
 }

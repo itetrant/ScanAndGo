@@ -28,7 +28,8 @@ const TopSales = () => {
   const dispatch = useDispatch();
   function handleButton (_id,_name,_price,_unit, _qty, act){
 
-        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty, type: act})
+        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty, type: act});
+        alert('Item: ' + _name + ' added to cart');
 
       }  
 
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     //padding: 10,
     backgroundColor: '#ffffff',
     borderRadius:10,
-    height:100,
+   // height:100,
     margin:10,
   },
   itemSeparatorStyle: {
