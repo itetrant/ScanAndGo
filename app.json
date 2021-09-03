@@ -28,7 +28,7 @@
       "package": "com.itetrant.PriceChecker"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     }
   }
 }
