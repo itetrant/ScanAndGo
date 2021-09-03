@@ -10,7 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  RefreshControl,
+  Button,
   Alert
 } from 'react-native';
 import TopBar from './topBar';
@@ -23,12 +23,16 @@ const Cart = () => {
   const cartQty = store.getState().TotQty;
   const cartAmt = store.getState().TotAmount;
   const dispatch = useDispatch();
-  function handleButton (item, act){
-
+  function handleRemove (item, act){
         dispatch({ id: item, type: act})
-
       }  
 
+  function handleOrder (_id,_name,_price,_unit, _qty, act){
+      if (_id !== 'undefined' && _id !=='') {
+        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty ,type: act});
+        //alert('Item: ' + _name + ' added to cart');
+      }
+  }  
   const ItemView = (item, key) => {
     return (
       // Flat List Item
@@ -42,35 +46,56 @@ const Cart = () => {
         //   // console.log(dataSourceCords);
         // }}
         >
+        {/* <View style={styles.itemSeparatorStyle}/> */}
 
-
-        <Text
-          style={styles.itemLine}
+        <View style={styles.itemLineHead}>
+        <Text style = {{color:'#2592E5'}}
+          
           onPress={() => getItem(item)}>
            Item: {item.V_ARTNO} - {item.V_ALIBL}
         </Text>
+ 
+        <AntDesign //MaterialIcons  
+              name= "delete" color = "#000000" size={22}  onPress={() => handleRemove(item.V_ARTNO,'REMOVE')}
+              />
+        </View>
+        
+        <View style={styles.itemSeparatorStyle}/>
 
-        <View style={styles.itemLineIcon} >
+        <View style={styles.itemLineDetail}>
+          <Text>
+            Quantity:  
+          </Text>  
+  
+           <Button title="  -  " onPress={() => (item.Qty>1?handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'DOWN'):null)}/>          
+           <Text>
+            {item.Qty} 
+          </Text>  
+           <Button title="  +  " onPress={() => handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'UP')}/>
+           
+           <Text
+            //style={styles.itemLine}
+            onPress={() => getItem(item)}>
+           {item.V_MMUN_UNIT}   
+          </Text> 
+{/* Spaces */}
+         <Text style={{paddingRight:'30%'}}></Text>   
+        </View>
+        <View style={styles.itemSeparatorStyle}/>
+        <View style={styles.itemLineDetail} >
         
             <Text
               onPress={() => getItem(item)}>
-              Price: {item.V_PRICE_PERM}
+              Price: {item.V_PRICE_PERM} 
             </Text>
 
             <Text
               //style={styles.itemLine}
               onPress={() => getItem(item)}>
-              Qty: {item.Qty}  {item.V_MMUN_UNIT}
+                 Amt: {item.Amt}
             </Text>
 
-            <Text
-              //style={styles.itemLine}
-              onPress={() => getItem(item)}>
-              Amt: {item.Amt}
-            </Text>
-
-            <AntDesign //MaterialIcons  
-              name= "minus" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#ff0000" size={26}  onPress={() => handleButton(item.V_ARTNO,'REMOVE')}/>
+            
         </View>   
 
       </View>
@@ -86,11 +111,11 @@ const Cart = () => {
       msg,
       [
         {
-          text: "Cancel",
+          text: "OK",
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "Remove item", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton(id,'REMOVE');}}
+        { text: "Remove item", onPress: () => {console.log("Remove Pressed") ; handleRemove(id,'REMOVE');}}
       ]
     );
   }
@@ -120,9 +145,9 @@ const Cart = () => {
     
       <View style={styles.TotalLine}>
             <Text style={{fontWeight:'bold', fontSize:16}}>Total Qty: {cartQty}</Text>
-            <Text style={{fontWeight:'bold', fontSize:16}}>Total Amt: {cartAmt}vnd</Text>
+            <Text style={{fontWeight:'bold', fontSize:16}}>Total Amt: {cartAmt} vnd</Text>
         </View>
-        <View style={styles.itemSeparatorStyle}></View>
+        <View style={styles.itemSeparatorStyle}/>
 
         <ScrollView >
 
@@ -147,33 +172,39 @@ export default connect(mapStateToProps)(Cart);
 const styles = StyleSheet.create({
   container: {
      flex:1,
-     backgroundColor: 'rgba(240, 240, 240, 0.9)', //'white',// 
+     backgroundColor:'#e9e7e2'// 'rgba(240, 240, 240, 0.9)', //'white',// 
   },
   TotalLine: {
-    //margin: 5,
+    //marginBottom: 5,
     padding:10,
-    //color:'#2592E5',
+    backgroundColor: '#f2f0eb',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  itemLine: {
-    margin: 5,
-    lineHeight:20,
-    color:'#2592E5',
-    //textAlign:'center'
-  },
-  itemLineIcon: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 5,
+  itemLineHead: {
+    //margin: 5,
+    padding:5,
     //lineHeight:20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    //backgroundColor: '#f8f7f5',
+  },
+  itemLineDetail: {
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    margin: 2,
+    padding:2,
+    alignItems:'center',
+    //backgroundColor: '#fbfbfa',
   },
   itemContainer: {
-    //padding: 10,
-    backgroundColor: '#ffffff',
+    marginTop: 10,
+    margin: 5,
+    padding:2,
+    backgroundColor: 'white', //#fbfbfa',
     borderRadius:10,
     //height:100,
-    margin:3,
+    //marginTop:10,
   },
   itemSeparatorStyle: {
     height: 0.5,

@@ -61,9 +61,11 @@ const cartItems = (state={site:10010,TotItem:0,TotQty:0,TotAmount:0,
                         //console.log(existingItem1[0].Qty);
                     return { ...state,  TotQty:  state.TotQty - action.qty ,TotAmount:  state.TotAmount - (action.qty*action.price),
                         items: [ ...state.items.filter(p => p.V_ARTNO !== action.id), 
-                        { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:existingItem1[0].Qty-action.qty>0?existingItem1[0].Qty-action.qty>0:existingItem1[0].Qty, Amt:existingItem1[0].Qty-action.qty>0?existingItem[0].Amt - action.qty*action.price:existingItem[0].Amt} ] 
+                        { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:existingItem1[0].Qty-action.qty, Amt:existingItem1[0].Amt - action.qty*action.price} ] 
                     
                         };
+                    }else{
+                        return state 
                     }
                 case 'REMOVE':
                     //console.log(state.TotItem > 0? state.TotItem - 1 : 0);

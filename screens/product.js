@@ -32,7 +32,7 @@ const Product = (props) => {
             <View>
                        <View style={styles.img}>
                             <Image
-                            source={require('../assets/ken.jpg')}
+                            source={require('../assets/tap-hoa.jpg')}
                             style={{width:'100%',height:'100%'}}
                             />
                         </View>

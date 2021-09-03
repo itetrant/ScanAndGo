@@ -128,7 +128,7 @@ const TopSales = () => {
   const getItem = (item) => {
     // Function for click on an item
     //alert('Id : ' + item.id + ' Name : ' + item.title);
-    createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM);
+    createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT);
    // alert('Barcode : ' + item.ARCCODE + '\nName:' + item.V_ALIBL + '\nPrice:' + item.V_PRICE_PERM + '\nMMUN:' + item.V_MMUN_WEIGHT + '\nUNIT:' + item.V_MMUN_UNIT);
     //     "ARCCODE": "376268",
     //     "V_ARTNO": "376268",
