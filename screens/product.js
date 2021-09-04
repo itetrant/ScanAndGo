@@ -1,6 +1,7 @@
-import React, {Component , useState } from 'react';
+import React, { useState } from 'react';
 import {View,Text,StyleSheet,Image, Button} from 'react-native';
 //import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import styles from '../styles/styles.js';
 import { useDispatch } from 'react-redux';
 
 const Product = (props) => {
@@ -13,10 +14,6 @@ const Product = (props) => {
     function Minus(){
         setQty(qty>1? qty - 1:1);
     }    
-    function Clear(){
-        setQty(1);
-    }
-
     const dispatch = useDispatch();
 
     function Order (_id,_name,_price,_unit, _qty, act){
@@ -48,7 +45,7 @@ const Product = (props) => {
                         <View style={styles.button}>
                             <Text> Order Qty:</Text>
                             
-                            <Button title="  -  " onPress={()=>Minus()}/>
+                            <Button  /*color="#ff5c5c" */title="  -  " onPress={()=>Minus()}/>
                             <Text> {qty}  {props.unit} </Text>
                             <Button title="  +  " onPress={()=>Plus()}/>
 
@@ -61,33 +58,3 @@ const Product = (props) => {
 } 
 
 export default Product;
-
-const styles = StyleSheet.create({
-    container: {
-      //backgroundColor: 'white',
-      padding: 0,
-      width:'100%',
-    },
-    itemStyle: {
-      padding: 10,
-      fontSize:16,
-    },
-    img: {
-        height: 200,
-        width:'100%',
-        backgroundColor: '#e4e6eb',
-        margin:0,
-        borderRadius:0,
-    
-      },
-
-      button: {
-        alignSelf: 'stretch',
-        //height: 33,
-        flexDirection: 'row', // row
-        //backgroundColor: '#ffffff',
-        alignItems: 'center',
-        justifyContent: 'space-between', //space-around', //space-between', //'center', 
-        margin:10,
-      }
-  });

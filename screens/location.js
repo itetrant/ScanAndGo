@@ -4,6 +4,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch } from 'react-redux';
 import TopBar from './topBar';
+import styles from '../styles/styles.js';
 
 export default function Location() {
 
@@ -39,7 +40,7 @@ export default function Location() {
     ];
 
     return (
-    <View style={styles.container}> 
+    <View style={styles.locationcontainer}> 
           
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
             <TopBar />
@@ -67,22 +68,3 @@ export default function Location() {
     </View>   
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    image: {
-      flex: 1,
-      justifyContent: "center"
-    },
-    title_text: {
-      color: "red",
-      fontFamily:"",
-      fontSize: 18,
-      lineHeight: 36,
-      fontWeight: "normal",
-      textAlign: "left",
-      backgroundColor: "#F2F4F4"
-    }
-  });

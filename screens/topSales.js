@@ -1,9 +1,8 @@
-// Scroll to a Specific Item in ScrollView List View
-// https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
-// import all the components we are going to use
 import {MaterialIcons} from 'react-native-vector-icons';
 import React, {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
+import styles from '../styles/styles.js';
+
 import {
   SafeAreaView,
   View,
@@ -166,34 +165,3 @@ const TopSales = () => {
 };
 
 export default TopSales;
-
-const styles = StyleSheet.create({
-  container: {
-     flex:1,
-     backgroundColor: 'rgba(240, 240, 240, 0.9)', //'white',// 
-  },
-  itemLine: {
-    margin: 5,
-    lineHeight:40,
-    color:'#2592E5',
-    //textAlign:'center'
-  },
-  itemLineIcon: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 5,
-    lineHeight:40,
-  },
-  itemContainer: {
-    //padding: 10,
-    backgroundColor: '#ffffff',
-    borderRadius:10,
-   // height:100,
-    margin:10,
-  },
-  itemSeparatorStyle: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: '#c5c6c6',
-  },
-});

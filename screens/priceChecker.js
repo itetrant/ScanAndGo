@@ -4,6 +4,8 @@ import { View, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import Product from './product';
 import { useFocusEffect } from '@react-navigation/native';
 import TopBar from './topBar';
+import styles from '../styles/styles.js';
+
 const PriceChecker = ({ navigation, route }) => {
 
  const [text,setText] = useState('');
@@ -163,30 +165,5 @@ return (
     </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    marginTop: 0,
-    backgroundColor: '#ff0000', //'#C70039',
-    borderRadius: 0 ,
-  },
-
-  inputContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    flex: 1,
-    margin:1,
-    alignItems: 'center',
-    borderRadius: 0 ,
-  },
-  cancelContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 6,
-    flexDirection: 'row',
-  },
-
-});
 
 export default PriceChecker;

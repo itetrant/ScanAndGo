@@ -1,31 +1,6 @@
 
 const cartItems = (state={site:10010,TotItem:0,TotQty:0,TotAmount:0,
-    items:[
-    //     {
-    //    // V_ARCCODE: "376268",
-    //     V_ARTNO: "376268",
-    //     V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S30",
-    //    // V_VRATE: 10,
-    //     V_PRICE_PERM: 341000,
-    //     //V_MMUN_WEIGHT: 1,
-    //     V_MMUN_UNIT: "CAI",
-    //     //V_ROW:1,
-    //     Qty: 1,
-    //     Amt: 341000    
-    //     },
-    //     {
-    //        // V_ARCCODE: "376266",
-    //         V_ARTNO: "376266",
-    //         V_ALIBL: "QUAN D.PHUC JEAN DAI NAM-S36",
-    //        // V_VRATE: 10,
-    //         V_PRICE_PERM: 666000,
-    //        // V_MMUN_WEIGHT: 1,
-    //         V_MMUN_UNIT: "CAI",
-    //        // V_ROW:2,
-    //         Qty: 2,
-    //         Amt: 666000
-    //         }
-        ]
+    items:[]
     },
         action) => {
             switch(action.type) {
@@ -84,8 +59,6 @@ const cartItems = (state={site:10010,TotItem:0,TotQty:0,TotAmount:0,
                         items: [],
                     }    
                 default: return state         
-            }
-
-            
+            }           
 }
 export default cartItems;

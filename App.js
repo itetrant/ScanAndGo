@@ -6,7 +6,7 @@ import {Ionicons} from 'react-native-vector-icons';
 import Cart from './screens/cart';
 import Scan from './screens/scan';
 import Location from './screens/location';
-import Main from './screens/main';
+import Home from './screens/home';
 
 
 // test
@@ -24,7 +24,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="Main" component={Main} 
+          <Tab.Screen name="Home" component={Home} 
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (

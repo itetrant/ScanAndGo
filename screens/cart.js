@@ -1,8 +1,6 @@
-// Scroll to a Specific Item in ScrollView List View
-// https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
-// import all the components we are going to use
-import {MaterialIcons, AntDesign} from 'react-native-vector-icons';
+import {AntDesign} from 'react-native-vector-icons';
 import React from 'react';
+import styles from '../styles/styles.js';
 import { useDispatch, useStore, connect } from 'react-redux';
 import {
   SafeAreaView,
@@ -141,7 +139,7 @@ const Cart = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <TopBar/>
-      <View style={styles.container}>
+      <View style={styles.cartcontainer}>
     
       <View style={styles.TotalLine}>
             <Text style={{fontWeight:'bold', fontSize:16}}>Total Qty: {cartQty}</Text>
@@ -168,47 +166,3 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Cart);
 
 //export default Cart;
-
-const styles = StyleSheet.create({
-  container: {
-     flex:1,
-     backgroundColor:'#e9e7e2'// 'rgba(240, 240, 240, 0.9)', //'white',// 
-  },
-  TotalLine: {
-    //marginBottom: 5,
-    padding:10,
-    backgroundColor: '#f2f0eb',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  itemLineHead: {
-    //margin: 5,
-    padding:5,
-    //lineHeight:20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    //backgroundColor: '#f8f7f5',
-  },
-  itemLineDetail: {
-    flexDirection: 'row',
-    justifyContent:'space-between',
-    margin: 2,
-    padding:2,
-    alignItems:'center',
-    //backgroundColor: '#fbfbfa',
-  },
-  itemContainer: {
-    marginTop: 10,
-    margin: 5,
-    padding:2,
-    backgroundColor: 'white', //#fbfbfa',
-    borderRadius:10,
-    //height:100,
-    //marginTop:10,
-  },
-  itemSeparatorStyle: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: '#c5c6c6',
-  },
-});
