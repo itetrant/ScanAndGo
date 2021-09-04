@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Scan&Go",
-    "slug": "ScanAndGo",
+    "slug": "Scan-Go",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,14 +18,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.itetrant.PriceChecker"
+      "bundleIdentifier": "com.itetrant.scanngo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.itetrant.PriceChecker"
+      "package": "com.itetrant.scanngo"
     },
     "web": {
       "favicon": "./assets/icon.png"
