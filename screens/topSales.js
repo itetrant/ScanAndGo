@@ -27,7 +27,7 @@ const TopSales = (state) => {
   function handleButton (_id,_name,_price,_unit, _qty, act){
 
         dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty, type: act});
-        alert('Item: ' + _name + ' added to cart');
+        //alert('Item: ' + _name + ' added to cart');
 
       }  
 
@@ -37,7 +37,7 @@ const TopSales = (state) => {
     setPage(page + 1);
     //setDataSource([]);
     //getData(page,state.myValue); 
-    //wait(8000).then(() => setRefreshing(false));
+    wait(5000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const TopSales = (state) => {
               Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
             </Text>
             <MaterialIcons //MaterialIcons  
-              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26}  onPress={() => handleButton(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'UP')}/>
+              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT)}/>
         </View>   
 
       </View>

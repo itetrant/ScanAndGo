@@ -19,7 +19,7 @@ const Product = (props) => {
     function Order (_id,_name,_price,_unit, _qty, act){
       if (_id !== 'undefined' && _id !=='') {
         dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty ,type: act});
-        alert('Item: ' + _name + ' added to cart');
+        alert('Item: ' + _name + '\nadded to cart successfully!');
       }
       }  
     // render() {

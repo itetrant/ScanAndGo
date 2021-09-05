@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground , SafeAreaView} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch, connect } from 'react-redux';
@@ -44,7 +44,7 @@ const Location = (state) => {
     ];
 
     return (
-    <View style={styles.locationcontainer}> 
+      <SafeAreaView style={{flex: 1}}>
           
       <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}>
             <TopBar />
@@ -70,7 +70,7 @@ const Location = (state) => {
 
        </ImageBackground>
 
-    </View>   
+    </SafeAreaView>   
   );
 }
 

@@ -2,6 +2,7 @@ import {AntDesign} from 'react-native-vector-icons';
 import React from 'react';
 import styles from '../styles/styles.js';
 import { useDispatch, useStore, connect } from 'react-redux';
+import QRCode from 'react-native-qrcode-generator';
 import {
   SafeAreaView,
   View,
@@ -54,7 +55,7 @@ const Cart = () => {
         </Text>
  
         <AntDesign //MaterialIcons  
-              name= "delete" color = "#000000" size={22}  onPress={() => handleRemove(item.V_ARTNO,'REMOVE')}
+              name= "delete" color = "#000000" size={22}  onPress={() => cartAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM)}
               />
         </View>
         
@@ -109,7 +110,7 @@ const Cart = () => {
       msg,
       [
         {
-          text: "OK",
+          text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
@@ -150,12 +151,33 @@ const Cart = () => {
         <ScrollView >
 
             {dataSource.map(ItemView)}
-       
-         </ScrollView>
+
+          {/* generate QR for VPOS payment  */}
+            <View style={{alignSelf:'center', padding:20}}>
+                <QRCode
+                  value={cartStr(dataSource)}
+                  size={300}
+                  bgColor='black'
+                  fgColor='white'/>
+                  <Text style={{alignSelf:'center'}}>Payment QR</Text>
+            </View>
+
+        </ScrollView>
+
       </View>
     </SafeAreaView>
   );
 };
+
+function cartStr (obj){
+  let str = '[';
+  obj.forEach(i => {
+    str += "{_art:" + i.V_ARTNO + ", _qty:" + i.Qty + "},";
+  });
+  str += ']';
+  //console.log(str);
+  return (str);
+}
 
 function mapStateToProps(state) {
   return { 
