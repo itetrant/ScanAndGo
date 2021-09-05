@@ -1,13 +1,12 @@
 import {MaterialIcons} from 'react-native-vector-icons';
 import React, {useState, useEffect} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,connect } from 'react-redux';
 import styles from '../styles/styles.js';
 
 import {
   SafeAreaView,
   View,
   ScrollView,
-  StyleSheet,
   Text,
   RefreshControl,
   Alert
@@ -17,7 +16,7 @@ const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-const TopSales = () => {
+const TopSales = (state) => {
   const [dataSource, setDataSource] = useState([]);
   //const [newDataSource, setNewDataSource] = useState([]);
   const [page, setPage] = useState(1);
@@ -36,19 +35,20 @@ const TopSales = () => {
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
     setPage(page + 1);
-    setDataSource([]); //clear old data
-    getData(page); 
-    wait(8000).then(() => setRefreshing(false));
+    //setDataSource([]);
+    //getData(page,state.myValue); 
+    //wait(8000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   useEffect(() => {
-    getData(page);
-  }, []);
+    getData(page,state.myValue);
+    // setPage(page+1);
+  }, [state.myValue,page]);
 
-  const getData = (p) => {
+  const getData = (p,site) => {
     //Service to get the data from the server to render
-    console.log('Load page:', p);
-    const url = 'http://172.26.24.150:8082/Articles?size=10&page=' + p;
+    console.log('Load page:', p, ', site=', site);
+    const url = 'http://172.26.24.150:8082/TopSales?page=' + p + '&site=' + site;
     fetch(url,{
       mode: 'uat', 
       headers: {
@@ -164,4 +164,10 @@ const TopSales = () => {
   );
 };
 
-export default TopSales;
+function mapStateToProps(state) {
+  return { 
+      myValue: state.site,
+      // myHighlight: state.highlight 
+  };
+}
+export default connect(mapStateToProps)(TopSales);

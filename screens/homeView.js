@@ -9,10 +9,12 @@ export default function HomeScreen({navigation}) {
 
     const images = [
   
-      require('../assets/song-khoe.jpg'),
+      //require('../assets/song-khoe.jpg'),
+      "https://storage.googleapis.com/mm-online-bucket/ecommerce-website/uploads/2020/06/banner-tuoi-sach-an-toan-tu-nong-trai-den-ban-an.jpg",
       require('../assets/mcard.jpg'),
-      require('../assets/Momo.jpg'),
-      // require('./assets/tap-hoa.jpg'),
+      //require('../assets/Momo.jpg'),
+      "https://storage.googleapis.com/mm-online-bucket/ecommerce-website/uploads/2020/06/banner-nang-luong-moi-he-phoi-phoi.jpg",
+      "https://storage.googleapis.com/mm-online-bucket/ecommerce-website/uploads/2020/05/banner-flashsale-blue.jpg",
   
     ];
   const handleImgOnPress = (idx) => {
@@ -29,6 +31,10 @@ export default function HomeScreen({navigation}) {
         //Linking.openURL('https://mmvietnam.com');
         navigation.navigate("MyWebComponent", { url:'https://mmvietnam.com'});
         break;
+      case 3:
+        //Linking.openURL('https://online.mmvietnam.com');
+        navigation.navigate("MyWebComponent", { url:'https://online.mmvietnam.com'});
+        break;        
     }
 
   }
@@ -42,10 +48,12 @@ export default function HomeScreen({navigation}) {
           <SliderBox images={images} 
           autoplay = {true}
           circleLoop = {true}
-          sliderBoxHeight={268}
+          sliderBoxHeight={125}
           dotColor="#FF0000"
           inactiveDotColor="#90A4AE"
           onCurrentImagePressed={index => handleImgOnPress(index)}
+          resizeMethod={'resize'}
+          //resizeMode={'contain'}
           />    
 
        <Text style={styles.title_text}>Top sales</Text>

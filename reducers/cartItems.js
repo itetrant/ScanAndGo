@@ -58,6 +58,17 @@ const cartItems = (state={site:10010,TotItem:0,TotQty:0,TotAmount:0,
                         TotAmount:0,
                         items: [],
                     }    
+                case 'SITE':
+                    // console.log(state.TotItem > 0? state.TotItem - 1 : 0);
+                    
+                    return {
+                        ...state,
+                        site:action.site,
+                        TotItem: 0,
+                        TotQty: 0,
+                        TotAmount:0,
+                        items: [],
+                    }                       
                 default: return state         
             }           
 }
