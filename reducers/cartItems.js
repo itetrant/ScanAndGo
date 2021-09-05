@@ -1,5 +1,10 @@
 
-const cartItems = (state={site:10010,TotItem:0,TotQty:0,TotAmount:0,
+const cartItems = (state={
+    site:10010,
+    barcode:'',
+    TotItem:0,
+    TotQty:0,
+    TotAmount:0,
     items:[]
     },
         action) => {
@@ -68,7 +73,14 @@ const cartItems = (state={site:10010,TotItem:0,TotQty:0,TotAmount:0,
                         TotQty: 0,
                         TotAmount:0,
                         items: [],
-                    }                       
+                    }   
+                case 'SCANNED':
+                    // console.log(state.TotItem > 0? state.TotItem - 1 : 0);
+                    
+                    return {
+                        ...state,
+                        barcode:action.ean !=='undefined'?action.ean:state.barcode,
+                    }                                              
                 default: return state         
             }           
 }

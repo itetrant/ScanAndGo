@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, ImageBackground , SafeAreaView} from 'react-native';
+import { View, Text, ImageBackground , SafeAreaView} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch, connect } from 'react-redux';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
 
-const Location = (state) => {
+const Location = () => {
 
   const dispatch = useDispatch();
   function handleChange (_act,_site){
@@ -60,7 +60,7 @@ const Location = (state) => {
                       defaultValue={storelist[0]}               
                       renderRightComponent={()=>(<Ionicons name="location-outline" size={26} />)}
                       style={{alignItems:'center', flex:1}}
-                      textStyle={{fontWeight:'bold',fontSize:20, alignItems:'center',color:'blue'}}
+                      textStyle={{fontWeight:'bold',fontSize:20, alignItems:'center',color:'#0272ba'}}
                       dropdownStyle={{height:'50%',alignItems:'center' }}
                       dropdownTextStyle={{fontSize:20, textAlign:'center'}}
                       isFullWidth={true}

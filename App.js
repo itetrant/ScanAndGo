@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {Ionicons} from 'react-native-vector-icons';
 import Cart from './screens/cart';
@@ -18,11 +18,18 @@ const store = createStore(CartItems);
 // End test
 
 const Tab = createMaterialBottomTabNavigator();
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#0272ba',
+  },
+};
 
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <Tab.Navigator>
           <Tab.Screen name="Home" component={Home} 
           options={{

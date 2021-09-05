@@ -1,12 +1,13 @@
 import {Ionicons} from 'react-native-vector-icons';
-import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, TextInput, Button, ScrollView, Text } from 'react-native';
 import Product from './product';
 import { useFocusEffect } from '@react-navigation/native';
+import { connect,useStore,useDispatch } from 'react-redux';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
 
-const PriceChecker = ({ navigation, route }) => {
+const PriceChecker = ({ navigation, route},state) => {
 
  const [text,setText] = useState('');
  const [id,setId] = useState('');
@@ -20,37 +21,40 @@ const PriceChecker = ({ navigation, route }) => {
  const [Scanned,setScanned] = useState('');
  const [clear,setClear] = useState(true);
 
- useFocusEffect(
+ const store = useStore();
+ const site = store.getState().site;
+ const bar = store.getState().barcode;
+ const dispatch = useDispatch();
+ function handleChange (_act,_ean){
+       dispatch({ type: _act, ean:_ean})
+     }  
 
-  React.useCallback(() => {
+//  useFocusEffect(
 
-    // Do something when the screen is focused
+//   React.useCallback(() => {
 
-      if (route.params && route.params.BarCode !== Scanned && clear) {
-        setScanned(route.params?.BarCode??''); 
-        setText(route.params?.BarCode??'');
-        searchArticlebyEan(route.params?.BarCode??Scanned);
-        //alert(route.params?.BarCode??'');
-      }
-     return () => {
-       // Do something when the screen is unfocused
-       //SetClear(false);
-     };
-  }, [{navigation, route}])
-);
+//     // Do something when the screen is focused
 
-
-// useEffect(()=>{
-
-//   if (clear && Scanned) {  
-//   searchArticlebyEan(Scanned);
-//   }
-//   return () => {
-//     // Do something to prevent memory leak;
-//     setClear(false)
+//       if (route.params && route.params.BarCode !== Scanned && clear) {
+//         setScanned(route.params?.BarCode??''); 
+//         setText(route.params?.BarCode??'');
+//         //searchArticlebyEan(route.params?.BarCode??Scanned,site?site:10010);
+//         searchArticlebyEan(bar,site?site:10010);
+//         //alert(route.params?.BarCode??'');
+//       }
+//      return () => {
+//        // Do something when the screen is unfocused
+//        //SetClear(false);
 //      };
-// }, [{navigation, route}]
+//   }, [{navigation, route}])
 // );
+
+useEffect(() => {
+  setText(bar);
+  searchArticlebyEan(bar,site);
+}, [bar]);
+
+
 const inputText = (text) => {
   if (text == '') {clearText();}
   setText(text);
@@ -68,16 +72,14 @@ const gotoSanner = (_stats) => {
   navigation.navigate('Scanner');
 
 }
-const searchArticlebyEan = (text) =>{
+const searchArticlebyEan = (ean,site) =>{
 
-    console.log("Searching :" + text);
+    console.log("Searching EAN:" + ean + " at store:" + site );
      
-    if (!isNaN(text) && text !== '') {
-
-    setScanned(text);
-
-    //const url = 'http://192.168.1.11:8082/Article?id=' + text;
-    const url = 'http://172.26.24.150:8082/Article?id=' + text;
+    if (!isNaN(ean) && ean !== '') {
+    setScanned(ean);
+      //const url = 'http://192.168.1.11:8082/Article?id=' + ean;
+    const url = 'http://172.26.24.150:8082/Article?id=' + ean + '&site=' + site;
     fetch(url,{
       mode: 'uat', 
       headers: {
@@ -119,7 +121,7 @@ return (
         <View style={styles.headerContainer}>
                 <View style={styles.inputContainer}>
                 <Ionicons name="search-outline" size={32} color = {(text?"#2592E5":"#e8e8e8")}
-                onPress={() => searchArticlebyEan(text)}/>
+                onPress={() => handleChange('SCANNED',text)}/>
 
                 <TextInput
                     multiline={false}
@@ -128,7 +130,7 @@ return (
                     underlineColorAndroid="transparent"
                     placeholder="Type a barcode or tab to scan"
                     style={{fontSize: 18, marginLeft:16}}
-                    onSubmitEditing={() => searchArticlebyEan(text)}
+                    onSubmitEditing={() => handleChange('SCANNED',text)}
                     blurOnSubmit={true}
                 />
 
@@ -157,13 +159,25 @@ return (
                 unit={unit}                                                   
         />
         {/* End product information */}
-        {/* <View style={{paddingTop:20}}>
-        <Button title ="SCAN NEXT ITEM" 
-               // color = "red"
+        <View style={{paddingTop:30, width:'50%',height:'100%',alignSelf:'center' }}>
+            <Button title ="SCAN NEXT"  // color = "red"
                 onPress={() => gotoSanner(true)}/>
+        </View>
+
+        {/* <View style={{paddingTop:20}}>
+          <Text> {bar} {site}</Text>
         </View> */}
+        
     </ScrollView>
     );
 }
 
-export default PriceChecker;
+function mapStateToProps(state) {
+  return { 
+      site: state.site,
+      bar: state.barcode, 
+  };
+}
+export default connect(mapStateToProps)(PriceChecker);
+
+//export default PriceChecker;

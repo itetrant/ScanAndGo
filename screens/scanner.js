@@ -2,11 +2,16 @@ import React, {useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import BarcodeMask from 'react-native-barcode-mask';
+import { useDispatch } from 'react-redux';
 const Scanner = ({ navigation }) => {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text,setText] = useState('Move the camera to barcode');
+  const dispatch = useDispatch();
+  function handleChange (_act,_ean){
+        dispatch({ type: _act, ean:_ean})
+      }  
 
   const askForCameraPermission = () => {
 	  (async () => {
@@ -21,15 +26,13 @@ const Scanner = ({ navigation }) => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    //setScanned(false);
-    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-	  setText(data);
-    console.log('Type: ' + type + '\nData: ' + data);
-    //navigation.navigate('Scan', { BarCode:data}); //Tab
-    //Stack
-     navigation.navigate('Scan a product', { BarCode:data});
-    setScanned(false);
 
+    setText(data);
+    // console.log('Type: ' + type + '\nData: ' + data);
+
+    handleChange('SCANNED', data);
+    navigation.navigate('Scan a product', { BarCode:data});
+    setScanned(false);
   };
   
 //check permission

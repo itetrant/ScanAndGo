@@ -7,10 +7,10 @@ import {
   SafeAreaView,
   View,
   ScrollView,
-  StyleSheet,
   Text,
   Button,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
 import TopBar from './topBar';
 const Cart = () => {
@@ -25,7 +25,7 @@ const Cart = () => {
   function handleRemove (item, act){
         dispatch({ id: item, type: act})
       }  
-
+  const { width, height } = Dimensions.get("window");
   function handleOrder (_id,_name,_price,_unit, _qty, act){
       if (_id !== 'undefined' && _id !=='') {
         dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty ,type: act});
@@ -62,23 +62,23 @@ const Cart = () => {
         <View style={styles.itemSeparatorStyle}/>
 
         <View style={styles.itemLineDetail}>
-          <Text>
-            Quantity:  
-          </Text>  
-  
-           <Button title="  -  " onPress={() => (item.Qty>1?handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'DOWN'):null)}/>          
-           <Text>
-            {item.Qty} 
-          </Text>  
-           <Button title="  +  " onPress={() => handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'UP')}/>
-           
-           <Text
-            //style={styles.itemLine}
-            onPress={() => getItem(item)}>
-           {item.V_MMUN_UNIT}   
-          </Text> 
-{/* Spaces */}
-         <Text style={{paddingRight:'30%'}}></Text>   
+            <Text>
+              Quantity:  
+            </Text>  
+    
+            <Button title="  -  " onPress={() => (item.Qty>1?handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'DOWN'):null)}/>          
+            <Text>
+              {item.Qty} 
+            </Text>  
+            <Button title="  +  " onPress={() => handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'UP')}/>
+            
+            <Text
+              //style={styles.itemLine}
+              onPress={() => getItem(item)}>
+            {item.V_MMUN_UNIT}   
+            </Text> 
+        {/* Spaces */}
+            <Text style={{paddingRight:'30%'}}></Text>   
         </View>
         <View style={styles.itemSeparatorStyle}/>
         <View style={styles.itemLineDetail} >
@@ -94,7 +94,6 @@ const Cart = () => {
                  Amt: {item.Amt}
             </Text>
 
-            
         </View>   
 
       </View>
@@ -148,20 +147,30 @@ const Cart = () => {
         </View>
         <View style={styles.itemSeparatorStyle}/>
 
-        <ScrollView >
+        <ScrollView 
+          maximumZoomScale={3}
+          minimumZoomScale={0.5}
+          zoomScale={1}
+          bouncesZoom={true}
+        >
 
             {dataSource.map(ItemView)}
 
           {/* generate QR for VPOS payment  */}
-            <View style={{alignSelf:'center', padding:20}}>
+            <View style={{alignSelf:'center', paddingTop:20}}>
                 <QRCode
                   value={cartStr(dataSource)}
-                  size={300}
+                  size={width*3/5}
                   bgColor='black'
                   fgColor='white'/>
-                  <Text style={{alignSelf:'center'}}>Payment QR</Text>
+                  <Text style={{alignSelf:'center'}}>Show QR to cashier for payment</Text>
+                  <Text style={{alignSelf:'center'}}>Or</Text>
             </View>
-
+          
+          <View style={{marginBottom:20, width:width*3/5, alignSelf:'center'}}>
+            <Button title="Order & Go"></Button>
+            <Text style={{alignSelf:'center'}}>We will deliver to your home</Text>
+          </View>
         </ScrollView>
 
       </View>
@@ -170,12 +179,14 @@ const Cart = () => {
 };
 
 function cartStr (obj){
-  let str = '[';
+  //let str = '[';
+  let str = '';
   obj.forEach(i => {
-    str += "{_art:" + i.V_ARTNO + ", _qty:" + i.Qty + "},";
+    //str += '{"art":'+i.V_ARTNO + ',"qty":' + i.Qty + "},";
+    str += i.V_ARTNO + '|' + i.Qty + "\n";
   });
-  str += ']';
-  //console.log(str);
+  //str += ']';
+  console.log(str);
   return (str);
 }
 
