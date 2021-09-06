@@ -118,8 +118,20 @@ cartcontainer: {
    margin: 2,
    padding:2,
    alignItems:'center',
-   //backgroundColor: '#fbfbfa',
+   fontSize:16,
+   color: '#000000',
  },
+ itemLineDetailLeft: {
+  flexDirection: 'row',
+},
+itemLineDetailLeftText: {
+  margin: 2,
+  padding:2,
+  fontSize:16,
+  fontWeight:'bold',
+  color: '#000000',
+  //color: '#2592E5',
+},
  itemContainer: {
    marginTop: 10,
    margin: 5,

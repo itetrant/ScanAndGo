@@ -35,24 +35,37 @@ const Product = (props) => {
                             style={{width:'100%',height:'100%'}}
                             />
                         </View>
-                        <Text style={styles.itemStyle}> Article Number: {props.id}</Text>
-                        <Text style={styles.itemStyle}> Article Description: {props.name}</Text>
-                        <Text style={styles.itemStyle}> Referent price: {props.price}</Text>
-                        <Text style={styles.itemStyle}> VAT Rate: {props.vat}</Text>
-                        {/* <Text style={styles.itemStyle}> Supplier: {props.suppCode}</Text>
-                        <Text style={styles.itemStyle}> Supplier Name: {props.suppName}</Text> */}
-                        <Text style={styles.itemStyle}> MMUN: {props.mmun}</Text>
-                        <Text style={styles.itemStyle}> UNIT: {props.unit}</Text>
-                        {/*<Text style={styles.itemStyle}> Qty: {qty}</Text> */}
-                        <View style={styles.button}>
-                            <Text> Order Qty:</Text>
+                        <Text style={styles.itemLineDetail}> Article No: {props.id}</Text>
+                        <View style={styles.itemSeparatorStyle}/>
+                        <View style={styles.itemLineDetailLeft}>
+                            <Text style={styles.itemLineDetail}> Name: </Text>
+                            <Text style={styles.itemLineDetailLeftText}> {props.name}</Text>
+                        </View>
+                        <View style={styles.itemSeparatorStyle}/>
+                        <View style={styles.itemLineDetailLeft}>
+                            <Text style={styles.itemLineDetail}> Referent price: </Text>
+                            <Text style={styles.itemLineDetailLeftText}> {props.price} </Text>
+                        </View>
+
+                        <View style={styles.itemSeparatorStyle}/>
+                        <Text style={styles.itemLineDetail}> VAT%: {props.vat}</Text>
+                        <View style={styles.itemSeparatorStyle}/>
+                        {/* <Text style={styles.itemLineDetail}> Supplier: {props.suppCode}</Text>
+                        <Text style={styles.itemLineDetail}> Supplier Name: {props.suppName}</Text> */}
+                        <Text style={styles.itemLineDetail}> MMUN: {props.mmun}</Text>
+                        <View style={styles.itemSeparatorStyle}/>
+                        <Text style={styles.itemLineDetail}> UNIT: {props.unit}</Text>
+                        <View style={styles.itemSeparatorStyle}/>
+                        {/*<Text style={styles.itemLineDetail}> Qty: {qty}</Text> */}
+                        <View style={styles.itemLineDetail}>
+                            <Text style={styles.itemLineDetail}> Quantity:</Text>
                             <Button  /*color="#ff5c5c" */title="  -  " onPress={()=>Minus()}/>
                             <Text> {qty} </Text>
                             <Button title="  +  " onPress={()=>Plus()}/>
                             <Button title="Add to cart" onPress={()=>Order(props.id?props.id:'',props.name,props.price,props.unit, qty,'UP')}/>
                             {/* <Button title ="SCAN NEXT" onPress={() =>navigation.navigate('Scanner')}/> */}
                         </View>
-
+                        <View style={styles.itemSeparatorStyle}/>
                 </View>
             );
         // }        

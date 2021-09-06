@@ -2,12 +2,12 @@ import {Ionicons} from 'react-native-vector-icons';
 import React, { useState,useEffect } from 'react';
 import { View, TextInput, Button, ScrollView, Text } from 'react-native';
 import Product from './product';
-import { useFocusEffect } from '@react-navigation/native';
+// import { useFocusEffect } from '@react-navigation/native';
 import { connect,useStore,useDispatch } from 'react-redux';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
 
-const PriceChecker = ({ navigation, route},state) => {
+const PriceChecker = ({ navigation}) => {
 
  const [text,setText] = useState('');
  const [id,setId] = useState('');
@@ -18,8 +18,8 @@ const PriceChecker = ({ navigation, route},state) => {
  const [suppName,setSuppName] = useState('');
  const [mmun,setMmun] = useState('');
  const [unit,setUnit] = useState('');
- const [Scanned,setScanned] = useState('');
- const [clear,setClear] = useState(true);
+//  const [Scanned,setScanned] = useState('');
+//  const [clear,setClear] = useState(true);
 
  const store = useStore();
  const site = store.getState().site;
@@ -62,12 +62,12 @@ const inputText = (text) => {
 
 const clearText = () => {
   setText('');
-  setScanned('');
-  setClear(false);
+  //setScanned('');
+  //setClear(false);
 }
 
 const gotoSanner = (_stats) => {
-  setClear(_stats);
+  //setClear(_stats);
  // navigation.navigate('Go');
   navigation.navigate('Scanner');
 
@@ -77,7 +77,7 @@ const searchArticlebyEan = (ean,site) =>{
     console.log("Searching EAN:" + ean + " at store:" + site );
      
     if (!isNaN(ean) && ean !== '') {
-    setScanned(ean);
+    //setScanned(ean);
       //const url = 'http://192.168.1.11:8082/Article?id=' + ean;
     const url = 'http://172.26.24.150:8082/Article?id=' + ean + '&site=' + site;
     fetch(url,{
@@ -159,15 +159,13 @@ return (
                 unit={unit}                                                   
         />
         {/* End product information */}
-        <View style={{paddingTop:30, width:'50%',height:'100%',alignSelf:'center' }}>
+        {/* <View style={{paddingTop:30, width:'50%',height:'100%',alignSelf:'center' }}>
             <Button title ="SCAN NEXT"  // color = "red"
                 onPress={() => gotoSanner(true)}/>
-        </View>
-
-        {/* <View style={{paddingTop:20}}>
-          <Text> {bar} {site}</Text>
         </View> */}
-        
+        <View style={{paddingTop:30, alignSelf:'center' }}>
+            <Ionicons name= "camera-sharp" size={(text?100:0)} color = {(text?"#2592E5":"#e8e8e8")} onPress={() => gotoSanner(true)}/>
+        </View>
     </ScrollView>
     );
 }
@@ -180,4 +178,4 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps)(PriceChecker);
 
-//export default PriceChecker;
+// export default PriceChecker;
