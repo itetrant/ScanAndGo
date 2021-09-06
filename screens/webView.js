@@ -28,13 +28,13 @@ const MyWebComponent = ({ navigation,route }) => {
     return ( 
         <View style = {{flex:1, paddingTop:30}}>
             <View style={styles.itemLineHead}>
-                <Text onPress={()=>backButtonHandler()}> 
+                <Text onPress={()=>backButtonHandler()} style={{marginBottom:5,marginTop:5,fontSize:16}}> 
                     {'< Back '} 
                 </Text> 
-                <Text> 
+                <Text style={{marginBottom:5,marginTop:5}}> 
                     {route.params.url}
                 </Text>
-                <Text  onPress={()=> navigation.goBack()}>
+                <Text  onPress={()=> navigation.goBack()} style={{marginBottom:5,marginTop:5,fontSize:18}}>
                     {' X '}
                 </Text>
             </View>

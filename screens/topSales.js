@@ -1,5 +1,5 @@
 import {MaterialIcons} from 'react-native-vector-icons';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch,connect } from 'react-redux';
 import styles from '../styles/styles.js';
 
@@ -18,10 +18,10 @@ const wait = (timeout) => {
 
 const TopSales = (state) => {
   const [dataSource, setDataSource] = useState([]);
-  //const [newDataSource, setNewDataSource] = useState([]);
+  // const [newDataSource, setNewDataSource] = useState([]);
   const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
-  // const [ref, setRef] = useState(null);
+  const scrollViewRef = useRef();
 
   const dispatch = useDispatch();
   function handleButton (_id,_name,_price,_unit, _qty, act){
@@ -37,13 +37,14 @@ const TopSales = (state) => {
     setPage(page + 1);
     //setDataSource([]);
     //getData(page,state.myValue); 
-    wait(5000).then(() => setRefreshing(false));
+    wait(8000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   useEffect(() => {
+
     getData(page,state.myValue);
     // setPage(page+1);
-  }, [state.myValue,page]);
+  }, [page]);
 
   const getData = (p,site) => {
     //Service to get the data from the server to render
@@ -57,7 +58,11 @@ const TopSales = (state) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        setDataSource(responseJson);
+        
+          let mergedObj = [...dataSource,...responseJson];
+          setDataSource(mergedObj);
+   
+        //console.log(mergedObj);
         setRefreshing(false);
       })
       .catch((error) => {
@@ -83,7 +88,7 @@ const TopSales = (state) => {
         <Text
           style={styles.itemLine}
           onPress={() => getItem(item)}>
-           Top {item.V_ROW}: {item.V_ARTNO} - {item.V_ALIBL}
+           Top {item.V_ROW}:    {item.V_ARTNO} - {item.V_ALIBL}
         </Text>
 
         <View style={styles.itemLineIcon} >
@@ -142,10 +147,16 @@ const TopSales = (state) => {
     //     "V_ROW": 1
   };
 
+  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom;
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
 
-      <View style={styles.container}>
+      <View>
     
         {/* List Item as a function */}
         <ScrollView
@@ -153,9 +164,11 @@ const TopSales = (state) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}/>}
-            // ref={(ref) => {
-            // setRef(ref);
-            // }}
+            // ref={scrollViewRef}
+            // onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+            onScroll={({nativeEvent}) => {
+              if (isCloseToBottom(nativeEvent)) {  setPage(page + 1); setRefreshing(true);}
+            }}
           >
             {dataSource.map(ItemView)}
         </ScrollView>

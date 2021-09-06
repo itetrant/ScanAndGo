@@ -17,6 +17,7 @@ title_text: {
 itemLine: {
     margin: 5,
     lineHeight:40,
+    fontWeight:'bold',
     color:'#2592E5',
     //textAlign:'center'
   },
