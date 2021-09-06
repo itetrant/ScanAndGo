@@ -21,7 +21,7 @@ const TopSales = (state) => {
   // const [newDataSource, setNewDataSource] = useState([]);
   const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
-  const scrollViewRef = useRef();
+  // const scrollViewRef = useRef();
 
   const dispatch = useDispatch();
   function handleButton (_id,_name,_price,_unit, _qty, act){
@@ -37,7 +37,7 @@ const TopSales = (state) => {
     setPage(page + 1);
     //setDataSource([]);
     //getData(page,state.myValue); 
-    wait(8000).then(() => setRefreshing(false));
+    wait(10000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   useEffect(() => {
@@ -170,6 +170,7 @@ const TopSales = (state) => {
               if (isCloseToBottom(nativeEvent)) {  setPage(page + 1); setRefreshing(true);}
             }}
           >
+            {/* <Text> TEST HERE OK!!!!</Text> */}
             {dataSource.map(ItemView)}
         </ScrollView>
       </View>

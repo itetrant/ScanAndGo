@@ -5,16 +5,17 @@ import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch, connect } from 'react-redux';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
-
+import Config from 'react-native-config';
 const Location = () => {
 
   const dispatch = useDispatch();
   function handleChange (_act,_site){
   
       dispatch({ type: _act, site:_site.substring(0,5)})
-  
+      console.log(Config.STORE_LIST);
     }  
-    const storelist = [
+    const storelist = //Config.STORE_LIST;
+    [
       '10010-MM AN PHU',
       '10011-MM BINH PHU',
       '10012-MM HIEP PHU',

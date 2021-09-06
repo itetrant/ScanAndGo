@@ -52,7 +52,7 @@ itemLine: {
       fontSize:16,
     },
     img: {
-        height: 150,
+        height: 160,
         width:'100%',
         backgroundColor: '#e4e6eb',
         margin:0,

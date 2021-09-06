@@ -142,10 +142,6 @@ return (
                 
         </View>
 
-        {/* <Image
-            source={{ uri: 'https://storage.googleapis.com/mm-online-bucket/ecommerce-website/uploads/media/mail2117.jpg' }}
-            style={{ width: '100%', height: 222 }}
-        /> */}
         {/* <Text> {Scanned} </Text> */}
     {/* Product information */}
         <Product text={text} 
