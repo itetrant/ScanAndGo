@@ -35,7 +35,7 @@ const MyWebComponent = ({ navigation,route }) => {
                     {'< Back '} 
                 </Text> 
                 <Text style={{marginBottom:5,marginTop:5}}> 
-                    {route.params.url.substring(0,35)}
+                    {route.params?.url?route.params.url.substring(0,35):'https://'}
                 </Text>
                 <Text  onPress={()=> navigation.goBack()} style={{marginBottom:5,marginTop:5,fontSize:18}}>
                     {' X '}

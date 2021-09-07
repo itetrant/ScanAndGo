@@ -12,15 +12,16 @@ import {
   Alert
 } from 'react-native';
 
-// const wait = (timeout) => {
-//   return new Promise(resolve => setTimeout(resolve, timeout));
-// }
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const TopSales = (state) => {
   const [dataSource, setDataSource] = useState([]);
   // const [newDataSource, setNewDataSource] = useState([]);
   const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
+  const size = 8;
   // const scrollViewRef = useRef();
 
   const dispatch = useDispatch();
@@ -32,22 +33,27 @@ const TopSales = (state) => {
       }  
 
   const [refreshing, setRefreshing] = React.useState(true);
+
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    setPage(page + 1);
-    // wait(10000).then(() => setRefreshing(false));
+    if (dataSource.length > 0) {
+      setPage(page + 1);
+    } else {
+      getData(page,state.myValue);
+    }
+   
+     //wait(10000).then(() => setRefreshing(false));
+
   }, [refreshing]);
 
   useEffect(() => {
-
     getData(page,state.myValue);
-    // setPage(page+1);
   }, [page]);
 
   const getData = (p,site) => {
     //Service to get the data from the server to render
     console.log('Load page:', p, ', site=', site);
-    const url = 'http://172.26.24.150:8082/TopSales?page=' + p + '&site=' + site;
+    const url = 'http://172.26.24.150:8082/TopSales?page=' + p + '&site=' + site + '&size=' + size;
     fetch(url,{
       mode: 'uat', 
       headers: {
@@ -169,8 +175,10 @@ const TopSales = (state) => {
             }}
           >
             {dataSource.length>0?dataSource.map(ItemView):
-              <View>
-                <Text style={{alignSelf:'center'}}>Please check network then pull up to refresh</Text>
+              <View style={styles.itemContainer}> 
+                <Text style={{alignSelf:'center', fontSize:16}} onPress={()=> getData(page,state.myValue)}>
+                  Please check vpn/wifi then tab to refresh
+                </Text>
               </View>
             }
             {/* {dataSource.map(ItemView)} */}
