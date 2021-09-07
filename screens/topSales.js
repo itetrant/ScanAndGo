@@ -12,9 +12,9 @@ import {
   Alert
 } from 'react-native';
 
-const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
+// const wait = (timeout) => {
+//   return new Promise(resolve => setTimeout(resolve, timeout));
+// }
 
 const TopSales = (state) => {
   const [dataSource, setDataSource] = useState([]);
@@ -35,9 +35,7 @@ const TopSales = (state) => {
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
     setPage(page + 1);
-    //setDataSource([]);
-    //getData(page,state.myValue); 
-    wait(10000).then(() => setRefreshing(false));
+    // wait(10000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   useEffect(() => {
@@ -170,8 +168,12 @@ const TopSales = (state) => {
               if (isCloseToBottom(nativeEvent)) {  setPage(page + 1); setRefreshing(true);}
             }}
           >
-            {/* <Text> TEST HERE OK!!!!</Text> */}
-            {dataSource.map(ItemView)}
+            {dataSource.length>0?dataSource.map(ItemView):
+              <View>
+                <Text style={{alignSelf:'center'}}>Please check network then pull up to refresh</Text>
+              </View>
+            }
+            {/* {dataSource.map(ItemView)} */}
         </ScrollView>
       </View>
     </SafeAreaView>

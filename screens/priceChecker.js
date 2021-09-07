@@ -18,6 +18,7 @@ const PriceChecker = ({ navigation}) => {
  const [suppName,setSuppName] = useState('');
  const [mmun,setMmun] = useState('');
  const [unit,setUnit] = useState('');
+ const [imgurl,setImgurl] = useState('');
 //  const [Scanned,setScanned] = useState('');
 //  const [clear,setClear] = useState(true);
 
@@ -97,6 +98,7 @@ const searchArticlebyEan = (ean,site) =>{
             setSuppName(responseData[0].V_FIBL);
             setMmun(responseData[0].V_MMUN_WEIGHT);
             setUnit(responseData[0].V_MMUN_UNIT);
+            setImgurl(responseData[0].IMGURL);
             console.log("Result=" + responseData[0].V_ARTNO);
 
         } catch(err) {
@@ -152,7 +154,8 @@ return (
                 suppCode={suppCode} 
                 suppName={suppName}      
                 mmun={mmun}   
-                unit={unit}                                                   
+                unit={unit} 
+                imgurl={imgurl}                                                  
         />
         {/* End product information */}
         {/* <View style={{paddingTop:30, width:'50%',height:'100%',alignSelf:'center' }}>

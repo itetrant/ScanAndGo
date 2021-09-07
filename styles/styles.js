@@ -52,12 +52,13 @@ itemLine: {
       fontSize:16,
     },
     img: {
-        height: 160,
+        height:268,
         width:'100%',
         backgroundColor: '#e4e6eb',
-        margin:0,
+        marginBottom:10,
         borderRadius:0,
-    
+        alignSelf:'center',
+        padding:0,
       },
 
       button: {

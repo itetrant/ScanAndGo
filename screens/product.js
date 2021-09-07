@@ -31,8 +31,9 @@ const Product = (props) => {
             <View>
                        <View style={styles.img}>
                             <Image
-                            source={require('../assets/tap-hoa.jpg')}
-                            style={{width:'100%',height:'100%'}}
+                            source= {{uri:props.imgurl?props.imgurl:'https://mmpro.vn/media/home-solution-01.jpeg'}}
+                            // {require('../assets/splash.png')}
+                            style={{width:props.imgurl?288:'100%',height:'100%',alignSelf:'center'}}
                             />
                         </View>
                         <Text style={styles.itemLineDetail}> Article No: {props.id}</Text>

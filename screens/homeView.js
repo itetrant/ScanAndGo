@@ -37,11 +37,12 @@ export default function HomeScreen({navigation}) {
 
           setImgs(imglink);
           setUrls(urllink);
-
-          console.log('----------------');
-          console.log(imgs);
-          console.log('----------------');
-          console.log(urls);
+          
+          // //for debug
+          // console.log('----------------');
+          // console.log(imgs);
+          // console.log('----------------');
+          // console.log(urls);
       })
        .catch(error => {
         console.log("Result=" + error);
@@ -49,16 +50,15 @@ export default function HomeScreen({navigation}) {
   }
 
   const images = [
-
-    "https://mmvietnam.com/wp-content/uploads/2021/08/mini-web-1024x764.jpg.webp",
-    "https://mmpro.vn/media/mageplaza/bannerslider/banner/image/b/a/banner_banh_trung_thu-01_1.jpg",
+  //place holder when network issue
     "https://storage.googleapis.com/mm-online-bucket/ecommerce-website/uploads/media/Banner-Combo-UF.jpg",
     //require('../assets/mcard.jpg'),
-
   ];
   const handleImgOnPress = (idx) => {
     
-    navigation.navigate("MyWebComponent", { url:urls[idx]});
+    navigation.navigate("MyWebComponent", { url:urls.length>0?urls[idx]:'https://mmvietnam.com'});
+
+    //for testing
     // switch (idx) {
     //   case 0:
     //     navigation.navigate("MyWebComponent", { url:'https://mmvietnam.com/an-pham-khuyen-mai/'});
@@ -84,10 +84,10 @@ export default function HomeScreen({navigation}) {
       <TopBar/>  
       <View style={{paddingTop:1}}>
           {/* <Text style={styles.title_text}></Text> */}
-          <SliderBox images={imgs} 
+          <SliderBox images={imgs.length>0?imgs:images} 
           autoplay = {true}
           circleLoop = {true}
-          sliderBoxHeight={160}
+          sliderBoxHeight={162}
           dotColor="#FF0000"
           inactiveDotColor="#90A4AE"
           onCurrentImagePressed={index => handleImgOnPress(index)}
