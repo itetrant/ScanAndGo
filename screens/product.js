@@ -3,11 +3,11 @@ import {View,Text,Image, Button} from 'react-native';
 //import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import styles from '../styles/styles.js';
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 
 const Product = (props) => {
     
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
     const [qty, setQty] = useState(1);
 
     function Plus(){
@@ -33,7 +33,7 @@ const Product = (props) => {
                             <Image
                             source= {{uri:props.imgurl?props.imgurl:'https://mmpro.vn/media/home-solution-01.jpeg'}}
                             // {require('../assets/splash.png')}
-                            style={{width:props.imgurl?288:'100%',height:'100%',alignSelf:'center'}}
+                            style={{width:'100%',height:'100%',alignSelf:'center'}}
                             />
                         </View>
                         <Text style={styles.itemLineDetail}> Article No: {props.id}</Text>

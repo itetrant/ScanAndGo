@@ -52,8 +52,8 @@ itemLine: {
       fontSize:16,
     },
     img: {
-        height:268,
-        width:'100%',
+        height:100,
+        width:100,
         backgroundColor: '#e4e6eb',
         marginBottom:10,
         borderRadius:0,

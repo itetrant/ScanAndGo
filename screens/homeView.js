@@ -5,12 +5,17 @@ import TopSales from './topSales';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 export default function HomeScreen({navigation}) {
   const [imgs, setImgs] = useState([]);
   const [urls, setUrls] = useState([]);
 
   useEffect(() => {
-    getBannerlist();
+    wait(8000).then(() => getBannerlist());
+    //getBannerlist(); // Need to load sale first then load banner ortherwise it closes connection;
   }, []);
 
   const getBannerlist=()=>{
@@ -82,6 +87,7 @@ export default function HomeScreen({navigation}) {
 
       {/* <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" style={styles.image}> */}
       <TopBar/>  
+
       <View style={{paddingTop:1}}>
           {/* <Text style={styles.title_text}></Text> */}
           <SliderBox images={imgs.length>0?imgs:images} 
