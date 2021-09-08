@@ -63,7 +63,7 @@ const cartItems = (state={
                         TotAmount:0,
                         items: [],
                     }    
-                case 'SITE':
+                case 'SWITCHSITE':
                     // console.log(state.TotItem > 0? state.TotItem - 1 : 0);
                     
                     return {

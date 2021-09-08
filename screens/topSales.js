@@ -10,7 +10,8 @@ import {
   Text,
   RefreshControl,
   Alert,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native';
 
 const wait = (timeout) => {
@@ -21,7 +22,7 @@ const TopSales = (state) => {
 
   const [dataSource, setDataSource] = useState([]);
   // const [newDataSource, setNewDataSource] = useState([]);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
   const size = 10;
   // const scrollViewRef = useRef();
@@ -39,26 +40,12 @@ const TopSales = (state) => {
   const onRefresh = () => {
     //React.useCallback(()
     setRefreshing(true);
-    getData((dataSource.length/size) + 1,state.myValue);
-    // if (dataSource.length === 0) {
-    //   getData(1,state.myValue);
-    // } else {
-    //   if (dataSource.length)
-    //   getData(page+1,state.myValue);
-    //   setPage(page+1);
-    // }
-   
-    //  wait(3000).then(() => setRefreshing(false));
-
+    getData((dataSource.length/size) + 1,state.mySite);
   } //, [refreshing]);
 
   useEffect(() => {
-
-    setDataSource([]);
-    // setPage(1);
-    getData((dataSource.length/size) + 1,state.myValue);
-    
-  }, [state.myValue]);
+    getData(1,state.mySite);
+  }, [state.mySite]);
 
   const getData = (p,site) => {
     //Service to get the data from the server to render
@@ -72,9 +59,11 @@ const TopSales = (state) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        
-          let mergedObj = [...dataSource,...responseJson];
+          if(p===1) {setDataSource(responseJson);}
+          else
+          {let mergedObj = [...dataSource,...responseJson];
           setDataSource(mergedObj);
+          }
         //console.log(mergedObj);
       })
       .catch((error) => {
@@ -98,29 +87,45 @@ const TopSales = (state) => {
 
         }}>
 
+            <View style={styles.TopItemImage}>
+              <Image source={{uri:item.IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png'}}
+                                          style={{width:'100%',height:'100%',alignSelf:'center', 
+                                          //resizeMode: 'stretch'
+                                          resizeMode: 'contain'
+                                          }}
+              />
+            </View>
+            
+            <View style={styles.itemDetailContainer}>
 
-        <Text
-          style={styles.itemLine}
-          onPress={() => getItem(item)}>
-           Top {item.V_ROW}:    {item.V_ARTNO} - {item.V_ALIBL}
-        </Text>
+                <View style={styles.itemName} >                                          
+                    <Text
+                      style={styles.itemName}
+                      onPress={() => getItem(item)}>
+                      Top {item.V_ROW}: {item.V_ALIBL}
+                    </Text>
+                </View>    
+                {/* line */}
+                <View style={styles.itemSeparatorStyle}/> 
 
-        <View style={styles.itemLineIcon} >
-        
-            <Text
-              onPress={() => getItem(item)}>
-              Price: {item.V_PRICE_PERM}
-            </Text>
+                <View style={styles.itemLineIcon} >
+                
+                    <Text
+                      onPress={() => getItem(item)}>
+                      Price: {item.V_PRICE_PERM}
+                    </Text>
 
-            <Text
-              //style={styles.itemLine}
-              onPress={() => getItem(item)}>
-              Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
-            </Text>
-            <MaterialIcons //MaterialIcons  
-              name= "add-shopping-cart" /*"keyboard-arrow-right" color = "#2592E5"*/ color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT)}/>
-        </View>   
-
+                    <Text
+                      //style={styles.itemLine}
+                      onPress={() => getItem(item)}>
+                      Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
+                    </Text>
+                    <MaterialIcons //MaterialIcons  
+                      name= "add-shopping-cart"  color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT)}/>
+                
+                </View>   
+                
+            </View>    
       </View>
     );
   };
@@ -184,15 +189,15 @@ const TopSales = (state) => {
               if (isCloseToBottom(nativeEvent)) {
                 
                 if (!refreshing) {
-                  getData((dataSource.length/size) + 1,state.myValue);
+                  getData((dataSource.length/size) + 1,state.mySite);
                   wait(3000);
                 }
               }
             }}
           >
             {dataSource.length>0?dataSource.map(ItemView):
-              <View style={{height:height/2,width:width}} onPress={()=> getData((dataSource.length/size)+1,state.myValue)}>
-                <Text style={{alignSelf:'center', fontSize:16, height:height/2,textAlignVertical:'center'}} onPress={()=> getData((dataSource.length/size)+1,state.myValue)}>
+              <View style={{height:height/2,width:width}} onPress={()=> getData((dataSource.length/size)+1,state.mySite)}>
+                <Text style={{alignSelf:'center', fontSize:16, height:height/2,textAlignVertical:'center'}} onPress={()=> getData((dataSource.length/size)+1,state.mySite)}>
                   LOADING...
                 </Text>
               </View>
@@ -206,8 +211,8 @@ const TopSales = (state) => {
 
 function mapStateToProps(state) {
   return { 
-      myValue: state.site,
-      // myHighlight: state.highlight 
+      mySite: state.site,
+      // mytheme: state.theme
   };
 }
 export default connect(mapStateToProps)(TopSales);

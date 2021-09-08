@@ -5,14 +5,14 @@ import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch, connect } from 'react-redux';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
-import Config from 'react-native-config';
+// import Config from 'react-native-config';
 const Location = () => {
 
   const dispatch = useDispatch();
   function handleChange (_act,_site){
   
       dispatch({ type: _act, site:_site.substring(0,5)})
-      console.log(Config.STORE_LIST);
+      //console.log(Config.STORE_LIST);
     }  
     const storelist = //Config.STORE_LIST;
     [
@@ -66,7 +66,7 @@ const Location = () => {
                       dropdownTextStyle={{fontSize:20, textAlign:'center'}}
                       isFullWidth={true}
                       // onSelect={(id)=>alert("Be sure you're at " + storelist[id])}
-                      onSelect={(id)=>handleChange('SITE',storelist[id])}
+                      onSelect={(id)=>handleChange('SWITCHSITE',storelist[id])}
                />
 
        </ImageBackground>

@@ -1,32 +1,58 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions} from 'react-native';
+const { width, height } = Dimensions.get("window");
+
 export default StyleSheet.create({
 ///////////////////////////////////
 //HomeView
 title_text: {
-    color: "black",
-    fontFamily:"",
+    color: 'black',
+    //fontFamily:'Arial',
     fontSize: 18,
     lineHeight: 36,
-    fontWeight: "bold",
-    textAlign: "left",
+    fontWeight: 'bold',
+    textAlign: 'left',
     marginLeft:10,
     //backgroundColor: 'rgba(240, 240, 240, 0.9)',
   } ,   
 ///////////////////////////////////  
 //Topsales
-itemLine: {
+itemContainer: {
+  marginTop: 0,
+  margin: 5,
+  //padding:5,
+  backgroundColor: 'white', //#fbfbfa',
+  borderRadius:0,
+  flexDirection:'row',
+  width:width,
+  //height:100,
+  //marginTop:10,
+},
+TopItemImage: {
+  flexDirection:'row', 
+  width:80,
+  height:100,
+  //alignSelf:'flex-start',
+},
+itemDetailContainer: {
+  width:width-100,
+  alignSelf:'center',
+  //textAlign:'center'
+},
+itemName: {
     margin: 5,
-    lineHeight:40,
+    //lineHeight:25,
     fontWeight:'bold',
-    color:'#2592E5',
+    color: 'black'//'#2592E5',
     //textAlign:'center'
   },
-  itemLineIcon: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 5,
-    lineHeight:40,
-  },
+itemLineIcon: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  margin: 10,
+  width:width-102
+  //lineHeight:25,
+},
 ///////////////////////////////////
 //Location
     locationcontainer: {
@@ -35,15 +61,6 @@ itemLine: {
     image: {
       flex: 1,
       justifyContent: "center"
-    },
-    title_text: {
-      color: "red",
-      fontFamily:"",
-      fontSize: 18,
-      lineHeight: 36,
-      fontWeight: "normal",
-      textAlign: "left",
-      backgroundColor: "#F2F4F4"
     },
 ///////////////////////////////////
 //product styles    
@@ -133,15 +150,7 @@ itemLineDetailLeftText: {
   color: '#000000',
   //color: '#2592E5',
 },
- itemContainer: {
-   marginTop: 10,
-   margin: 5,
-   padding:2,
-   backgroundColor: 'white', //#fbfbfa',
-   borderRadius:10,
-   //height:100,
-   //marginTop:10,
- },
+
  itemSeparatorStyle: {
    height: 0.5,
    width: '100%',
