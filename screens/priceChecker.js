@@ -1,6 +1,6 @@
 import {Ionicons} from 'react-native-vector-icons';
 import React, { useState,useEffect } from 'react';
-import { View, TextInput, Button, ScrollView, Text } from 'react-native';
+import { View, TextInput,  ScrollView } from 'react-native';
 import Product from './product';
 // import { useFocusEffect } from '@react-navigation/native';
 import { connect,useStore,useDispatch } from 'react-redux';
@@ -12,15 +12,13 @@ const PriceChecker = ({ navigation}) => {
  const [text,setText] = useState('');
  const [id,setId] = useState('');
  const [name,setName] = useState('');
- const [price,setPrice] = useState('');
- const [vat,setVat] = useState('');
- const [suppCode,setSuppCode] = useState('');
+ const [price,setPrice] = useState(0);
+ const [vat,setVat] = useState(0);
+ const [suppCode,setSuppCode] = useState(0);
  const [suppName,setSuppName] = useState('');
- const [mmun,setMmun] = useState('');
- const [unit,setUnit] = useState('');
- const [imgurl,setImgurl] = useState('');
-//  const [Scanned,setScanned] = useState('');
-//  const [clear,setClear] = useState(true);
+ const [mmun,setMmun] = useState(1);
+ const [unit,setUnit] = useState('CAI');
+ const [imgurl,setImgurl] = useState(null);
 
  const store = useStore();
  const site = store.getState().site;
@@ -30,26 +28,6 @@ const PriceChecker = ({ navigation}) => {
        dispatch({ type: _act, ean:_ean})
      }  
 
-//  useFocusEffect(
-
-//   React.useCallback(() => {
-
-//     // Do something when the screen is focused
-
-//       if (route.params && route.params.BarCode !== Scanned && clear) {
-//         setScanned(route.params?.BarCode??''); 
-//         setText(route.params?.BarCode??'');
-//         //searchArticlebyEan(route.params?.BarCode??Scanned,site?site:10010);
-//         searchArticlebyEan(bar,site?site:10010);
-//         //alert(route.params?.BarCode??'');
-//       }
-//      return () => {
-//        // Do something when the screen is unfocused
-//        //SetClear(false);
-//      };
-//   }, [{navigation, route}])
-// );
-
 useEffect(() => {
   setText(bar);
   searchArticlebyEan(bar,site);
@@ -58,13 +36,20 @@ useEffect(() => {
 
 const inputText = (text) => {
   if (text == '') {clearText();}
-  setText(text);
+  setText(text); 
 }
 
 const clearText = () => {
   setText('');
-  //setScanned('');
-  //setClear(false);
+  setId('');
+  setName('');
+  setPrice(0);
+  setVat(0);
+  setSuppCode(0);
+  setSuppName('');
+  setMmun(1);
+  setUnit('CAI');
+  setImgurl(null);
 }
 
 const gotoSanner = (_stats) => {
@@ -98,7 +83,7 @@ const searchArticlebyEan = (ean,site) =>{
             setSuppName(responseData[0].V_FIBL);
             setMmun(responseData[0].V_MMUN_WEIGHT);
             setUnit(responseData[0].V_MMUN_UNIT);
-            setImgurl(responseData[0].IMGURL);
+            setImgurl(responseData[0].IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png');
             console.log("Result=" + responseData[0].V_ARTNO);
 
         } catch(err) {
@@ -148,14 +133,14 @@ return (
     {/* Product information */}
         <Product text={text} 
                 id={id} 
-                name={name} 
+                name={name??'NOT FOUND'} 
                 price={price}
                 vat={vat} 
                 suppCode={suppCode} 
                 suppName={suppName}      
                 mmun={mmun}   
                 unit={unit} 
-                imgurl={imgurl}                                                  
+                imgurl={imgurl??null}
         />
         {/* End product information */}
         {/* <View style={{paddingTop:30, width:'50%',height:'100%',alignSelf:'center' }}>

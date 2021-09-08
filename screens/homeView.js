@@ -67,18 +67,7 @@ export default function HomeScreen({navigation}) {
     // switch (idx) {
     //   case 0:
     //     navigation.navigate("MyWebComponent", { url:'https://mmvietnam.com/an-pham-khuyen-mai/'});
-    //     break;
-    //   case 1:
-    //     navigation.navigate("MyWebComponent", { url:'https://mmpro.vn/event-banh-trung-thu.html'});
-    //     break;
-    //   case 2:
-    //     //Linking.openURL('https://online.mmvietnam.com');
-    //     navigation.navigate("MyWebComponent", { url:'https://online.mmvietnam.com/'});
-    //     break;   
-    //   // case 3:
-    //   //   //Linking.openURL('https://mmvietnam.app');
-    //   //   navigation.navigate("MyWebComponent", { url:'http://mmvietnam.app'});
-    //   //   break;             
+    //     break;       
     // }
 
   }
@@ -93,11 +82,11 @@ export default function HomeScreen({navigation}) {
           <SliderBox images={imgs.length>0?imgs:images} 
           autoplay = {true}
           circleLoop = {true}
-          sliderBoxHeight={162}
+          sliderBoxHeight={168}
           dotColor="#FF0000"
           inactiveDotColor="#90A4AE"
           onCurrentImagePressed={index => handleImgOnPress(index)}
-          resizeMethod={'resize'}
+          //resizeMode={'stretch'} 
           //resizeMode={'contain'}
           />    
 

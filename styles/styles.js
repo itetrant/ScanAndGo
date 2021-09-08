@@ -52,12 +52,11 @@ itemLine: {
       fontSize:16,
     },
     img: {
-        height:268,
-        width:268,
+        height:200,
+        width:'100%',
         backgroundColor: '#e4e6eb',
         marginBottom:10,
         borderRadius:10,
-        alignSelf:'center',
         padding:0,
       },
 
