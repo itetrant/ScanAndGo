@@ -14,8 +14,8 @@ export default function HomeScreen({navigation}) {
   const [urls, setUrls] = useState([]);
 
   useEffect(() => {
-    wait(8000).then(() => getBannerlist());
-    //getBannerlist(); // Need to load sale first then load banner ortherwise it closes connection;
+    wait(3000).then(() => getBannerlist());
+    //getBannerlist(); 
   }, []);
 
   const getBannerlist=()=>{

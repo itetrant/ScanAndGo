@@ -9,21 +9,23 @@ import {
   ScrollView,
   Text,
   RefreshControl,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
 
-// const wait = (timeout) => {
-//   return new Promise(resolve => setTimeout(resolve, timeout));
-// }
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const TopSales = (state) => {
+
   const [dataSource, setDataSource] = useState([]);
   // const [newDataSource, setNewDataSource] = useState([]);
   const [page, setPage] = useState(1);
   const [dataSourceCords, setDataSourceCords] = useState([]);
-  const size = 8;
+  const size = 10;
   // const scrollViewRef = useRef();
-
+  const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
   function handleButton (_id,_name,_price,_unit, _qty, act){
 
@@ -34,21 +36,29 @@ const TopSales = (state) => {
 
   const [refreshing, setRefreshing] = React.useState(true);
 
-  const onRefresh = React.useCallback(async () => {
+  const onRefresh = () => {
+    //React.useCallback(()
     setRefreshing(true);
-    if (dataSource.length > 0) {
-      setPage(page + 1);
-    } else {
-      getData(page,state.myValue);
-    }
+    getData((dataSource.length/size) + 1,state.myValue);
+    // if (dataSource.length === 0) {
+    //   getData(1,state.myValue);
+    // } else {
+    //   if (dataSource.length)
+    //   getData(page+1,state.myValue);
+    //   setPage(page+1);
+    // }
    
-     //wait(10000).then(() => setRefreshing(false));
+    //  wait(3000).then(() => setRefreshing(false));
 
-  }, [refreshing]);
+  } //, [refreshing]);
 
   useEffect(() => {
-    getData(page,state.myValue);
-  }, [page]);
+
+    setDataSource([]);
+    // setPage(1);
+    getData((dataSource.length/size) + 1,state.myValue);
+    
+  }, [state.myValue]);
 
   const getData = (p,site) => {
     //Service to get the data from the server to render
@@ -65,13 +75,13 @@ const TopSales = (state) => {
         
           let mergedObj = [...dataSource,...responseJson];
           setDataSource(mergedObj);
-   
         //console.log(mergedObj);
-        setRefreshing(false);
       })
       .catch((error) => {
         console.error(error);
       });
+
+      setRefreshing(false);
   };
 
   const ItemView = (item, key) => {
@@ -152,7 +162,7 @@ const TopSales = (state) => {
   };
 
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-    const paddingToBottom = 20;
+    const paddingToBottom = 5;
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
   };
@@ -171,13 +181,19 @@ const TopSales = (state) => {
             // ref={scrollViewRef}
             // onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
             onScroll={({nativeEvent}) => {
-              if (isCloseToBottom(nativeEvent)) {  setPage(page + 1); setRefreshing(true);}
+              if (isCloseToBottom(nativeEvent)) {
+                
+                if (!refreshing) {
+                  getData((dataSource.length/size) + 1,state.myValue);
+                  wait(3000);
+                }
+              }
             }}
           >
             {dataSource.length>0?dataSource.map(ItemView):
-              <View style={styles.itemContainer}> 
-                <Text style={{alignSelf:'center', fontSize:16}} onPress={()=> getData(page,state.myValue)}>
-                  Please check vpn/wifi then tab to refresh
+              <View style={{height:height/2,width:width}} onPress={()=> getData((dataSource.length/size)+1,state.myValue)}>
+                <Text style={{alignSelf:'center', fontSize:16, height:height/2,textAlignVertical:'center'}} onPress={()=> getData((dataSource.length/size)+1,state.myValue)}>
+                  LOADING...
                 </Text>
               </View>
             }

@@ -163,7 +163,7 @@ return (
                 onPress={() => gotoSanner(true)}/>
         </View> */}
         <View style={{paddingTop:30, alignSelf:'center' }}>
-            <Ionicons name= "camera-sharp" size={(text?100:0)} color = {(text?"#2592E5":"#e8e8e8")} onPress={() => gotoSanner(true)}/>
+            <Ionicons name= "qr-code-outline" size={(text?68:0)} color = {(text?"#ff0000":"#e8e8e8")} onPress={() => gotoSanner(true)}/>
         </View>
     </ScrollView>
     );

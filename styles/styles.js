@@ -52,11 +52,11 @@ itemLine: {
       fontSize:16,
     },
     img: {
-        height:100,
-        width:100,
+        height:268,
+        width:268,
         backgroundColor: '#e4e6eb',
         marginBottom:10,
-        borderRadius:0,
+        borderRadius:10,
         alignSelf:'center',
         padding:0,
       },
@@ -148,5 +148,9 @@ itemLineDetailLeftText: {
    width: '100%',
    backgroundColor: '#c5c6c6',
  },
-
+ loadingContainer: {
+  backgroundColor: 'white', //#fbfbfa',
+  height:'100%',
+  width:'100%',
+},
   });
