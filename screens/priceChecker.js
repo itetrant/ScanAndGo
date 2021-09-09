@@ -84,7 +84,7 @@ const searchArticlebyEan = (ean,site) =>{
             setMmun(responseData[0].V_MMUN_WEIGHT);
             setUnit(responseData[0].V_MMUN_UNIT);
             setImgurl(responseData[0].IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png');
-            console.log("Result=" + responseData[0].V_ARTNO);
+            console.log("Result=" + responseData[0].V_ARTNO + ":" + responseData[0].IMGURL);
 
         } catch(err) {
             setId('');
@@ -115,7 +115,7 @@ return (
                     onChangeText={(text) => inputText(text)}
                     value={text}
                     underlineColorAndroid="transparent"
-                    placeholder="Type a barcode or tab to scan"
+                    placeholder="Type a barcode or tab QR to scan ->"
                     style={{fontSize: 18, marginLeft:16}}
                     onSubmitEditing={() => handleChange('SCANNED',text)}
                     blurOnSubmit={true}
@@ -140,7 +140,7 @@ return (
                 suppName={suppName}      
                 mmun={mmun}   
                 unit={unit} 
-                imgurl={imgurl??null}
+                imgurl={name?imgurl??null:null}
         />
         {/* End product information */}
         {/* <View style={{paddingTop:30, width:'50%',height:'100%',alignSelf:'center' }}>

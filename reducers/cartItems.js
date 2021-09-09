@@ -20,14 +20,14 @@ const cartItems = (state={
                         //console.log(existingItem[0].Qty);
                     return { ...state, TotQty: state.TotQty + action.qty ,TotAmount:  state.TotAmount + (action.qty*action.price),
                         items: [ ...state.items.filter(p => p.V_ARTNO !== action.id), 
-                            { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:existingItem[0].Qty+action.qty,Amt:existingItem[0].Amt + action.qty*action.price} ] 
+                            { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,IMGURL: action.imgurl,Qty:existingItem[0].Qty+action.qty,Amt:existingItem[0].Amt + action.qty*action.price} ] 
                     
                      };
                     } else {
                         //console.log('New item');
                         return { ...state, TotItem: state.TotItem + 1, TotQty:  state.TotQty + action.qty ,TotAmount:  state.TotAmount + (action.qty*action.price),
                             items: [ ...state.items, 
-                            { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:action.qty,Amt:action.qty*action.price} ] 
+                            { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,IMGURL: action.imgurl,Qty:action.qty,Amt:action.qty*action.price} ] 
                         
                          };
                     }
@@ -37,11 +37,11 @@ const cartItems = (state={
 
                     const existingItem1 = state.items.filter(p => p.V_ARTNO === action.id); 
                     
-                    if (existingItem1.length > 0 ) {
+                    if (existingItem1.length > 0 && existingItem1[0].Qty > 1) {
                         //console.log(existingItem1[0].Qty);
                     return { ...state,  TotQty:  state.TotQty - action.qty ,TotAmount:  state.TotAmount - (action.qty*action.price),
                         items: [ ...state.items.filter(p => p.V_ARTNO !== action.id), 
-                        { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,Qty:existingItem1[0].Qty-action.qty, Amt:existingItem1[0].Amt - action.qty*action.price} ] 
+                        { V_ARTNO:action.id, V_ALIBL:action.name, V_PRICE_PERM:action.price, V_MMUN_UNIT:action.unit,IMGURL: action.imgurl,Qty:existingItem1[0].Qty-action.qty, Amt:existingItem1[0].Amt - action.qty*action.price} ] 
                     
                         };
                     }else{

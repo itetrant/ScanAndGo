@@ -28,12 +28,14 @@ const TopSales = (state) => {
   // const scrollViewRef = useRef();
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
-  function handleButton (_id,_name,_price,_unit, _qty, act){
 
-        dispatch({id: _id, name:_name, price:_price, unit:_unit, qty:_qty, type: act});
-        //alert('Item: ' + _name + ' added to cart');
 
-      }  
+  function Order (_id,_name,_price,_unit, _url, _qty, act){
+    if (_id !== 'undefined' && _id !=='') {
+      dispatch({id: _id, name:_name, price:_price, unit:_unit, imgurl:_url, qty:_qty, type: act});
+      //alert('Item: ' + _name + '\nadded to cart successfully!');
+    }
+    }  
 
   const [refreshing, setRefreshing] = React.useState(true);
 
@@ -120,8 +122,8 @@ const TopSales = (state) => {
                       onPress={() => getItem(item)}>
                       Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
                     </Text>
-                    <MaterialIcons //MaterialIcons  
-                      name= "add-shopping-cart"  color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT)}/>
+                    <MaterialIcons
+                      name= "add-shopping-cart"  color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL)}/>
                 
                 </View>   
                 
@@ -131,7 +133,7 @@ const TopSales = (state) => {
   };
 
 
-  const createTwoButtonAlert = (id,name,price,unit) => {
+  const createTwoButtonAlert = (id,name,price,unit,url) => {
 
     let msg = '-Id:' + id + '\n-Name: ' + name + '\n-Price:' + price + '/' + unit;
     Alert.alert(
@@ -143,7 +145,7 @@ const TopSales = (state) => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed") ; handleButton(id,name,price,unit,1,'UP');}}
+        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed", url) ; Order(id,name,price,unit,url,1,'UP');}}
       ]
     );
   }
@@ -151,7 +153,7 @@ const TopSales = (state) => {
   const getItem = (item) => {
     // Function for click on an item
     //alert('Id : ' + item.id + ' Name : ' + item.title);
-    createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT);
+    createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL);
    // alert('Barcode : ' + item.ARCCODE + '\nName:' + item.V_ALIBL + '\nPrice:' + item.V_PRICE_PERM + '\nMMUN:' + item.V_MMUN_WEIGHT + '\nUNIT:' + item.V_MMUN_UNIT);
     //     "ARCCODE": "376268",
     //     "V_ARTNO": "376268",
@@ -163,6 +165,7 @@ const TopSales = (state) => {
     //     "V_COST_PERM": 300000,
     //     "V_MMUN_WEIGHT": 1,
     //     "V_MMUN_UNIT": "CAI",
+    //      "IMGURL":'https://...'
     //     "V_ROW": 1
   };
 

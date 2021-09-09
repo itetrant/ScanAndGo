@@ -69,12 +69,13 @@ itemLineIcon: {
       fontSize:16,
     },
     img: {
-        height:200,
-        width:'100%',
-        backgroundColor: '#e4e6eb',
+        height:310,
+        width:'100%',//420,
+        backgroundColor:'white', //'#e4e6eb',
         marginBottom:10,
-        borderRadius:10,
+        //borderRadius:30,
         padding:0,
+        alignSelf:'center'
       },
 
       button: {
@@ -86,6 +87,27 @@ itemLineIcon: {
         justifyContent: 'space-between', //space-around', //space-between', //'center', 
         margin:10,
       },
+      itemLineDetail: {
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        margin: 2,
+        padding:2,
+        alignItems:'center',
+        fontSize:16,
+        color: '#000000',
+      },
+      itemLineDetailLeft: {
+       flexDirection: 'row',
+     },
+     itemLineDetailLeftText: {
+       margin: 2,
+       padding:2,
+       fontSize:16,
+       fontWeight:'bold',
+       color: '#000000',
+       //color: '#2592E5',
+     },
+     
 ///////////////////////////////////      
 //priceCheck
 headerContainer: {
@@ -130,27 +152,53 @@ cartcontainer: {
    justifyContent: 'space-between',
    //backgroundColor: '#f8f7f5',
  },
- itemLineDetail: {
-   flexDirection: 'row',
-   justifyContent:'space-between',
-   margin: 2,
-   padding:2,
-   alignItems:'center',
-   fontSize:16,
-   color: '#000000',
- },
- itemLineDetailLeft: {
-  flexDirection: 'row',
-},
-itemLineDetailLeftText: {
-  margin: 2,
-  padding:2,
-  fontSize:16,
-  fontWeight:'bold',
-  color: '#000000',
-  //color: '#2592E5',
+
+ cartitemContainer: { 
+  marginTop: 0,
+  margin: 5,
+  //padding:5,
+  backgroundColor: 'white', //#fbfbfa',
+  borderRadius:0,
+  flexDirection:'row',
+  width:width,
+  //height:100,
+  //marginTop:10,
 },
 
+cartItemImage: { //not use
+  flexDirection:'row', 
+  width:80,
+  height:100,
+  //alignSelf:'flex-start',
+},
+cartItemDetailContainer: { //not use
+  width:width-100,
+  alignSelf:'center',
+  //textAlign:'center'
+},
+cartItemName: {
+    margin: 2,
+    //lineHeight:25,
+    fontWeight:'bold',
+    color: 'black'//'#2592E5',
+    //textAlign:'center'
+  },
+cartItemLineIcon: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginLeft: 5,
+  width:width-102
+  //lineHeight:25,
+},
+cartItemLineAmt: {
+  flexDirection: 'row',
+  //justifyContent: 'space-between',
+  marginLeft: 5,
+  marginRight: 40,
+  width:width-102
+  //lineHeight:25,
+},
+////////////////////////////////////////////////////////////////////////////////////
  itemSeparatorStyle: {
    height: 0.5,
    width: '100%',
