@@ -5,47 +5,46 @@ import TopSales from './topSales';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
 
-const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
+// const wait = (timeout) => {
+//   return new Promise(resolve => setTimeout(resolve, timeout));
+// }
 
 export default function HomeScreen({navigation}) {
-  const [imgs, setImgs] = useState([]);
+  const [images, setImages] = useState([]);
   const [urls, setUrls] = useState([]);
 
   useEffect(() => {
-    wait(3000).then(() => getBannerlist());
-    //getBannerlist(); 
+    //wait(1000).then(() => getBannerlist());
+    getBannerlist(); 
   }, []);
 
   const getBannerlist=()=>{
-    const url = 'http://172.26.24.150:8082/getBannerlist';
+    //const url = 'http://172.26.24.150:8082/getBannerlist';
+    const url = 'https://api.jsonbin.io/v3/b/613de054aa02be1d4446c285';
     var imglink=[];
     var urllink=[];
     var j = 0;
     fetch(url,{
       mode: 'uat', 
       headers: {
-        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncmFudGVkIjoic3R1ZmYiLCJpYXQiOjE2MjkxODMxMzR9.otxK5YQhaB4p--Fal85qdGFwo2n0vtIQBS20P0l1-dA',
+        //'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncmFudGVkIjoic3R1ZmYiLCJpYXQiOjE2MjkxODMxMzR9.otxK5YQhaB4p--Fal85qdGFwo2n0vtIQBS20P0l1-dA',
+        'X-Master-Key':'$2b$10$eOvjB2WIN.Bcmr63RlaoLeXCNr1IpSbP/xraLEIrVVzUjPW3jnwQS',
       },
     })
       .then((response) => response.json())
       .then((responseData) => {
-          //setImgSource(responseData);
-          responseData.forEach(i => {
-
+            //responseData.forEach(i => { //for local api
+            responseData.record.forEach(i => { //for jsonbin api
               imglink[j] = i.IMAGE;
               urllink[j] = i.URL;
               j +=1;
-
           });
-
-          setImgs(imglink);
+          setImages(imglink);
           setUrls(urllink);
-          
-          // //for debug
+
+          // //for debug    
           // console.log('----------------');
-          // console.log(imgs);
+          // console.log(images);
           // console.log('----------------');
           // console.log(urls);
       })
@@ -54,9 +53,9 @@ export default function HomeScreen({navigation}) {
      });
   }
 
-  const images = [
+  const banner_place_holder = [
   //place holder when network issue
-    "https://storage.googleapis.com/mm-online-bucket/ecommerce-website/uploads/media/Banner-Combo-UF.jpg",
+    "https://mmpro.vn/media/mageplaza/bannerslider/banner/image/b/a/banner_banh_trung_thu-01_1.jpg",
     //require('../assets/mcard.jpg'),
   ];
   const handleImgOnPress = (idx) => {
@@ -79,7 +78,7 @@ export default function HomeScreen({navigation}) {
 
       <View style={{paddingTop:1}}>
           {/* <Text style={styles.title_text}></Text> */}
-          <SliderBox images={imgs.length>0?imgs:images} 
+          <SliderBox images={images.length>0?images:banner_place_holder} 
           autoplay = {true}
           circleLoop = {true}
           sliderBoxHeight={168}
@@ -92,9 +91,9 @@ export default function HomeScreen({navigation}) {
 
        <Text style={styles.title_text}>Top sales</Text>
        </View>
-
+      <View style={{height:'100%', with:'100%'}}>
        <TopSales />
-
+      </View>
       {/* </ImageBackground> */}
 
       </SafeAreaView>

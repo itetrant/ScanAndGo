@@ -21,14 +21,23 @@ const wait = (timeout) => {
 const TopSales = (state) => {
 
   const [dataSource, setDataSource] = useState([]);
-  // const [newDataSource, setNewDataSource] = useState([]);
-  // const [page, setPage] = useState(1);
+  const [refreshing, setRefreshing] = React.useState(true);
+  const [jsonBins, setJsonBins] = React.useState([]);
   const [dataSourceCords, setDataSourceCords] = useState([]);
+  const MasterKey ='$2b$10$eOvjB2WIN.Bcmr63RlaoLeXCNr1IpSbP/xraLEIrVVzUjPW3jnwQS';
+  const AuthorKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidHJhLm5ndXllbi10aGFuaEBtbXZpZXRuYW0uY29tIiwiaWF0IjoxNjMxMDI4MTk3fQ.VBVww3alKhg6YDBDxb1rZvsmAHoQs6y6XAcHoUm5E5Q'; 
+  const binsUrls = 'https://api.jsonbin.io/v3/c/613dc646aa02be1d4446ba52/bins';
+  const binUrl = 'https://api.jsonbin.io/v3/b/'; //613dcb779548541c29b07588
+  const [isConnected, setIsConnected] = useState(false);
+  const binUrlp1 = 'https://api.jsonbin.io/v3/b/613dcb779548541c29b07588';
+  const mmUrl = 'http://172.26.24.150:8082/TopSales?page=';
+  const placeholderUrl = 'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png';
   const size = 10;
-  // const scrollViewRef = useRef();
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
 
+  // const scrollViewRef = useRef();
+  // const [page, setPage] = useState(1);
 
   function Order (_id,_name,_price,_unit, _url, _qty, act){
     if (_id !== 'undefined' && _id !=='') {
@@ -37,42 +46,80 @@ const TopSales = (state) => {
     }
     }  
 
-  const [refreshing, setRefreshing] = React.useState(true);
-
   const onRefresh = () => {
     //React.useCallback(()
     setRefreshing(true);
-    getData((dataSource.length/size) + 1,state.mySite);
+    getData((dataSource.length/size) + 1,state.mySite,isConnected);
+
   } //, [refreshing]);
 
   useEffect(() => {
-    getData(1,state.mySite);
-  }, [state.mySite]);
 
-  const getData = (p,site) => {
-    //Service to get the data from the server to render
-    console.log('Load page:', p, ', site=', site);
-    const url = 'http://172.26.24.150:8082/TopSales?page=' + p + '&site=' + site + '&size=' + size;
-    fetch(url,{
-      mode: 'uat', 
+    setRefreshing(true);
+    getJsonBins();    
+    getData(1,state.mySite,isConnected);
+    // wait(3000).then(() => {
+    //   if(refreshing && dataSource.length===0) {setIsConnected(false);}
+    // });
+
+  }, [state.mySite,isConnected]);
+
+
+  const getJsonBins = ()=>{ //async
+    let bins = [];
+    let j = 0;
+    fetch(binsUrls,{
+      mode: 'off', 
       headers: {
-        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidHJhLm5ndXllbi10aGFuaEBtbXZpZXRuYW0uY29tIiwiaWF0IjoxNjMxMDI4MTk3fQ.VBVww3alKhg6YDBDxb1rZvsmAHoQs6y6XAcHoUm5E5Q',
-      },
+        'X-Master-Key':MasterKey,
+        'X-Sort-Order': 'ascending',
+      }
     })
       .then((response) => response.json())
       .then((responseJson) => {
-          if(p===1) {setDataSource(responseJson);}
-          else
-          {let mergedObj = [...dataSource,...responseJson];
-          setDataSource(mergedObj);
-          }
-        //console.log(mergedObj);
+          responseJson.forEach(i => { //for jsonbin api
+          bins[j] = i.record;
+          j++;
+      });
+          setJsonBins(bins);
+          console.log(jsonBins);
       })
       .catch((error) => {
         console.error(error);
       });
+  };
 
-      setRefreshing(false);
+  const getData = async (p,site,isConnected)=>{
+
+    console.log('Load page:', p, ', site=', site, ', status=' + isConnected);
+    {/*isConnected init true */}
+    //const url = isConnected?mmUrl + p + '&site=' + site + '&size=' + size: binUrl+ jsonBins[p-1]??jsonBins[0];
+    {/*isConnected init false */}
+    const url = p===1?binUrlp1: binUrl+ jsonBins[p-1]??jsonBins[0];
+ 
+    fetch(url,{
+      mode: 'uat', 
+      headers: {
+        'Authorization': AuthorKey,
+        'X-Master-Key':MasterKey,
+      }
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          if(p===1) {setDataSource(isConnected?responseJson:responseJson.record);}
+          else
+          {
+            let mergedObj = isConnected?[...dataSource,...responseJson]:[...dataSource,...responseJson.record];
+            setDataSource(mergedObj);
+          }
+          setRefreshing(false);
+        //console.log(mergedObj);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsConnected(false);
+        //console.error(error);
+      });
   };
 
   const ItemView = (item, key) => {
@@ -88,16 +135,18 @@ const TopSales = (state) => {
           // console.log(dataSourceCords);
 
         }}>
-
-            <View style={styles.TopItemImage}>
-              <Image source={{uri:item.IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png'}}
+            
+            <View style={styles.TopItemImage} >
+            
+              <Image source={{uri:item.IMGURL??placeholderUrl}}
                                           style={{width:'100%',height:'100%',alignSelf:'center', 
                                           //resizeMode: 'stretch'
                                           resizeMode: 'contain'
-                                          }}
+                                          }}                                                              
               />
+
             </View>
-            
+
             <View style={styles.itemDetailContainer}>
 
                 <View style={styles.itemName} >                                          
@@ -165,7 +214,7 @@ const TopSales = (state) => {
     //     "V_COST_PERM": 300000,
     //     "V_MMUN_WEIGHT": 1,
     //     "V_MMUN_UNIT": "CAI",
-    //      "IMGURL":'https://...'
+    //     "IMGURL":'https://...'
     //     "V_ROW": 1
   };
 
@@ -192,17 +241,21 @@ const TopSales = (state) => {
               if (isCloseToBottom(nativeEvent)) {
                 
                 if (!refreshing) {
-                  getData((dataSource.length/size) + 1,state.mySite);
-                  wait(3000);
+                  getData((dataSource.length/size) + 1,state.mySite,isConnected);
+                  //wait(3000);
+                  setRefreshing(false);
                 }
               }
             }}
           >
             {dataSource.length>0?dataSource.map(ItemView):
-              <View style={{height:height/2,width:width}} onPress={()=> getData((dataSource.length/size)+1,state.mySite)}>
-                <Text style={{alignSelf:'center', fontSize:16, height:height/2,textAlignVertical:'center'}} onPress={()=> getData((dataSource.length/size)+1,state.mySite)}>
-                  LOADING...
+              <View style={{height:height,width:width}} onPress={()=> setIsConnected(false)}>
+
+                <Text style={styles.loading} 
+                  onPress={()=> setIsConnected(false)}>
+                  LOADING ... TAB TO CANCEL!
                 </Text>
+
               </View>
             }
             {/* {dataSource.map(ItemView)} */}

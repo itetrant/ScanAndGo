@@ -258,7 +258,7 @@ function cartStr (obj){
   let str = '';
   obj.forEach(i => {
     //str += '{"art":'+i.V_ARTNO + ',"qty":' + i.Qty + "},";
-    str += i.V_ARTNO + '|' + i.Qty + "\n";
+    str += i.V_ARTNO + ':' + i.Qty + "|";
   });
   //str += ']';
   console.log(str);

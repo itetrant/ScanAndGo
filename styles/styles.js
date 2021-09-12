@@ -204,9 +204,13 @@ cartItemLineAmt: {
    width: '100%',
    backgroundColor: '#c5c6c6',
  },
- loadingContainer: {
-  backgroundColor: 'white', //#fbfbfa',
-  height:'100%',
-  width:'100%',
+
+loading: {
+  textAlign:'center',
+  height:'100%',width:'100%',
+  fontSize:16, 
+  //backgroundColor:'blue',
+  paddingVertical:width/2,
+  //textAlignVertical:'center',
 },
   });

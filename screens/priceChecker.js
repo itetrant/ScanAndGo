@@ -84,7 +84,7 @@ const searchArticlebyEan = (ean,site) =>{
             setMmun(responseData[0].V_MMUN_WEIGHT);
             setUnit(responseData[0].V_MMUN_UNIT);
             setImgurl(responseData[0].IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png');
-            console.log("Result=" + responseData[0].V_ARTNO + ":" + responseData[0].IMGURL);
+            console.log("response=" + responseData[0].V_ARTNO);
 
         } catch(err) {
             setId('');
