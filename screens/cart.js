@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import TopBar from './topBar';
 const Cart = () => {
-  //const [dataSource, setDataSource] = useState([]);
+  const _debug = true;
   const [dataSourceCords, setDataSourceCords] = useState([]);
   //const [ref, setRef] = useState(null);
   const store = useStore();
@@ -33,74 +33,7 @@ const Cart = () => {
         //alert('Item: ' + _name + ' added to cart');
       }
   }  
-  // const ItemView = (item, key) => {
-  //   return (
-  //     // Flat List Item
-  //     <View style={styles.itemContainer}
-  //       key={key}
-  //       // onLayout={(event) => {
-  //       //   const layout = event.nativeEvent.layout;
-  //       //   dataSourceCords[key] = layout.y;
-  //       //   setDataSourceCords(dataSourceCords);
-  //       //   //Debug
-  //       //   // console.log(dataSourceCords);
-  //       // }}
-  //       >
-  //       {/* <View style={styles.itemSeparatorStyle}/> */}
-
-  //       <View style={styles.itemLineHead}>
-  //       <Text style = {{color:'#2592E5'}}
-          
-  //         onPress={() => getItem(item)}>
-  //          Item: {item.V_ARTNO} - {item.V_ALIBL}
-  //       </Text>
- 
-  //       <AntDesign //MaterialIcons  
-  //             name= "delete" color = "#000000" size={22}  onPress={() => cartAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM)}
-  //             />
-  //       </View>
-        
-  //       <View style={styles.itemSeparatorStyle}/>
-
-  //       <View style={styles.itemLineDetail}>
-  //           <Text>
-  //             Quantity:  
-  //           </Text>  
-    
-  //           <Button title="  -  " onPress={() => (item.Qty>1?handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'DOWN'):null)}/>          
-  //           <Text>
-  //             {item.Qty} 
-  //           </Text>  
-  //           <Button title="  +  " onPress={() => handleOrder(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,1,'UP')}/>
-            
-  //           <Text
-  //             //style={styles.itemLine}
-  //             onPress={() => getItem(item)}>
-  //           {item.V_MMUN_UNIT}   
-  //           </Text> 
-  //       {/* Spaces */}
-  //           <Text style={{paddingRight:'30%'}}></Text>   
-  //       </View>
-  //       <View style={styles.itemSeparatorStyle}/>
-  //       <View style={styles.itemLineDetail} >
-        
-  //           <Text
-  //             onPress={() => getItem(item)}>
-  //             Price: {item.V_PRICE_PERM} 
-  //           </Text>
-
-  //           <Text
-  //             //style={styles.itemLine}
-  //             onPress={() => getItem(item)}>
-  //                Amt: {item.Amt}
-  //           </Text>
-
-  //       </View>   
-
-  //     </View>
-  //   );
-  // };
-
+  
   const ItemView = (item, key) => {
     return (
       // Flat List Item
@@ -185,10 +118,10 @@ const Cart = () => {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => _debug?console.log("Cancel Pressed"):null,
           style: "cancel"
         },
-        { text: "Remove item", onPress: () => {console.log("Remove Pressed") ; handleRemove(id,'REMOVE');}}
+        { text: "Remove item", onPress: () => {_debug?console.log("Remove Pressed"):null ; handleRemove(id,'REMOVE');}}
       ]
     );
   }
@@ -234,7 +167,7 @@ const Cart = () => {
           {/* generate QR for VPOS payment  */}
             <View style={{alignSelf:'center', paddingTop:20}}>
                 <QRCode
-                  value={cartStr(dataSource)}
+                  value={cartStr(dataSource,_debug)}
                   size={width*3/5}
                   bgColor='black'
                   fgColor='white'/>
@@ -253,7 +186,7 @@ const Cart = () => {
   );
 };
 
-function cartStr (obj){
+function cartStr (obj,_debug){
   //let str = '[';
   let str = '';
   obj.forEach(i => {
@@ -261,7 +194,7 @@ function cartStr (obj){
     str += i.V_ARTNO + ':' + i.Qty + "|";
   });
   //str += ']';
-  console.log(str);
+  _debug?console.log(str):null;
   return (str);
 }
 

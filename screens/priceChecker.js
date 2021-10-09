@@ -1,14 +1,15 @@
 import {Ionicons} from 'react-native-vector-icons';
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import { View, TextInput,  ScrollView } from 'react-native';
 import Product from './product';
 // import { useFocusEffect } from '@react-navigation/native';
 import { connect,useStore,useDispatch } from 'react-redux';
 import TopBar from './topBar';
 import styles from '../styles/styles.js';
-
-const PriceChecker = ({ navigation}) => {
-
+ 
+ //const inputRef = useRef();
+ const PriceChecker = ({ navigation}) => {
+ const _debug = true; 
  const [text,setText] = useState('');
  const [id,setId] = useState('');
  const [name,setName] = useState('');
@@ -35,21 +36,22 @@ useEffect(() => {
 
 
 const inputText = (text) => {
-  if (text == '') {clearText();}
+  //if (text == '') {clearText();}
   setText(text); 
 }
 
 const clearText = () => {
-  setText('');
-  setId('');
-  setName('');
-  setPrice(0);
-  setVat(0);
-  setSuppCode(0);
-  setSuppName('');
-  setMmun(1);
-  setUnit('CAI');
-  setImgurl(null);
+   setText('');
+   
+  // setId('');
+  // setName('');
+  // setPrice(0);
+  // setVat(0);
+  // setSuppCode(0);
+  // setSuppName('');
+  // setMmun(1);
+  // setUnit('CAI');
+  // setImgurl(null);
 }
 
 const gotoSanner = (_stats) => {
@@ -60,11 +62,9 @@ const gotoSanner = (_stats) => {
 }
 const searchArticlebyEan = (ean,site) =>{
 
-    console.log("Searching EAN:" + ean + " at store:" + site );
+  _debug?console.log("Searching EAN:" + ean + " at store:" + site ):null;
      
     if (!isNaN(ean) && ean !== '') {
-    //setScanned(ean);
-      //const url = 'http://192.168.1.11:8082/Article?id=' + ean;
     const url = 'http://172.26.24.150:8082/Article?id=' + ean + '&site=' + site;
     fetch(url,{
       mode: 'uat', 
@@ -84,21 +84,21 @@ const searchArticlebyEan = (ean,site) =>{
             setMmun(responseData[0].V_MMUN_WEIGHT);
             setUnit(responseData[0].V_MMUN_UNIT);
             setImgurl(responseData[0].IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png');
-            console.log("response=" + responseData[0].V_ARTNO);
+            _debug?console.log("response=" + responseData[0].V_ARTNO):null;
 
         } catch(err) {
             setId('');
             setText('API error');
-            console.log("Result=" + "API error");
+            _debug?console.log("Result=" + "API error"):null;
         }  
       })
        .catch(error => {
         setId('');
         setText('Connection error');
-        console.log("Result=" + error);
+        _debug?console.log("Result=" + error):null;
 
      });
-    } //else if (text === '') {setScanned(''); setClear(true);}
+    } 
   }
 
 return (
@@ -107,10 +107,15 @@ return (
       <TopBar/>
         <View style={styles.headerContainer}>
                 <View style={styles.inputContainer}>
-                <Ionicons name="search-outline" size={32} color = {(text?"#2592E5":"#e8e8e8")}
-                onPress={() => handleChange('SCANNED',text)}/>
+                <Ionicons name= {text?"ios-remove-outline":"search-outline"} size={32} color = {(text?"#ff0000":"#e8e8e8")}
+                onPress={() => {
+                          text?clearText():null;
+                        }
+                }
+                />
 
                 <TextInput
+                    //ref={inputRef}
                     multiline={false}
                     onChangeText={(text) => inputText(text)}
                     value={text}
@@ -118,13 +123,13 @@ return (
                     placeholder="Type a barcode or tab QR to scan ->"
                     style={{fontSize: 18, marginLeft:16}}
                     onSubmitEditing={() => handleChange('SCANNED',text)}
-                    blurOnSubmit={true}
+                    blurOnSubmit={false}
                 />
 
                 </View> 
     
                 <View style={styles.cancelContainer}>
-                  <Ionicons name= {(text?"ios-remove-outline":"qr-code-outline")} size={26} color ="#ffffff" onPress={() => (text?clearText():gotoSanner(true))}/>
+                  <Ionicons name= "qr-code-outline" size={26} color ="#ffffff" onPress={() => gotoSanner(true)}/>
                 </View>
                 
         </View>

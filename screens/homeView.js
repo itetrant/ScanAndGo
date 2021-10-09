@@ -12,15 +12,16 @@ import styles from '../styles/styles.js';
 export default function HomeScreen({navigation}) {
   const [images, setImages] = useState([]);
   const [urls, setUrls] = useState([]);
-
+  const _debug = true;
+  const url = 'https://api.jsonbin.io/v3/b/613de054aa02be1d4446c285';
+  const masterKey = '$2b$10$eOvjB2WIN.Bcmr63RlaoLeXCNr1IpSbP/xraLEIrVVzUjPW3jnwQS';
   useEffect(() => {
     //wait(1000).then(() => getBannerlist());
     getBannerlist(); 
   }, []);
 
   const getBannerlist=()=>{
-    //const url = 'http://172.26.24.150:8082/getBannerlist';
-    const url = 'https://api.jsonbin.io/v3/b/613de054aa02be1d4446c285';
+    //const url = 'https://api.jsonbin.io/v3/b/613de054aa02be1d4446c285';
     var imglink=[];
     var urllink=[];
     var j = 0;
@@ -28,7 +29,7 @@ export default function HomeScreen({navigation}) {
       mode: 'uat', 
       headers: {
         //'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncmFudGVkIjoic3R1ZmYiLCJpYXQiOjE2MjkxODMxMzR9.otxK5YQhaB4p--Fal85qdGFwo2n0vtIQBS20P0l1-dA',
-        'X-Master-Key':'$2b$10$eOvjB2WIN.Bcmr63RlaoLeXCNr1IpSbP/xraLEIrVVzUjPW3jnwQS',
+        'X-Master-Key':masterKey,
       },
     })
       .then((response) => response.json())
@@ -41,15 +42,9 @@ export default function HomeScreen({navigation}) {
           });
           setImages(imglink);
           setUrls(urllink);
-
-          // //for debug    
-          // console.log('----------------');
-          // console.log(images);
-          // console.log('----------------');
-          // console.log(urls);
       })
        .catch(error => {
-        console.log("Result=" + error);
+        _debug?console.log("Result=" + error):null;
      });
   }
 

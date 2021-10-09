@@ -12,7 +12,7 @@ import {
   Alert,
   Image
 } from 'react-native';
-
+const _debug = true;
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
@@ -23,11 +23,11 @@ const TopSales = (state) => {
   const [refreshing, setRefreshing] = React.useState(true);
   const [jsonBins, setJsonBins] = React.useState([]);
   const [dataSourceCords, setDataSourceCords] = useState([]);
+  const [isConnected, setIsConnected] = useState(false);  
   const MasterKey ='$2b$10$eOvjB2WIN.Bcmr63RlaoLeXCNr1IpSbP/xraLEIrVVzUjPW3jnwQS';
   const AuthorKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidHJhLm5ndXllbi10aGFuaEBtbXZpZXRuYW0uY29tIiwiaWF0IjoxNjMxMDI4MTk3fQ.VBVww3alKhg6YDBDxb1rZvsmAHoQs6y6XAcHoUm5E5Q'; 
   const binsUrls = 'https://api.jsonbin.io/v3/c/613dc646aa02be1d4446ba52/bins';
   const binUrl = 'https://api.jsonbin.io/v3/b/'; //613dcb779548541c29b07588
-  const [isConnected, setIsConnected] = useState(false);
   const binUrlp1 = 'https://api.jsonbin.io/v3/b/613dcb779548541c29b07588';
   const mmUrl = 'http://172.26.24.150:8082/TopSales?page=';
   const placeholderUrl = 'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png';
@@ -80,16 +80,15 @@ const TopSales = (state) => {
           j++;
       });
           setJsonBins(bins);
-          console.log(jsonBins);
+          _debug?console.log(jsonBins):null;
       })
       .catch((error) => {
-        console.error(error);
+        _debug?console.error(error):null;
       });
   };
 
   const getData = async (p,site,isConnected)=>{
-
-    console.log('Load page:', p, ', site=', site, ', status=' + isConnected);
+      _debug?console.log('Load page:', p, ', site=', site, ', status=' + isConnected):null;
     {/*isConnected init true */}
     //const url = isConnected?mmUrl + p + '&site=' + site + '&size=' + size: binUrl+ jsonBins[p-1]??jsonBins[0];
     {/*isConnected init false */}
@@ -111,12 +110,11 @@ const TopSales = (state) => {
             setDataSource(mergedObj);
           }
           setRefreshing(false);
-        //console.log(mergedObj);
       })
       .catch((error) => {
-        console.error(error);
+        _debug?console.error(error):null;
         setIsConnected(false);
-        //console.error(error);
+
       });
   };
 
@@ -131,8 +129,7 @@ const TopSales = (state) => {
           dataSourceCords[key] = layout.y;
           setDataSourceCords(dataSourceCords);
           //Debug
-          // console.log(dataSourceCords);
-
+            _debug?console.log(dataSourceCords):null;
         }}>
             
             <View style={styles.TopItemImage} >
@@ -177,7 +174,7 @@ const TopSales = (state) => {
                       Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
                     </Text>
                     <MaterialIcons
-                      name= "add-shopping-cart"  color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL)}/>
+                      name= "add-shopping-cart"  color = "#2592E5" size={26}  onPress={() => Item_Click(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL)}/>
                 
                 </View>   
 
@@ -197,7 +194,7 @@ const TopSales = (state) => {
   };
 
 
-  const createTwoButtonAlert = (id,name,price,unit,url) => {
+  const Item_Click = (id,name,price,unit,url) => {
 
     let msg = '-Id:' + id + '\n-Name: ' + name + '\n-Price:' + price + '/' + unit;
     Alert.alert(
@@ -206,33 +203,17 @@ const TopSales = (state) => {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => _debug?console.log("Cancel Pressed"):null,
           style: "cancel"
         },
-        { text: "Add to cart", onPress: () => {console.log("Add-to-cart Pressed", url) ; Order(id,name,price,unit,url,1,'UP');}}
+        { text: "Add to cart", onPress: () => {_debug?console.log("Add-to-cart Pressed", url):null ; Order(id,name,price,unit,url,1,'UP');}}
       ]
     );
   }
 
   const getItem = (item) => {
     // Function for click on an item
-    //alert('Id : ' + item.id + ' Name : ' + item.title);
-    createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL);
-   // alert('Barcode : ' + item.ARCCODE + '\nName:' + item.V_ALIBL + '\nPrice:' + item.V_PRICE_PERM + '\nMMUN:' + item.V_MMUN_WEIGHT + '\nUNIT:' + item.V_MMUN_UNIT);
-    //     "ARCCODE": "376268",
-    //     "V_ARTNO": "376268",
-    //     "V_ALIBL": "QUAN D.PHUC JEAN DAI NAM-S30",
-    //     "V_VRATE": 10,
-    //     "V_CNUF": "26698",
-    //     "V_FIBL": "CONG TY TNHH MTV BLUE EXCHANGE - OB",
-    //     "V_PRICE_PERM": 341000,
-    //     "V_COST_PERM": 300000,
-    //     "V_MMUN_WEIGHT": 1,
-    //     "V_MMUN_UNIT": "CAI",
-    //     "V_ROW": 1,    
-    //     "IMGURL":'https://...',
-    //     "LOCAT":'Zone A, Aisle 26...'
-
+    Item_Click(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL);
   };
 
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
