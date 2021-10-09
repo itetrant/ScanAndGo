@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, View, Platform, Dimensions } from 'react-native';
 import {Ionicons} from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ const TopBar = (state) => {
     const navigation = useNavigation(); 
   //render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor:'white'}}>
         <View style={styles.container}>
             <Image
               source={require('../assets/mm-icon-only-1.png')}
@@ -20,7 +20,7 @@ const TopBar = (state) => {
           />       
 
             <View style = {{position:'absolute', flexDirection:'row', justifyContent: 'flex-end', 
-                             paddingBottom:28,width:'104%'}}>
+                             paddingBottom:28,width:Platform.OS === 'ios' ? '100%': '102%'}}>
                   <View style = {{ flexDirection:'row',borderRadius:10, justifyContent: 'center',zIndex:2000,
                               alignItems:'center',height:20, width:20,backgroundColor:'rgba(52, 52, 52, 0.2)'}}>
                     <Text style={{color:'red', fontWeight:'bold',fontSize:12}}>
@@ -56,14 +56,14 @@ export default connect(mapStateToProps)(TopBar);
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
-    height: 66,
+    //height: 66,
     flexDirection: 'row', // row
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'space-between', // center, space-around
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 20,
+    marginTop: Platform.OS === 'ios' ? Dimensions.statusBarHeight: 30,
   },
   itemSeparatorStyle: {
     height: 0.5,

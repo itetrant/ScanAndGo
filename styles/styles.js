@@ -16,22 +16,33 @@ title_text: {
     //backgroundColor: 'rgba(240, 240, 240, 0.9)',
   } ,   
 ///////////////////////////////////  
+//Hot promotions
+itemPromoStyle: {
+  flexDirection:'row',
+  height:130,
+  width: 130,
+  backgroundColor: '#ffffff',
+  alignContent:'space-between',
+  margin:2,
+},
 //Topsales
 itemContainer: {
   marginTop: 0,
   margin: 5,
-  //padding:5,
+  padding:5,
   backgroundColor: 'white', //#fbfbfa',
   borderRadius:0,
   flexDirection:'row',
   width:width,
-  //height:100,
-  //marginTop:10,
+  alignSelf:'center',
+  alignItems:'center'
+
 },
 TopItemImage: {
   flexDirection:'row', 
   width:80,
-  height:100,
+  height:80,
+  borderRadius:40,
   //alignSelf:'flex-start',
 },
 itemDetailContainer: {
@@ -40,8 +51,8 @@ itemDetailContainer: {
   //textAlign:'center'
 },
 itemName: {
-    margin: 5,
-    //lineHeight:25,
+    marginLeft: 5,
+    margin: 2,
     fontWeight:'bold',
     color: 'black'//'#2592E5',
     //textAlign:'center'
@@ -49,9 +60,18 @@ itemName: {
 itemLineIcon: {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  margin: 10,
+  marginLeft: 10,
+  margin: 2,
   width:width-102
   //lineHeight:25,
+},
+loading: {
+  textAlign:'center',
+  height:'50%',width:'100%',
+  fontSize:16, 
+  //backgroundColor:'blue',
+  paddingVertical:width/4,
+  //textAlignVertical:'center',
 },
 ///////////////////////////////////
 //Location
@@ -199,18 +219,11 @@ cartItemLineAmt: {
   //lineHeight:25,
 },
 ////////////////////////////////////////////////////////////////////////////////////
+//Common
  itemSeparatorStyle: {
    height: 0.5,
    width: '100%',
    backgroundColor: '#c5c6c6',
  },
 
-loading: {
-  textAlign:'center',
-  height:'100%',width:'100%',
-  fontSize:16, 
-  //backgroundColor:'blue',
-  paddingVertical:width/2,
-  //textAlignVertical:'center',
-},
   });

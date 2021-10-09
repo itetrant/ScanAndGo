@@ -10,7 +10,6 @@ import {
   Text,
   RefreshControl,
   Alert,
-  Dimensions,
   Image
 } from 'react-native';
 
@@ -33,7 +32,6 @@ const TopSales = (state) => {
   const mmUrl = 'http://172.26.24.150:8082/TopSales?page=';
   const placeholderUrl = 'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png';
   const size = 10;
-  const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
 
   // const scrollViewRef = useRef();
@@ -125,6 +123,7 @@ const TopSales = (state) => {
   const ItemView = (item, key) => {
     return (
       // Flat List Item
+
       <View style={styles.itemContainer}
         key={key}
         onLayout={(event) => {
@@ -139,9 +138,10 @@ const TopSales = (state) => {
             <View style={styles.TopItemImage} >
             
               <Image source={{uri:item.IMGURL??placeholderUrl}}
-                                          style={{width:'100%',height:'100%',alignSelf:'center', 
+                                          style={{width:80,height:80,alignSelf:'center', 
                                           //resizeMode: 'stretch'
-                                          resizeMode: 'contain'
+                                          resizeMode: 'contain',
+                                          borderRadius:120,
                                           }}                                                              
               />
 
@@ -161,13 +161,18 @@ const TopSales = (state) => {
 
                 <View style={styles.itemLineIcon} >
                 
-                    <Text
+                    <Text 
                       onPress={() => getItem(item)}>
-                      Price: {item.V_PRICE_PERM}
+                      Price:
+                    </Text>
+
+                    <Text style={{fontWeight:'bold', color:'#2592E5'}}
+                      onPress={() => getItem(item)}>
+                     {item.V_PRICE_PERM}
                     </Text>
 
                     <Text
-                      //style={styles.itemLine}
+                      
                       onPress={() => getItem(item)}>
                       Sold: {item.V_MMUN_WEIGHT}  {item.V_MMUN_UNIT}
                     </Text>
@@ -175,9 +180,19 @@ const TopSales = (state) => {
                       name= "add-shopping-cart"  color = "#2592E5" size={26}  onPress={() => createTwoButtonAlert(item.V_ARTNO,item.V_ALIBL,item.V_PRICE_PERM,item.V_MMUN_UNIT,item.IMGURL)}/>
                 
                 </View>   
-                
+
+                <View style={styles.itemSeparatorStyle}/> 
+
+                <View>                                          
+                    <Text
+                      style={styles.itemLineIcon}
+                      onPress={() => getItem(item)}>
+                      Location: {item.LOCAT??'To be updated'}
+                    </Text>
+                </View>  
             </View>    
       </View>
+ 
     );
   };
 
@@ -214,8 +229,10 @@ const TopSales = (state) => {
     //     "V_COST_PERM": 300000,
     //     "V_MMUN_WEIGHT": 1,
     //     "V_MMUN_UNIT": "CAI",
-    //     "IMGURL":'https://...'
-    //     "V_ROW": 1
+    //     "V_ROW": 1,    
+    //     "IMGURL":'https://...',
+    //     "LOCAT":'Zone A, Aisle 26...'
+
   };
 
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
@@ -224,44 +241,77 @@ const TopSales = (state) => {
       contentSize.height - paddingToBottom;
   };
 
-  return (
-    <SafeAreaView style={{flex: 1}}>
 
-      <View>
-    
-        {/* List Item as a function */}
-        <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}/>}
-            // ref={scrollViewRef}
-            // onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
-            onScroll={({nativeEvent}) => {
-              if (isCloseToBottom(nativeEvent)) {
-                
-                if (!refreshing) {
-                  getData((dataSource.length/size) + 1,state.mySite,isConnected);
-                  //wait(3000);
-                  setRefreshing(false);
-                }
-              }
-            }}
-          >
-            {dataSource.length>0?dataSource.map(ItemView):
-              <View style={{height:height,width:width}} onPress={()=> setIsConnected(false)}>
+  const ItemPromoView = (props) => {
+    return (
 
-                <Text style={styles.loading} 
-                  onPress={()=> setIsConnected(false)}>
-                  LOADING ... TAB TO CANCEL!
-                </Text>
-
-              </View>
-            }
-            {/* {dataSource.map(ItemView)} */}
-        </ScrollView>
+      <View style={styles.itemPromoStyle}>
+      <Image source={{uri:props.item?props.item:placeholderUrl}} 
+          style={{width:'100%',height:'100%',alignSelf:'center', 
+                            //resizeMode: 'stretch'
+                            resizeMode: 'contain'
+                            }}/>
       </View>
-    </SafeAreaView>
+    )
+  };
+
+  return (
+
+   <SafeAreaView style={{flex: 1}}> 
+    < ScrollView
+    refreshControl={
+      <RefreshControl
+        refreshing={refreshing}
+        onRefresh={onRefresh}/>}
+        // ref={scrollViewRef}
+        // onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+        onScroll={({nativeEvent}) => {
+          if (isCloseToBottom(nativeEvent)) {
+            
+            if (!refreshing) {
+              getData((dataSource.length/size) + 1,state.mySite,isConnected);
+              //wait(3000);
+              setRefreshing(false);
+            }
+          }
+        }}
+      >
+          {/* Hot Promotions Item view */}
+          
+          <View> 
+              <Text style={styles.title_text}>Hot Promotions</Text>
+              <View style={styles.itemSeparatorStyle}></View>
+              <View style={{height:130, flexDirection:'row'}}>
+                <ScrollView horizontal={true}>
+                  <ItemPromoView item = 'https://mmpro.vn/media/catalog/product/cache/b3c046f3e4b6993376bcb09384285aa0/2/0/206532_22065322_2.jpg' />
+                  <ItemPromoView item = 'https://mmpro.vn/media/catalog/product/cache/b3c046f3e4b6993376bcb09384285aa0/2/3/2315.jpg'/>
+                  <ItemPromoView item = 'https://mmpro.vn/media/catalog/product/cache/b3c046f3e4b6993376bcb09384285aa0/b/_/b_vi_n.jpg'/>
+                  <ItemPromoView item = 'https://mmpro.vn/media/catalog/product/cache/b3c046f3e4b6993376bcb09384285aa0/1/0/108486_21084867.jpg'/>
+                  <ItemPromoView item = 'https://mmpro.vn/media/catalog/product/cache/b3c046f3e4b6993376bcb09384285aa0/3/5/352984.jpg'/>
+                </ScrollView>  
+              </View>
+          </View>
+
+          {/* Top sales Item view */}
+          <View>
+              <Text style={styles.title_text}>Top sales</Text>
+              <View style={styles.itemSeparatorStyle}></View>
+              <View>  
+                  {dataSource.length>0?dataSource.map(ItemView):
+                    <View style={{height:'100%',width:'100%'}} onPress={()=> setIsConnected(false)}>
+
+                      <Text style={styles.loading} 
+                        onPress={()=> setIsConnected(false)}>
+                        LOADING ... TAB TO CANCEL!
+                      </Text>
+
+                    </View>
+                  }
+              </View>
+            </View>
+
+     </ScrollView>
+  </SafeAreaView>
   );
 };
 

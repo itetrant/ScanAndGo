@@ -81,15 +81,13 @@ export default function HomeScreen({navigation}) {
           <SliderBox images={images.length>0?images:banner_place_holder} 
           autoplay = {true}
           circleLoop = {true}
-          sliderBoxHeight={168}
+          sliderBoxHeight={168} //168
           dotColor="#FF0000"
           inactiveDotColor="#90A4AE"
           onCurrentImagePressed={index => handleImgOnPress(index)}
           //resizeMode={'stretch'} 
           //resizeMode={'contain'}
           />    
-
-       <Text style={styles.title_text}>Top sales</Text>
        </View>
       <View style={{height:'100%', with:'100%'}}>
        <TopSales />
