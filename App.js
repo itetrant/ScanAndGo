@@ -3,26 +3,25 @@ import * as React from 'react';
 import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {Ionicons} from 'react-native-vector-icons';
-import Cart from './screens/cart';
-import Scan from './screens/scan';
-import Location from './screens/location';
-import Home from './screens/home';
 
-
-// test
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import CartItems from './reducers/cartItems';
+
+import Cart from './src/screens/cart';
+import Scan from './src/screens/scan';
+import Location from './src/screens/location';
+import Home from './src/screens/home';
+import CartItems from './src/reducers/cartItems';
+
 const store = createStore(CartItems);
-
-// End test
-
 const Tab = createMaterialBottomTabNavigator();
+
 const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
     primary: '#0272ba',
+    //primary: '#ffff00',
   },
 };
 

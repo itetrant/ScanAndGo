@@ -8,12 +8,12 @@ import { WebView } from 'react-native-webview';
 import {View, Text, ActivityIndicator} from 'react-native';
 import styles from '../styles/styles';
 // ...
-// class MyWebComponent extends Component {
+// class WebScreen extends Component {
 //     constructor(props){
 //         super(props);
 //     }  
 
-const MyWebComponent = ({ navigation,route }) => {    
+const WebScreen = ({ navigation,route }) => {    
 
     // const [canGoBack, setCanGoBack] = useState(false)
     // const [canGoForward, setCanGoForward] = useState(false)
@@ -32,13 +32,13 @@ const MyWebComponent = ({ navigation,route }) => {
         <View style = {{flex:1, paddingTop:30}}>
             <View style={styles.itemLineHead}>
                 <Text onPress={()=>backButtonHandler()} style={{marginBottom:5,marginTop:5,fontSize:16}}> 
-                    {'< Back '} 
+                    {'< Back'}
                 </Text> 
-                <Text style={{marginBottom:5,marginTop:5}}> 
+                <Text style={{marginTop:5}}> 
                     {route.params?.url?route.params.url.substring(0,35):'https://mmvietnam.com/'}
                 </Text>
-                <Text  onPress={()=> navigation.goBack()} style={{marginBottom:5,marginTop:5,fontSize:18}}>
-                    {' X '}
+                <Text  onPress={()=> navigation.goBack()} style={{marginBottom:5,marginTop:5,fontSize:16}}>
+                    {'Close'}
                 </Text>
             </View>
 
@@ -61,4 +61,4 @@ const MyWebComponent = ({ navigation,route }) => {
         )
 
 }
-export default MyWebComponent;
+export default WebScreen;

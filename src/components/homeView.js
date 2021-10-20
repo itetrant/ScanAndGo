@@ -55,12 +55,12 @@ export default function HomeScreen({navigation}) {
   ];
   const handleImgOnPress = (idx) => {
     
-    navigation.navigate("MyWebComponent", { url:urls.length>0?urls[idx]:'https://mmvietnam.com'});
+    navigation.navigate("WebScreen", { url:urls.length>0?urls[idx]:'https://mmvietnam.com'});
 
     //for testing
     // switch (idx) {
     //   case 0:
-    //     navigation.navigate("MyWebComponent", { url:'https://mmvietnam.com/an-pham-khuyen-mai/'});
+    //     navigation.navigate("WebScreen", { url:'https://mmvietnam.com/an-pham-khuyen-mai/'});
     //     break;       
     // }
 

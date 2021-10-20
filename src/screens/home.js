@@ -1,6 +1,6 @@
 import * as React from 'react';
-import HomeScreen from './homeView';
-import MyWebComponent from './webView';
+import HomeScreen from '../components/homeView';
+import WebScreen from '../components/webView';
 import { createStackNavigator } from '@react-navigation/stack';
 
 function Home() {
@@ -11,7 +11,7 @@ function Home() {
       >
         <Stack.Screen name="HomeScreen" component={HomeScreen}        
         />
-        <Stack.Screen name="MyWebComponent" component={MyWebComponent} 
+        <Stack.Screen name="WebScreen" component={WebScreen} 
         />
       </Stack.Navigator>
     );

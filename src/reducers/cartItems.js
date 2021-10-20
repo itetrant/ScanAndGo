@@ -1,5 +1,5 @@
 
-const cartItems = (state={
+const CartItems = (state={
     site:10010,
     barcode:'',
     TotItem:0,
@@ -84,4 +84,4 @@ const cartItems = (state={
                 default: return state         
             }           
 }
-export default cartItems;
+export default CartItems;

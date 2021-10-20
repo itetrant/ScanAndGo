@@ -13,7 +13,7 @@ import {
   Dimensions,
   Image
 } from 'react-native';
-import TopBar from './topBar';
+import TopBar from '../components/topBar';
 const Cart = () => {
   const _debug = true;
   const [dataSourceCords, setDataSourceCords] = useState([]);

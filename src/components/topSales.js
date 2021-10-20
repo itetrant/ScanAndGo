@@ -124,13 +124,13 @@ const TopSales = (state) => {
 
       <View style={styles.itemContainer}
         key={key}
-        onLayout={(event) => {
-          const layout = event.nativeEvent.layout;
-          dataSourceCords[key] = layout.y;
-          setDataSourceCords(dataSourceCords);
-          //Debug
-            _debug?console.log(dataSourceCords):null;
-        }}>
+        // onLayout={(event) => {
+        //   const layout = event.nativeEvent.layout;
+        //   dataSourceCords[key] = layout.y;
+        //   setDataSourceCords(dataSourceCords);
+        //     _debug?console.log(dataSourceCords):null;
+        // }}
+        >
             
             <View style={styles.TopItemImage} >
             

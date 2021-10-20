@@ -31,7 +31,7 @@ const Scanner = ({ navigation }) => {
     // console.log('Type: ' + type + '\nData: ' + data);
 
     handleChange('SCANNED', data);
-    navigation.navigate('Scan a product', { BarCode:data});
+    navigation.navigate('Search', { BarCode:data});
     setScanned(false);
   };
   
