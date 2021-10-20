@@ -65,14 +65,14 @@ itemLineIcon: {
   width:width-102
   //lineHeight:25,
 },
-loading: {
-  textAlign:'center',
-  height:'50%',width:'100%',
-  fontSize:16, 
-  //backgroundColor:'blue',
-  paddingVertical:width/4,
-  //textAlignVertical:'center',
+
+imgLoaderContainer: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width:'100%',
+  height:'90%',
 },
+
 ///////////////////////////////////
 //Location
     locationcontainer: {
