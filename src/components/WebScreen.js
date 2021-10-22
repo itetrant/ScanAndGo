@@ -6,7 +6,7 @@ import React,
 
 import { WebView } from 'react-native-webview';
 import {View, Text, ActivityIndicator} from 'react-native';
-import styles from '../styles/styles';
+import Styles from '../styles/Styles';
 // ...
 // class WebScreen extends Component {
 //     constructor(props){
@@ -30,7 +30,7 @@ const WebScreen = ({ navigation,route }) => {
 
     return ( 
         <View style = {{flex:1, paddingTop:30}}>
-            <View style={styles.itemLineHead}>
+            <View style={Styles.itemLineHead}>
                 <Text onPress={()=>backButtonHandler()} style={{marginBottom:5,marginTop:5,fontSize:16}}> 
                     {'< Back'}
                 </Text> 
@@ -42,7 +42,7 @@ const WebScreen = ({ navigation,route }) => {
                 </Text>
             </View>
 
-            <View style={styles.itemSeparatorStyle}></View>
+            <View style={Styles.itemSeparatorStyle}></View>
             
             <WebView
             originWhitelist={['*']}

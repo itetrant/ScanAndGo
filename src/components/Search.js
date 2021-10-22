@@ -1,14 +1,14 @@
 import {Ionicons} from 'react-native-vector-icons';
 import React, { useState,useEffect, useRef } from 'react';
 import { View, TextInput,  ScrollView } from 'react-native';
-import Product from './product';
+import Product from './Product';
 // import { useFocusEffect } from '@react-navigation/native';
 import { connect,useStore,useDispatch } from 'react-redux';
-import TopBar from './topBar';
-import styles from '../styles/styles.js';
+import TopBar from './TopBar';
+import Styles from '../styles/Styles.js';
  
  //const inputRef = useRef();
- const PriceChecker = ({ navigation}) => {
+ const Search = ({ navigation}) => {
  const _debug = true; 
  const [text,setText] = useState('');
  const [id,setId] = useState('');
@@ -105,8 +105,8 @@ return (
 // MAIN EVENTS HERE!!
     <ScrollView> 
       <TopBar/>
-        <View style={styles.headerContainer}>
-                <View style={styles.inputContainer}>
+        <View style={Styles.headerContainer}>
+                <View style={Styles.inputContainer}>
                 <Ionicons name= {text?"ios-remove-outline":"search-outline"} size={32} color = {(text?"#ff0000":"#e8e8e8")}
                 onPress={() => {
                           text?clearText():null;
@@ -128,7 +128,7 @@ return (
 
                 </View> 
     
-                <View style={styles.cancelContainer}>
+                <View style={Styles.cancelContainer}>
                   <Ionicons name= "qr-code-outline" size={26} color ="#ffffff" onPress={() => gotoSanner(true)}/>
                 </View>
                 
@@ -165,6 +165,6 @@ function mapStateToProps(state) {
       bar: state.barcode, 
   };
 }
-export default connect(mapStateToProps)(PriceChecker);
+export default connect(mapStateToProps)(Search);
 
-// export default PriceChecker;
+// export default Search;

@@ -3,7 +3,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { SafeAreaView,  View,  ScrollView,  Text,  RefreshControl,  Alert,  Image} from 'react-native';
 import { useDispatch,connect } from 'react-redux';
 import {useNetInfo} from "@react-native-community/netinfo";
-import styles from '../styles/styles.js';
+import Styles from '../styles/Styles';
 
 const _debug = true;
 
@@ -86,7 +86,7 @@ function TopSales(state) {
       });
   }
 
-  async function getData(p, site, isConnected) {
+  function getData(p, site, isConnected) {
     _debug ? console.log('Load page:', p, ', site=', site, ', status=' + isConnected) : null;
     { /*isConnected init true */ }
     //const url = isConnected?mmUrl + p + '&site=' + site + '&size=' + size: binUrl+ jsonBins[p-1]??jsonBins[0];
@@ -121,11 +121,11 @@ function TopSales(state) {
   function ItemView(item, key) {
     return (
       // Flat List Item
-      <View style={styles.itemContainer}
+      <View style={Styles.itemContainer}
         key={key}
       >
 
-        <View style={styles.TopItemImage}>
+        <View style={Styles.TopItemImage}>
 
           <Image source={{ uri: item.IMGURL ?? placeholderUrl }}
             style={{
@@ -137,19 +137,19 @@ function TopSales(state) {
 
         </View>
 
-        <View style={styles.itemDetailContainer}>
+        <View style={Styles.itemDetailContainer}>
 
-          <View style={styles.itemName}>
+          <View style={Styles.itemName}>
             <Text
-              style={styles.itemName}
+              style={Styles.itemName}
               onPress={() => getItem(item)}>
               Top {item.V_ROW}: {item.V_ALIBL}
             </Text>
           </View>
           {/* line */}
-          <View style={styles.itemSeparatorStyle} />
+          <View style={Styles.itemSeparatorStyle} />
 
-          <View style={styles.itemLineIcon}>
+          <View style={Styles.itemLineIcon}>
 
             <Text
               onPress={() => getItem(item)}>
@@ -171,11 +171,11 @@ function TopSales(state) {
 
           </View>
 
-          <View style={styles.itemSeparatorStyle} />
+          <View style={Styles.itemSeparatorStyle} />
 
           <View>
             <Text
-              style={styles.itemLineIcon}
+              style={Styles.itemLineIcon}
               onPress={() => getItem(item)}>
               Location: {item.LOCAT ?? 'To be updated'}
             </Text>
@@ -218,7 +218,7 @@ function TopSales(state) {
   function ItemPromoView(props) {
     return (
 
-      <View style={styles.itemPromoStyle}>
+      <View style={Styles.itemPromoStyle}>
         <Image source={{ uri: props.item ? props.item : placeholderUrl }}
           style={{
             width: '100%', height: '100%', alignSelf: 'center',
@@ -258,8 +258,8 @@ function TopSales(state) {
         {/* Hot Promotions Item view */}
 
         <View>
-          <Text style={styles.title_text}>Hot Promotions</Text>
-          <View style={styles.itemSeparatorStyle}></View>
+          <Text style={Styles.title_text}>Hot Promotions</Text>
+          <View style={Styles.itemSeparatorStyle}></View>
           <View style={{ height: 130, flexDirection: 'row' }}>
 
             {/* //////////////////////////
@@ -279,11 +279,11 @@ function TopSales(state) {
         {/* Top sales Item view */}
         
         <View>
-          <Text style={styles.title_text}>Top sales</Text>
-          <View style={styles.itemSeparatorStyle}></View>
+          <Text style={Styles.title_text}>Top sales</Text>
+          <View style={Styles.itemSeparatorStyle}></View>
           <View>
             {dataSource.length > 0 ? dataSource.map(ItemView) :
-              <View style={styles.imgLoaderContainer}>
+              <View style={Styles.imgLoaderContainer}>
                 <Image source={require('../assets/loader.gif')} />
               </View>}
           </View>

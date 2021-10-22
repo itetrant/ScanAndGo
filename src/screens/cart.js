@@ -1,6 +1,6 @@
 import {MaterialCommunityIcons} from 'react-native-vector-icons';
 import React , {useState} from 'react';
-import styles from '../styles/styles.js';
+import styles from '../styles/Styles.js';
 import { useDispatch, useStore, connect } from 'react-redux';
 import QRCode from 'react-native-qrcode-generator';
 import {
@@ -13,7 +13,7 @@ import {
   Dimensions,
   Image
 } from 'react-native';
-import TopBar from '../components/topBar';
+import TopBar from '../components/TopBar';
 const Cart = () => {
   const _debug = true;
   const [dataSourceCords, setDataSourceCords] = useState([]);

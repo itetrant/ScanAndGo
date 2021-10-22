@@ -5,16 +5,13 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import {Ionicons} from 'react-native-vector-icons';
 import { Provider } from 'react-redux';
 
-//import { createStore } from 'redux';
-//import CartItems from './src/reducers/cartItems';
-//const store = createStore(CartItems);
-import ScanAndGoStore from './src/stores/scanAndGoStore';
-import Stores from './src/stores/stores';
+import ScanAndGoStore from './src/stores/ScanAndGoStore';
+//import Stores from './src/stores/stores';
 
-import Cart from './src/screens/cart';
-import Scan from './src/screens/scan';
-import Location from './src/screens/location';
-import Home from './src/screens/home';
+import Cart from './src/screens/Cart';
+import Scan from './src/screens/Scan';
+import Location from './src/screens/Location';
+import Home from './src/screens/Home';
 
 const Tab = createMaterialBottomTabNavigator();
 
