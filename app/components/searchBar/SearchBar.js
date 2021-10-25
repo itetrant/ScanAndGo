@@ -1,11 +1,11 @@
 import {Ionicons} from 'react-native-vector-icons';
 import React, { useState,useEffect, useRef } from 'react';
 import { View, TextInput,  ScrollView } from 'react-native';
-import Product from './Product';
+import Product from '../product/Product';
 // import { useFocusEffect } from '@react-navigation/native';
 import { connect,useStore,useDispatch } from 'react-redux';
-import TopBar from './TopBar';
-import Styles from '../styles/Styles.js';
+import TopBar from '../topBar/TopBar';
+import Styles from './Styles';
  
  //const inputRef = useRef();
  const Search = ({ navigation}) => {

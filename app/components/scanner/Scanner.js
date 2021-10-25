@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import BarcodeMask from 'react-native-barcode-mask';
 import { useDispatch } from 'react-redux';
+import styles from './Styles';
 const Scanner = ({ navigation }) => {
 
   const [hasPermission, setHasPermission] = useState(null);
@@ -76,28 +77,5 @@ const Scanner = ({ navigation }) => {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    //paddingTop:0,
-  },
-
-  headerContainer: {
-    alignSelf: 'stretch',
-    height: 48,
-    flexDirection: 'row', // row
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'space-between', // center, space-around
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 28,
-  },
-
-});
 
 export default Scanner;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {View,Text,Image, Button} from 'react-native';
 //import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
-import Styles from '../styles/Styles';
+import Styles from './Styles';
+import ItemSeparator from '../../globals/components/ItemSeparator';
 import { useDispatch } from 'react-redux';
 //import { useNavigation } from '@react-navigation/native';
 
@@ -40,26 +41,26 @@ const Product = (props) => {
                             />
                         </View>
                         <Text style={Styles.itemLineDetail}> Article No: {props.id}</Text>
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                         <View style={Styles.itemLineDetailLeft}>
                             <Text style={Styles.itemLineDetail}> Name: </Text>
                             <Text style={Styles.itemLineDetailLeftText}> {props.name}</Text>
                         </View>
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                         <View style={Styles.itemLineDetailLeft}>
                             <Text style={Styles.itemLineDetail}> Referent price: </Text>
                             <Text style={Styles.itemLineDetailLeftText}> {props.price} </Text>
                         </View>
 
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                         <Text style={Styles.itemLineDetail}> VAT%: {props.vat}</Text>
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                         {/* <Text style={Styles.itemLineDetail}> Supplier: {props.suppCode}</Text>
                         <Text style={Styles.itemLineDetail}> Supplier Name: {props.suppName}</Text> */}
                         <Text style={Styles.itemLineDetail}> MMUN: {props.mmun}</Text>
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                         <Text style={Styles.itemLineDetail}> UNIT: {props.unit}</Text>
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                         {/*<Text style={Styles.itemLineDetail}> Qty: {qty}</Text> */}
                         <View style={Styles.itemLineDetail}>
                             <Text style={Styles.itemLineDetail}> Quantity:</Text>
@@ -69,7 +70,7 @@ const Product = (props) => {
                             <Button title="Add to cart" onPress={()=>Order(props.id?props.id:'',props.name,props.price,props.unit, props.imgurl,qty,'UP')}/>
                             {/* <Button title ="SCAN NEXT" onPress={() =>navigation.navigate('Scanner')}/> */}
                         </View>
-                        <View style={Styles.itemSeparatorStyle}/>
+                        <ItemSeparator/>
                 </View>
             );
         // }        

@@ -3,7 +3,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { SafeAreaView,  View,  ScrollView,  Text,  RefreshControl,  Alert,  Image} from 'react-native';
 import { useDispatch,connect } from 'react-redux';
 import {useNetInfo} from "@react-native-community/netinfo";
-import Styles from '../styles/Styles';
+import Styles from './Styles';
 
 const _debug = true;
 
@@ -284,7 +284,7 @@ function TopSales(state) {
           <View>
             {dataSource.length > 0 ? dataSource.map(ItemView) :
               <View style={Styles.imgLoaderContainer}>
-                <Image source={require('../assets/loader.gif')} />
+                <Image source={require('../../assets/loader.gif')} />
               </View>}
           </View>
         </View>

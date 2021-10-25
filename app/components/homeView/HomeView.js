@@ -1,8 +1,9 @@
+//homeView
 import React, { useState,useEffect } from 'react';
 import { Text, SafeAreaView, View} from 'react-native';
 import { SliderBox  } from 'react-native-image-slider-box';
-import TopSales from './TopSales';
-import TopBar from './TopBar';
+import TopSales from '../topSales/TopSales';
+import TopBar from '../topBar/TopBar';
 
 // const wait = (timeout) => {
 //   return new Promise(resolve => setTimeout(resolve, timeout));

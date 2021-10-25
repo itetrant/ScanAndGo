@@ -3,8 +3,8 @@ import { View, Text, ImageBackground , SafeAreaView} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Ionicons} from 'react-native-vector-icons';
 import { useDispatch, connect } from 'react-redux';
-import TopBar from '../components/TopBar';
-import styles from '../styles/Styles.js';
+import TopBar from '../components/topBar/TopBar';
+import styles from '../globals/styles/AppStyles';
 // import Config from 'react-native-config';
 const Location = () => {
 

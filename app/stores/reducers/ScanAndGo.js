@@ -1,3 +1,4 @@
+import {UP,DOWN,REMOVE,CLEAR,SWITCHSITE,SCANNED} from '../actions/Actions';
 
 const initialState = {
     site:10010,
@@ -12,7 +13,7 @@ function ScanAndGo(state = initialState,
     action) {
     switch (action.type) {
 
-        case 'UP':
+        case UP:
             //do something
             //reture
             const existingItem = state.items.filter(p => p.V_ARTNO === action.id);
@@ -34,7 +35,7 @@ function ScanAndGo(state = initialState,
 
                 };
             }
-        case 'DOWN':
+        case DOWN:
             //do something
             //reture
             const existingItem1 = state.items.filter(p => p.V_ARTNO === action.id);
@@ -50,14 +51,14 @@ function ScanAndGo(state = initialState,
             } else {
                 return state;
             }
-        case 'REMOVE':
+        case REMOVE:
             //console.log(state.TotItem > 0? state.TotItem - 1 : 0);
             const existingItem2 = state.items.filter(p => p.V_ARTNO === action.id);
             return {
                 ...state, TotItem: state.TotItem - 1, TotQty: state.TotQty - existingItem2[0].Qty, TotAmount: state.TotAmount - (existingItem2[0].Qty * existingItem2[0].V_PRICE_PERM),
                 items: [...state.items.filter(p => p.V_ARTNO !== action.id)]
             };
-        case 'CLEAR':
+        case CLEAR:
             // console.log(state.TotItem > 0? state.TotItem - 1 : 0);
             return {
                 ...state,
@@ -66,7 +67,7 @@ function ScanAndGo(state = initialState,
                 TotAmount: 0,
                 items: [],
             };
-        case 'SWITCHSITE':
+        case SWITCHSITE:
             // console.log(state.TotItem > 0? state.TotItem - 1 : 0);
             return {
                 ...state,
@@ -76,7 +77,7 @@ function ScanAndGo(state = initialState,
                 TotAmount: 0,
                 items: [],
             };
-        case 'SCANNED':
+        case SCANNED:
             // console.log(state.TotItem > 0? state.TotItem - 1 : 0);
             return {
                 ...state,

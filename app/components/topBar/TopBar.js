@@ -12,7 +12,7 @@ const TopBar = (state) => {
       <SafeAreaView style={{backgroundColor:'white'}}>
         <View style={styles.container}>
             <Image
-              source={require('../assets/mm-icon-only-1.png')}
+              source={require('../../assets/mm-icon-only-1.png')}
               />
           <Text style={{fontSize:26, color:'red', fontWeight:'bold'}}>Scan & Go</Text>
           <Ionicons name="ios-cart-outline" size={32} color={'red'} 

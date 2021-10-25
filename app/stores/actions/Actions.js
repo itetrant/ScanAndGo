@@ -1,0 +1,7 @@
+const UP = 'UP';
+const DOWN = 'DOWN';
+const REMOVE = 'REMOVE';
+const CLEAR = 'CLEAR';
+const SWITCHSITE = 'SWITCHSITE';
+const SCANNED = 'SCANNED';
+export {UP,DOWN,REMOVE,CLEAR,SWITCHSITE,SCANNED};

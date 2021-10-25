@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Search from '../components/Search';
-import Scanner from '../components/Scanner';
+import Search from '../components/searchBar/SearchBar';
+import Scanner from '../components/scanner/Scanner';
 import { createStackNavigator } from '@react-navigation/stack';
 
 function Scan() {

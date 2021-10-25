@@ -1,6 +1,6 @@
 import * as React from 'react';
-import HomeScreen from '../components/HomeView';
-import WebScreen from '../components/WebScreen';
+import HomeScreen from '../components/homeView/HomeView';
+import WebScreen from '../components/webScreen/WebScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 
 function Home() {

@@ -6,7 +6,7 @@ import React,
 
 import { WebView } from 'react-native-webview';
 import {View, Text, ActivityIndicator} from 'react-native';
-import Styles from '../styles/Styles';
+import Styles from './Styles';
 // ...
 // class WebScreen extends Component {
 //     constructor(props){
