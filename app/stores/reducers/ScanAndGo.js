@@ -1,4 +1,4 @@
-import {UP,DOWN,REMOVE,CLEAR,SWITCHSITE,SCANNED} from '../actions/Actions';
+import {UP,DOWN,REMOVE,CLEAR,SWITCHSITE,SCANNED} from '../actions';
 
 const initialState = {
     site:10010,

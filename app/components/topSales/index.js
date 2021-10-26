@@ -2,10 +2,11 @@ import {MaterialIcons} from 'react-native-vector-icons';
 import React, {useState, useEffect, useRef} from 'react';
 import { SafeAreaView,  View,  ScrollView,  Text,  RefreshControl,  Alert,  Image} from 'react-native';
 import { useDispatch,connect } from 'react-redux';
-import {useNetInfo} from "@react-native-community/netinfo";
+//import {useNetInfo} from "@react-native-community/netinfo";
 import Styles from './Styles';
+import * as APIs from '../../constants/Config';
 
-const _debug = true;
+const _debug = APIs.DEBUG;
 
 function wait(timeout) {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -16,25 +17,20 @@ function TopSales(state) {
   const [dataSource, setDataSource] = useState([]);
   const [refreshing, setRefreshing] = React.useState(true);
   const [jsonBins, setJsonBins] = React.useState([]);
-  const [dataSourceCords, setDataSourceCords] = useState([]);
-  const [isConnected, setIsConnected] = useState(false);
+
   ////////////////////////////////////////////////////////////////
-  //TO MOVE TO ENV////////////////////////////////////////////////
-  const MasterKey = '$2b$10$eOvjB2WIN.Bcmr63RlaoLeXCNr1IpSbP/xraLEIrVVzUjPW3jnwQS';
-  const AuthorKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidHJhLm5ndXllbi10aGFuaEBtbXZpZXRuYW0uY29tIiwiaWF0IjoxNjMxMDI4MTk3fQ.VBVww3alKhg6YDBDxb1rZvsmAHoQs6y6XAcHoUm5E5Q';
-  const binsUrls = 'https://api.jsonbin.io/v3/c/613dc646aa02be1d4446ba52/bins';
-  const binUrl = 'https://api.jsonbin.io/v3/b/'; //613dcb779548541c29b07588
-  const binUrlp1 = 'https://api.jsonbin.io/v3/b/613dcb779548541c29b07588';
-  const mmUrl = 'http://172.26.24.150:8082/TopSales?page=';
-  const placeholderUrl = 'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png';
-  const size = 10;
-  const maxpage = 10;
+  const binsUrls  = APIs.API_Bin_Urls;
+  const binUrl    = APIs.API_Bin_Base_Url;
+  
+  const size = APIs.PageSize;
+  const maxpage = APIs.MaxPage;
+
   const dispatch = useDispatch();
 
   /////////////////////////////////////////////////////////
   ////////TO DO///////////////////////////////////////////
-  const netInfo = useNetInfo(); //used to check wifi status
-  
+  const [isConnected, setIsConnected] = useState(false);
+  // const netInfo = useNetInfo(); //used to check wifi status
   // const scrollViewRef = useRef();
   // const [page, setPage] = useState(1);
 
@@ -48,7 +44,7 @@ function TopSales(state) {
   function onRefresh() {
     //React.useCallback(()
     setRefreshing(true);
-    getData((dataSource.length / size) + 1, state.mySite, isConnected);
+    dataSource?getData((dataSource.length / size) + 1, state.mySite, isConnected):getData(1, state.mySite, isConnected);
 
   } //, [refreshing]);
 
@@ -66,9 +62,9 @@ function TopSales(state) {
     let bins = [];
     let j = 0;
     fetch(binsUrls, {
-      mode: 'off',
+      mode: APIs.ENV,
       headers: {
-        'X-Master-Key': MasterKey,
+        'X-Master-Key': APIs.API_MasterKey,
         'X-Sort-Order': 'ascending',
       }
     })
@@ -88,17 +84,17 @@ function TopSales(state) {
 
   function getData(p, site, isConnected) {
     _debug ? console.log('Load page:', p, ', site=', site, ', status=' + isConnected) : null;
-    { /*isConnected init true */ }
-    //const url = isConnected?mmUrl + p + '&site=' + site + '&size=' + size: binUrl+ jsonBins[p-1]??jsonBins[0];
-    { /*isConnected init false */ }
+    //Limited JSONBIN
     { p > maxpage ? p = maxpage : p; };
-    const url = p === 1 ? binUrlp1 : binUrl + jsonBins[p - 1] ?? jsonBins[0];
+
+    { /*isConnected init true */ }
+    const url = isConnected?APIs.API_Base_Url + '/Articles?page=' + p + '&site=' + site + '&size=' + size: p > 1? binUrl + jsonBins[p-1]: APIs.API_Bin_Url_p1;
 
     fetch(url, {
       mode: 'uat',
       headers: {
-        'Authorization': AuthorKey,
-        'X-Master-Key': MasterKey,
+        'Authorization': APIs.API_Token,
+        'X-Master-Key':  APIs.API_MasterKey,
       }
     })
       .then((response) => response.json())
@@ -127,7 +123,7 @@ function TopSales(state) {
 
         <View style={Styles.TopItemImage}>
 
-          <Image source={{ uri: item.IMGURL ?? placeholderUrl }}
+          <Image source={{ uri: item.IMGURL ?? APIs.Product_placeholder}}
             style={{
               width: 80, height: 80, alignSelf: 'center',
               //resizeMode: 'stretch'
@@ -219,7 +215,7 @@ function TopSales(state) {
     return (
 
       <View style={Styles.itemPromoStyle}>
-        <Image source={{ uri: props.item ? props.item : placeholderUrl }}
+        <Image source={{ uri: props.item ? props.item : APIs.Product_placeholder }}
           style={{
             width: '100%', height: '100%', alignSelf: 'center',
             //resizeMode: 'stretch'
@@ -248,7 +244,7 @@ function TopSales(state) {
           if (isCloseToBottom(nativeEvent)) {
 
             if (!refreshing) {
-              getData((dataSource.length / size) + 1, state.mySite, isConnected);
+              dataSource?getData((dataSource.length / size) + 1, state.mySite, isConnected):null;
               //wait(3000);
               setRefreshing(false);
             }
@@ -282,7 +278,7 @@ function TopSales(state) {
           <Text style={Styles.title_text}>Top sales</Text>
           <View style={Styles.itemSeparatorStyle}></View>
           <View>
-            {dataSource.length > 0 ? dataSource.map(ItemView) :
+            {dataSource? dataSource.map(ItemView) :
               <View style={Styles.imgLoaderContainer}>
                 <Image source={require('../../assets/loader.gif')} />
               </View>}

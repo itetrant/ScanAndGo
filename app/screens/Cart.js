@@ -2,8 +2,10 @@ import {MaterialCommunityIcons} from 'react-native-vector-icons';
 import React , {useState} from 'react';
 import { useDispatch, useStore, connect } from 'react-redux';
 import QRCode from 'react-native-qrcode-generator';
-import TopBar from '../components/topBar/TopBar';
+import TopBar from '../components/topBar';
 import styles from '../globals/styles/AppStyles';
+import * as APIs from '../constants/Config';
+
 import {
   SafeAreaView,
   View,
@@ -16,7 +18,7 @@ import {
 } from 'react-native';
 
 const Cart = () => {
-  const _debug = true;
+  const _debug = APIs.DEBUG;
   const [dataSourceCords, setDataSourceCords] = useState([]);
   //const [ref, setRef] = useState(null);
   const store = useStore();
@@ -50,7 +52,7 @@ const Cart = () => {
         }}>
 
             <View style={styles.TopItemImage}>
-              <Image source={{uri:item.IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png'}}
+              <Image source={{uri:item.IMGURL??APIs.Product_placeholder}}
                                           style={{width:'100%',height:'100%',alignSelf:'center', 
                                           //resizeMode: 'stretch'
                                           resizeMode: 'contain'

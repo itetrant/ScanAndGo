@@ -1,15 +1,16 @@
 import {Ionicons} from 'react-native-vector-icons';
 import React, { useState,useEffect, useRef } from 'react';
 import { View, TextInput,  ScrollView } from 'react-native';
-import Product from '../product/Product';
+import Product from '../product';
 // import { useFocusEffect } from '@react-navigation/native';
 import { connect,useStore,useDispatch } from 'react-redux';
-import TopBar from '../topBar/TopBar';
+import TopBar from '../topBar';
 import Styles from './Styles';
- 
+import * as APIs from '../../constants/Config';
+
  //const inputRef = useRef();
  const Search = ({ navigation}) => {
- const _debug = true; 
+ const _debug = APIs.DEBUG; 
  const [text,setText] = useState('');
  const [id,setId] = useState('');
  const [name,setName] = useState('');
@@ -65,11 +66,11 @@ const searchArticlebyEan = (ean,site) =>{
   _debug?console.log("Searching EAN:" + ean + " at store:" + site ):null;
      
     if (!isNaN(ean) && ean !== '') {
-    const url = 'http://172.26.24.150:8082/Article?id=' + ean + '&site=' + site;
+    const url = APIs.API_Base_Url + '/Article?id=' + ean + '&site=' + site;
     fetch(url,{
-      mode: 'uat', 
+      mode: APIs.ENV, 
       headers: {
-        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncmFudGVkIjoic3R1ZmYiLCJpYXQiOjE2MjkxODMxMzR9.otxK5YQhaB4p--Fal85qdGFwo2n0vtIQBS20P0l1-dA',
+        'Authorization': APIs.API_Token,
       },
     })
       .then((response) => response.json())
@@ -83,7 +84,7 @@ const searchArticlebyEan = (ean,site) =>{
             setSuppName(responseData[0].V_FIBL);
             setMmun(responseData[0].V_MMUN_WEIGHT);
             setUnit(responseData[0].V_MMUN_UNIT);
-            setImgurl(responseData[0].IMGURL??'https://mmpro.vn/media/catalog/product/placeholder/default/LOGO_MM_200x300-01_1.png');
+            setImgurl(responseData[0].IMGURL??APIs.Product_placeholder);
             _debug?console.log("response=" + responseData[0].V_ARTNO):null;
 
         } catch(err) {

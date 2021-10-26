@@ -7,6 +7,7 @@ import React,
 import { WebView } from 'react-native-webview';
 import {View, Text, ActivityIndicator} from 'react-native';
 import Styles from './Styles';
+import * as APIs from '../../constants/Config';
 // ...
 // class WebScreen extends Component {
 //     constructor(props){
@@ -35,7 +36,7 @@ const WebScreen = ({ navigation,route }) => {
                     {'< Back'}
                 </Text> 
                 <Text style={{marginTop:5}}> 
-                    {route.params?.url?route.params.url.substring(0,35):'https://mmvietnam.com/'}
+                    {route.params?.url?route.params.url.substring(0,35):APIs.Banner_Error}
                 </Text>
                 <Text  onPress={()=> navigation.goBack()} style={{marginBottom:5,marginTop:5,fontSize:16}}>
                     {'Close'}
@@ -46,7 +47,7 @@ const WebScreen = ({ navigation,route }) => {
             
             <WebView
             originWhitelist={['*']}
-            source={{ uri: route.params?.url?route.params.url:'https://mmvietnam.com/'}} 
+            source={{ uri: route.params?.url?route.params.url:APIs.Banner_Error}} 
             renderError={(errorName) => <Error name={errorName} />}
             renderLoading={() => (<ActivityIndicator color='black' size='large' style={{flex:1}}/>)}
             ref={webviewRef}
